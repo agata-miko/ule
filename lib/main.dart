@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         theme: customTheme,
         darkTheme: darkCustomTheme,
-        home: const ChecklistScreen(),
+        home: const AddHiveScreen(),
     );
   }
 }

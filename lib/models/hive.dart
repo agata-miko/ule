@@ -1,8 +1,14 @@
 import 'dart:io';
+import 'package:uuid/uuid.dart';
+
+String generateUniqueId() {
+  var uuid = const Uuid();
+  return uuid.v4();
+}
 
 class Hive {
-  int hiveId;
+  String hiveId;
   File? photo;
 
-  Hive ({required this.hiveId, this.photo});
+  Hive ({this.photo}) : hiveId = generateUniqueId();
 }

@@ -1,32 +1,36 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pszczoly_v3/providers/simple_providers.dart';
 
-class ImageInput extends StatefulWidget {
+class ImageInput extends ConsumerStatefulWidget {
   const ImageInput({super.key, required this.onPickImage});
 
   final void Function(File image) onPickImage;
 
   @override
-  State<ImageInput> createState() => _ImageInputState();
+  ConsumerState<ImageInput> createState() => _ImageInputState();
 }
 
-class _ImageInputState extends State<ImageInput> {
-  File? _selectedImage;
+File? selectedImage;
+
+class _ImageInputState extends ConsumerState<ImageInput> {
 
   void _takePicture() async {
     final imagePicker = ImagePicker();
     final pickedImage =
-    await imagePicker.pickImage(source: ImageSource.camera, maxWidth: 600);
+        await imagePicker.pickImage(source: ImageSource.camera, maxWidth: 600);
 
     if (pickedImage == null) {
       return;
     }
     setState(() {
-      _selectedImage = File(pickedImage.path);
+      selectedImage = File(pickedImage.path);
+      ref.read(selectedImageProvider.notifier).setSelectedImage(selectedImage!);
     });
 
-    widget.onPickImage(_selectedImage!);
+    widget.onPickImage(selectedImage!);
   }
 
   @override
@@ -37,11 +41,11 @@ class _ImageInputState extends State<ImageInput> {
       onPressed: _takePicture,
     );
 
-    if (_selectedImage != null) {
+    if (selectedImage != null) {
       content = GestureDetector(
         onTap: _takePicture,
         child: Image.file(
-          _selectedImage!,
+          selectedImage!,
           fit: BoxFit.cover,
           width: double.infinity,
           height: double.infinity,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pszczoly_v3/models/question.dart';
-import 'package:pszczoly_v3/providers/questions_provider.dart';
+import 'package:pszczoly_v3/providers/simple_providers.dart';
 
 class Checklist extends ConsumerStatefulWidget {
   const Checklist({super.key});
