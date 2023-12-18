@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pszczoly_v3/models/hive.dart';
+import 'package:pszczoly_v3/providers/hive_list_provider.dart';
+import 'package:pszczoly_v3/providers/simple_providers.dart';
 import 'package:pszczoly_v3/screens/add_hive_screen.dart';
 import 'package:pszczoly_v3/widgets/hives_list.dart';
 
-class HivesListScreen extends StatelessWidget {
-  const HivesListScreen({super.key});
+class HivesListScreen extends ConsumerWidget {
+  const HivesListScreen({super.key, required this.hives});
+
+  final List<Hive> hives;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Lista uli'),
@@ -28,7 +35,7 @@ class HivesListScreen extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            Container(height: 400, child: const HivesList(hives: [])),
+            Container(height: 400, child: HivesList(hives: hives)),
           ],
         ),
       ),

@@ -13,9 +13,9 @@ class ImageInput extends ConsumerStatefulWidget {
   ConsumerState<ImageInput> createState() => _ImageInputState();
 }
 
-File? selectedImage;
-
 class _ImageInputState extends ConsumerState<ImageInput> {
+
+  File? selectedImage;
 
   void _takePicture() async {
     final imagePicker = ImagePicker();
