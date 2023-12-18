@@ -6,16 +6,15 @@ import 'package:pszczoly_v3/providers/questions_provider.dart';
 class Checklist extends ConsumerStatefulWidget {
   const Checklist({super.key});
 
-
   @override
   ConsumerState createState() => ChecklistState();
 }
 
 class ChecklistState extends ConsumerState<Checklist> {
-
   @override
   Widget build(BuildContext context) {
     final checklistQuestions = ref.watch(questionsProvider);
+
 
     return ListView.builder(
       itemCount: checklistQuestions.length,
@@ -29,7 +28,10 @@ class ChecklistState extends ConsumerState<Checklist> {
     return Card(
       child: Column(
         children: [
-          Text(question.text),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(question.text),
+          ),
           buildResponseWidget(question),
         ],
       ),
@@ -51,7 +53,7 @@ class ChecklistState extends ConsumerState<Checklist> {
                 });
               },
             ),
-            const Text('Yes'),
+            const Text('Tak'),
             Radio(
               value: false,
               groupValue: question.response,
@@ -61,24 +63,32 @@ class ChecklistState extends ConsumerState<Checklist> {
                 });
               },
             ),
-            const Text('No'),
+            const Text('Nie'),
           ],
         );
       case ResponseType.text:
-        return TextField(
-          onChanged: (String value) {
-            setState(() {
-              question.response = value;
-            });
-          },
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TextField(
+            decoration: const InputDecoration(
+                hintText: 'Odpowiedź',
+                hintStyle: TextStyle(fontSize: 12, color: Colors.grey)),
+            onChanged: (String value) {
+              setState(() {
+                question.response = value;
+              });
+            },
+          ),
         );
       case ResponseType.percentage:
-        return Slider(value: question.response ?? 0.0, onChanged: (double value) {
-          setState(() {
-            question.response = value;
-          });
-        });
-    // Add cases for other response types as needed
+        return Slider(divisions: 10,
+            value: question.response ?? 0.0,
+            onChanged: (double value) {
+              setState(() {
+                question.response = value;
+              });
+            });
+      // Add cases for other response types as needed
       default:
         return Container(); // Return an empty container for unknown types
     }
