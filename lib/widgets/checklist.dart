@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:pszczoly_v3/models/question.dart';
+import 'package:pszczoly_v3/data/checklist_questions_data.dart';
 
 class Checklist extends StatefulWidget {
+  Checklist({super.key, required this.questions});
+
+  List<Question> questions = checklistQuestions;
+
   @override
-  _ChecklistState createState() => _ChecklistState();
+  ChecklistState createState() => ChecklistState();
 }
 
-class _ChecklistState extends State<Checklist> {
-  List<Question> questions = [
-    Question(text: 'Question 1: Yes/No', responseType: ResponseType.yesNo),
-    Question(text: 'Question 2: Text Response', responseType: ResponseType.text),
-    Question(text: 'Question 3: Percentage', responseType: ResponseType.percentage),
-    // Add more questions as needed
-  ];
+class ChecklistState extends State<Checklist> {
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: questions.length,
+      itemCount: widget.questions.length,
       itemBuilder: (context, index) {
-        return buildQuestionCard(questions[index]);
+        return buildQuestionCard(widget.questions[index]);
       },
     );
   }
@@ -38,11 +37,31 @@ class _ChecklistState extends State<Checklist> {
   Widget buildResponseWidget(Question question) {
     switch (question.responseType) {
       case ResponseType.yesNo:
-        return Switch(value: question.response ?? false, onChanged: (bool value) {
-          setState(() {
-            question.response = value;
-          });
-        });
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Radio(
+              value: true,
+              groupValue: question.response,
+              onChanged: (value) {
+                setState(() {
+                  question.response = value;
+                });
+              },
+            ),
+            const Text('Yes'),
+            Radio(
+              value: false,
+              groupValue: question.response,
+              onChanged: (value) {
+                setState(() {
+                  question.response = value;
+                });
+              },
+            ),
+            const Text('No'),
+          ],
+        );
       case ResponseType.text:
         return TextField(
           onChanged: (String value) {
