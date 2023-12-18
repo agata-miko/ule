@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:pszczoly_v3/models/note.dart';
+import 'package:pszczoly_v3/screens/checklist_screen.dart';
 import 'package:pszczoly_v3/widgets/image_input.dart';
 
 class HiveScreen extends StatefulWidget {
@@ -29,13 +30,13 @@ class _HiveScreenState extends State<HiveScreen> {
               ),
             ),
             const SizedBox(height: 20,),
-            const Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+            Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 ElevatedButton(
-                  onPressed: null,
-                  child: Text('Nowa checklista'),
+                  onPressed: () {Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => const ChecklistScreen()),);},
+                  child: const Text('Nowa checklista'),
                 ),
-                ElevatedButton(
+                const ElevatedButton(
                   onPressed: null,
                   child: Text('Poprzednie checklisty'),
                 ),

@@ -18,16 +18,16 @@ class _ChecklistScreenState extends State<ChecklistScreen> {
         title: Text(
             'numer ula ${checklistDate.day}/${checklistDate.month}/${checklistDate.year}'), //different way to display data in dd/mm/yyyy
       ),
-      body: const Padding(
-        padding: EdgeInsets.all(8.0),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
         child: Column(
           children: <Widget>[
-            Expanded(child: Checklist()),
+            const Expanded(child: Checklist()),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                TextButton(onPressed: null, child: Text('Cofnij')),
-                ElevatedButton(onPressed: null, child: Text('Zapisz')),
+                TextButton(onPressed: () {Navigator.of(context).pop();}, child: const Text('Cofnij')),
+                ElevatedButton(onPressed: () {Navigator.of(context).pop();}, child: Text('Zapisz')),
               ],
             ),
           ],

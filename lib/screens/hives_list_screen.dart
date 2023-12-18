@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pszczoly_v3/screens/add_hive_screen.dart';
 import 'package:pszczoly_v3/widgets/hives_list.dart';
 
 class HivesListScreen extends StatelessWidget {
@@ -14,8 +15,14 @@ class HivesListScreen extends StatelessWidget {
         child: Column(
           children: <Widget>[
             const SizedBox(height: 10),
-            const ElevatedButton(
-              onPressed: null,
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (ctx) => const AddHiveScreen(),
+                  ),
+                );
+              },
               child: Text('Dodaj nowy ul'),
             ),
             const SizedBox(
