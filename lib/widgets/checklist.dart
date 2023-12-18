@@ -1,24 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pszczoly_v3/models/question.dart';
-import 'package:pszczoly_v3/data/checklist_questions_data.dart';
+import 'package:pszczoly_v3/providers/questions_provider.dart';
 
-class Checklist extends StatefulWidget {
-  Checklist({super.key, required this.questions});
+class Checklist extends ConsumerStatefulWidget {
+  const Checklist({super.key});
 
-  List<Question> questions = checklistQuestions;
 
   @override
-  ChecklistState createState() => ChecklistState();
+  ConsumerState createState() => ChecklistState();
 }
 
-class ChecklistState extends State<Checklist> {
+class ChecklistState extends ConsumerState<Checklist> {
 
   @override
   Widget build(BuildContext context) {
+    final checklistQuestions = ref.watch(questionsProvider);
+
     return ListView.builder(
-      itemCount: widget.questions.length,
+      itemCount: checklistQuestions.length,
       itemBuilder: (context, index) {
-        return buildQuestionCard(widget.questions[index]);
+        return buildQuestionCard(checklistQuestions[index]);
       },
     );
   }

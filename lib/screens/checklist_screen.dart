@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pszczoly_v3/data/checklist_questions_data.dart';
-import 'package:pszczoly_v3/models/question.dart';
 import 'package:pszczoly_v3/widgets/checklist.dart';
 
 
@@ -13,7 +11,6 @@ class ChecklistScreen extends StatefulWidget {
 
 class _ChecklistScreenState extends State<ChecklistScreen> {
   DateTime checklistDate = DateTime.now();
-  final List<Question> questions = checklistQuestions;
 
 
   @override
@@ -22,10 +19,10 @@ class _ChecklistScreenState extends State<ChecklistScreen> {
       appBar: AppBar(
         title: Text('numer ula ${checklistDate.day}/${checklistDate.month}/${checklistDate.year}'), //different way to display data in dd/mm/yyyy
       ),
-      body: Expanded(
+      body: const Expanded(
         child: Column(
           children: <Widget>[
-            Expanded(child: Checklist(questions: questions,)),
+            Expanded(child: Checklist()),
             ElevatedButton(onPressed: null, child: Text('Zapisz')),
           ],
         ),
