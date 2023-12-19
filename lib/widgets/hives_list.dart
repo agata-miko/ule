@@ -28,13 +28,22 @@ class HivesList extends StatelessWidget {
                 style: Theme.of(context).textTheme.titleMedium!.copyWith(
                     color: Theme.of(context).colorScheme.onBackground),
               ),
-              trailing: IconButton(onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => const ChecklistScreen()));
-              }, icon: const Icon(Icons.checklist)),
+              trailing: IconButton(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (ctx) => ChecklistScreen(
+                              hiveId: hives[index].hiveId,
+                              hiveName: hives[index].hiveName,
+                            )));
+                  },
+                  icon: const Icon(Icons.checklist)),
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => HiveScreen(hiveName: hives[index].hiveName, selectedImage: hives[index].photo),
+                    builder: (context) => HiveScreen(
+                        hiveName: hives[index].hiveName,
+                        selectedImage: hives[index].photo,
+                        hiveId: hives[index].hiveId),
                   ),
                 );
               },

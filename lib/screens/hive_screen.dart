@@ -9,10 +9,11 @@ import 'package:pszczoly_v3/widgets/image_input.dart';
 import '../providers/hive_list_provider.dart';
 
 class HiveScreen extends ConsumerStatefulWidget {
-  HiveScreen({super.key, this.selectedImage, required this.hiveName});
+  HiveScreen({super.key, this.selectedImage, required this.hiveName, required this.hiveId});
 
   File? selectedImage;
   String hiveName;
+  String hiveId;
 
   @override
   ConsumerState<HiveScreen> createState() => _HiveScreenState();
@@ -57,7 +58,8 @@ class _HiveScreenState extends ConsumerState<HiveScreen> {
                   onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                          builder: (ctx) => const ChecklistScreen()),
+                          builder: (ctx) => ChecklistScreen(hiveId: widget.hiveId,
+                            hiveName: widget.hiveName,)),
                     );
                   },
                   child: const Text('Nowa checklista'),
