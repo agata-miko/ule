@@ -24,8 +24,7 @@ class _AddHiveScreenState extends ConsumerState<AddHiveScreen> {
       return;
     }
     ref.read(hiveDataProvider.notifier).addHive(photo: photo, hiveName: enteredText);
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (ctx) => HivesListScreen(hives: ref.watch(hiveDataProvider))));
+    Navigator.of(context).pop();
   }
 
   @override

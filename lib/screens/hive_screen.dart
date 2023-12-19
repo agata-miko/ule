@@ -45,8 +45,7 @@ class _HiveScreenState extends ConsumerState<HiveScreen> {
             widget.selectedImage == null
                 ? TextButton(onPressed: () {
                 ref.read(hiveDataProvider.notifier).updateHivePhoto(widget.hiveName, widget.selectedImage);
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (ctx) => HivesListScreen(hives: ref.watch(hiveDataProvider))));
+                Navigator.of(context).pop();
             }, child: const Text('Dodaj zdjęcie'),) :
             const SizedBox(
               height: 20,

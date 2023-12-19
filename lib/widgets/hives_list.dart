@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pszczoly_v3/models/hive.dart';
+import 'package:pszczoly_v3/providers/hive_list_provider.dart';
 import 'package:pszczoly_v3/screens/checklist_screen.dart';
 import 'package:pszczoly_v3/screens/hive_screen.dart';
 
-class HivesList extends StatelessWidget {
-  const HivesList({super.key, required this.hives});
+class HivesList extends ConsumerWidget {
+  const HivesList({super.key});
 
-  final List<Hive> hives;
+  // final List<Hive> hives;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
+    final List<Hive> hives = ref.watch(hiveDataProvider);
     return (hives.isEmpty)
         ? const Padding(
             padding: EdgeInsets.all(20.0),

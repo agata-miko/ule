@@ -33,7 +33,7 @@ class HivesListScreen extends ConsumerWidget {
             const SizedBox(
               height: 10,
             ),
-            SizedBox(height: 400, child: HivesList(hives: hives)),
+            const SizedBox(height: 400, child: HivesList()),
           ],
         ),
       ),

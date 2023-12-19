@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pszczoly_v3/providers/hive_list_provider.dart';
+import 'package:pszczoly_v3/screens/hives_list_screen.dart';
 
-class WelcomeScreen extends StatelessWidget {
+class WelcomeScreen extends ConsumerWidget {
   const WelcomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
@@ -48,7 +51,7 @@ class WelcomeScreen extends StatelessWidget {
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                  // Add login functionality here.
+                  Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => HivesListScreen(hives: ref.watch(hiveDataProvider))));
                 },
                 child: const Text('Login'),
               ),
