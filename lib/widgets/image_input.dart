@@ -15,7 +15,7 @@ class ImageInput extends ConsumerStatefulWidget {
 
 class _ImageInputState extends ConsumerState<ImageInput> {
 
-  File? selectedImage;
+  File? _selectedImage;
 
   void _takePicture() async {
     final imagePicker = ImagePicker();
@@ -26,11 +26,11 @@ class _ImageInputState extends ConsumerState<ImageInput> {
       return;
     }
     setState(() {
-      selectedImage = File(pickedImage.path);
-      ref.read(selectedImageProvider.notifier).setSelectedImage(selectedImage!);
+      _selectedImage = File(pickedImage.path);
+      // ref.read(selectedImageProvider.notifier).setSelectedImage(selectedImage!);
     });
 
-    widget.onPickImage(selectedImage!);
+    widget.onPickImage(_selectedImage!);
   }
 
   @override
@@ -41,11 +41,11 @@ class _ImageInputState extends ConsumerState<ImageInput> {
       onPressed: _takePicture,
     );
 
-    if (selectedImage != null) {
+    if (_selectedImage != null) {
       content = GestureDetector(
         onTap: _takePicture,
         child: Image.file(
-          selectedImage!,
+          _selectedImage!,
           fit: BoxFit.cover,
           width: double.infinity,
           height: double.infinity,

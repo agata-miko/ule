@@ -23,7 +23,7 @@ class HivesList extends StatelessWidget {
                       ? FileImage(hives[index].photo!)
                       : null),
               title: Text(
-                hives[index].hiveId as String,
+                hives[index].hiveId,
                 style: Theme.of(context).textTheme.titleMedium!.copyWith(
                     color: Theme.of(context).colorScheme.onBackground),
               ),

@@ -27,7 +27,7 @@ class _ChecklistScreenState extends State<ChecklistScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 TextButton(onPressed: () {Navigator.of(context).pop();}, child: const Text('Cofnij')),
-                ElevatedButton(onPressed: () {Navigator.of(context).pop();}, child: Text('Zapisz')),
+                ElevatedButton(onPressed: () {Navigator.of(context).pop();}, child: const Text('Zapisz')),
               ],
             ),
           ],
