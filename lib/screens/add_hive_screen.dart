@@ -20,7 +20,7 @@ class _AddHiveScreenState extends ConsumerState<AddHiveScreen> {
   void _saveHive() {
     final enteredText = _titleController.text;
 
-    if (enteredText.isEmpty || photo == null) {
+    if (enteredText.isEmpty) {
       return;
     }
     ref.read(hiveDataProvider.notifier).addHive(photo: photo, hiveName: enteredText);

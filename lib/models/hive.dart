@@ -10,6 +10,7 @@ class Hive {
   String hiveId;
   String hiveName;
   File? photo;
+  String? notes;
 
-  Hive ({this.photo, required this.hiveName}) : hiveId = generateUniqueId();
+  Hive ({this.photo, required this.hiveName, this.notes}) : hiveId = generateUniqueId();
 }

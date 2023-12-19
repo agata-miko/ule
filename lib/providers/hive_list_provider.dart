@@ -12,10 +12,21 @@ class HiveDataNotifier extends StateNotifier<List<Hive>> {
 void addHive({File? photo, hiveName}) {
   final newHive = Hive(photo: photo, hiveName: hiveName);
   state = [...state, newHive];
-}}
+}
 
-// class HiveData {
-//   List<Hive> _hives = [];
+  void updateHivePhoto(String hiveName, File? photo) {
+    state = [
+      for (var hive in state)
+        if (hive.hiveName == hiveName)
+          Hive(hiveName: hiveName, photo: photo)
+
+        else
+          hive,
+    ];
+  }
+}
+
+
 //
 //   List<Hive> get hives => _hives;
 //

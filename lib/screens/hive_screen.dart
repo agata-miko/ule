@@ -1,20 +1,24 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pszczoly_v3/models/note.dart';
 import 'package:pszczoly_v3/screens/checklist_screen.dart';
+import 'package:pszczoly_v3/screens/hives_list_screen.dart';
 import 'package:pszczoly_v3/widgets/image_input.dart';
 
-class HiveScreen extends StatefulWidget {
+import '../providers/hive_list_provider.dart';
+
+class HiveScreen extends ConsumerStatefulWidget {
   HiveScreen({super.key, this.selectedImage, required this.hiveName});
 
   File? selectedImage;
   String hiveName;
 
   @override
-  State<HiveScreen> createState() => _HiveScreenState();
+  ConsumerState<HiveScreen> createState() => _HiveScreenState();
 }
 
-class _HiveScreenState extends State<HiveScreen> {
+class _HiveScreenState extends ConsumerState<HiveScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,6 +41,12 @@ class _HiveScreenState extends State<HiveScreen> {
                       },
                     ),
             ),
+            widget.selectedImage == null
+                ? TextButton(onPressed: () {
+                ref.read(hiveDataProvider.notifier).updateHivePhoto(widget.hiveName, widget.selectedImage);
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (ctx) => HivesListScreen(hives: ref.watch(hiveDataProvider))));
+            }, child: const Text('Dodaj zdjęcie'),) :
             const SizedBox(
               height: 20,
             ),
@@ -61,7 +71,7 @@ class _HiveScreenState extends State<HiveScreen> {
             const SizedBox(
               height: 20,
             ),
-            const NoteEditor(),
+            // const NoteEditor(),
           ],
         ),
       ),
