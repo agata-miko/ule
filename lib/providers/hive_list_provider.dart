@@ -9,8 +9,8 @@ StateNotifierProvider<HiveDataNotifier, List<Hive>>((ref) => HiveDataNotifier())
 class HiveDataNotifier extends StateNotifier<List<Hive>> {
   HiveDataNotifier() : super([]);
 
-void addHive({File? photo}) {
-  final newHive = Hive(photo: photo);
+void addHive({File? photo, hiveName}) {
+  final newHive = Hive(photo: photo, hiveName: hiveName);
   state = [...state, newHive];
 }}
 

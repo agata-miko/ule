@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pszczoly_v3/models/hive.dart';
 import 'package:pszczoly_v3/screens/checklist_screen.dart';
+import 'package:pszczoly_v3/screens/hive_screen.dart';
 
 class HivesList extends StatelessWidget {
   const HivesList({super.key, required this.hives});
@@ -23,14 +24,14 @@ class HivesList extends StatelessWidget {
                       ? FileImage(hives[index].photo!)
                       : null),
               title: Text(
-                hives[index].hiveId,
+                hives[index].hiveName,
                 style: Theme.of(context).textTheme.titleMedium!.copyWith(
                     color: Theme.of(context).colorScheme.onBackground),
               ),
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => const ChecklistScreen(),
+                    builder: (context) => HiveScreen(hiveName: hives[index].hiveName, selectedImage: hives[index].photo),
                   ),
                 );
               },

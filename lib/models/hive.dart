@@ -8,7 +8,8 @@ String generateUniqueId() {
 
 class Hive {
   String hiveId;
+  String hiveName;
   File? photo;
 
-  Hive ({this.photo}) : hiveId = generateUniqueId();
+  Hive ({this.photo, required this.hiveName}) : hiveId = generateUniqueId();
 }

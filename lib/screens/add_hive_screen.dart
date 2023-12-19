@@ -14,7 +14,25 @@ class AddHiveScreen extends ConsumerStatefulWidget {
 }
 
 class _AddHiveScreenState extends ConsumerState<AddHiveScreen> {
+  final _titleController = TextEditingController();
   File? photo;
+
+  void _saveHive() {
+    final enteredText = _titleController.text;
+
+    if (enteredText.isEmpty || photo == null) {
+      return;
+    }
+    ref.read(hiveDataProvider.notifier).addHive(photo: photo, hiveName: enteredText);
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (ctx) => HivesListScreen(hives: ref.watch(hiveDataProvider))));
+  }
+
+  @override
+  void dispose() {
+    _titleController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,22 +54,16 @@ class _AddHiveScreenState extends ConsumerState<AddHiveScreen> {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: TextFormField(
-                decoration: const InputDecoration(hintText: 'Numer ula'),
-                keyboardType: TextInputType.number,
+              child: TextField(
+                controller: _titleController,
+                decoration: const InputDecoration(hintText: 'Nazwa/numer ula'),
               ),
             ),
             const SizedBox(
               height: 20,
             ),
             ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  ref.read(hiveDataProvider.notifier).addHive(photo: photo);
-                });
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (ctx) => HivesListScreen(hives: ref.watch(hiveDataProvider))));
-              },
+              onPressed: _saveHive,
               child: const Text('Dodaj ul'),
             ),
           ],
