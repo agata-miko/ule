@@ -28,6 +28,9 @@ class HivesList extends StatelessWidget {
                 style: Theme.of(context).textTheme.titleMedium!.copyWith(
                     color: Theme.of(context).colorScheme.onBackground),
               ),
+              trailing: IconButton(onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => const ChecklistScreen()));
+              }, icon: const Icon(Icons.checklist)),
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
