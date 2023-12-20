@@ -5,7 +5,7 @@ class DatabaseHelper {
   static const String _databaseName = 'Hives.dB';
   static const int _databaseVersion = 1;
 
-  static Future<Database> _initializeDatabase() async {
+  static Future<Database> initializeDatabase() async {
     final String path = join(await getDatabasesPath(), _databaseName);
     return openDatabase(path,
         onCreate: _onCreate);

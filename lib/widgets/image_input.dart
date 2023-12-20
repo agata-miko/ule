@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pszczoly_v3/providers/simple_providers.dart';
+
 
 class ImageInput extends ConsumerStatefulWidget {
   const ImageInput({super.key, required this.onPickImage});

@@ -3,9 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pszczoly_v3/screens/add_hive_screen.dart';
 import 'package:pszczoly_v3/screens/hives_list_screen.dart';
 import 'package:pszczoly_v3/screens/welcome_screen.dart';
+import 'package:pszczoly_v3/services/database_helper.dart';
+import 'package:sqflite/sqflite.dart';
 import '../theme/app_theme.dart';
 
-void main() {
+
+Future<void> main() async {
+  final Database database = await DatabaseHelper.initializeDatabase() ;
   runApp(const ProviderScope(child: MyApp()));
 }
 
