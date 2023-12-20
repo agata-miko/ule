@@ -20,36 +20,49 @@ class HivesList extends ConsumerWidget {
           )
         : ListView.builder(
             itemCount: hives.length,
-            itemBuilder: (context, index) => ListTile(
-              leading: CircleAvatar(
-                  radius: 26,
-                  backgroundImage: hives[index].photo != null
-                      ? FileImage(hives[index].photo!)
-                      : null),
-              title: Text(
-                hives[index].hiveName,
-                style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                    color: Theme.of(context).colorScheme.onBackground),
-              ),
-              trailing: IconButton(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (ctx) => ChecklistScreen(
-                              hiveId: hives[index].hiveId,
-                              hiveName: hives[index].hiveName,
-                            )));
-                  },
-                  icon: const Icon(Icons.checklist)),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => HiveScreen(
-                        hiveName: hives[index].hiveName,
-                        selectedImage: hives[index].photo,
-                        hiveId: hives[index].hiveId),
+            itemBuilder: (context, index) => Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListTile(
+                leading: Container(
+                  width: 52,
+                  height: 52,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular(5.0),
+                    image: hives[index].photo != null
+                        ? DecorationImage(
+                      fit: BoxFit.cover,
+                      image: FileImage(hives[index].photo!),
+                    )
+                        : null,
                   ),
-                );
-              },
+                ),
+
+                title: Text(
+                  hives[index].hiveName,
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                      color: Theme.of(context).colorScheme.onBackground),
+                ),
+                trailing: IconButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (ctx) => ChecklistScreen(
+                                hiveId: hives[index].hiveId,
+                                hiveName: hives[index].hiveName,
+                              )));
+                    },
+                    icon: const Icon(Icons.checklist)),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => HiveScreen(
+                          hiveName: hives[index].hiveName,
+                          selectedImage: hives[index].photo,
+                          hiveId: hives[index].hiveId),
+                    ),
+                  );
+                },
+              ),
             ),
           );
   }

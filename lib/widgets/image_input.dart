@@ -37,7 +37,7 @@ class _ImageInputState extends ConsumerState<ImageInput> {
   Widget build(BuildContext context) {
     Widget content = TextButton.icon(
       icon: const Icon(Icons.camera),
-      label: const Text('Take picture'),
+      label: const Text('Zrób zdjęcie'),
       onPressed: _takePicture,
     );
 

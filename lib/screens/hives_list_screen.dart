@@ -20,15 +20,19 @@ class HivesListScreen extends ConsumerWidget {
         child: Column(
           children: <Widget>[
             const SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (ctx) => const AddHiveScreen(),
-                  ),
-                );
-              },
-              child: const Text('Dodaj nowy ul'),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [const SizedBox(width: 150, height: 37,child: SearchBar(hintText: 'Wyszukaj'),),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (ctx) => const AddHiveScreen(),
+                      ),
+                    );
+                  },
+                  child: const Text('Dodaj nowy ul'),
+                ),
+              ],
             ),
             const SizedBox(
               height: 10,
