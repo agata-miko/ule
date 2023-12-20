@@ -31,4 +31,46 @@ class DatabaseHelper {
       )
     ''');
   }
+
+  Future<int> insertHive(Map<String, dynamic> hive) async {
+    Database db = await initializeDatabase();
+    return await db.insert('Hive', hive);
+  }
+
+  Future<List<Map<String, dynamic>>> getAllHives() async {
+    Database db = await initializeDatabase();
+    return await db.query('Hive');
+  }
+
+  Future<int> updateHive(Map<String, dynamic> hive) async {
+    Database db = await initializeDatabase();
+    return await db.update('Hive', hive,
+        where: 'hiveId = ?', whereArgs: [hive['hiveId']]);
+  }
+
+  Future<int> deleteHive(String hiveId) async {
+    Database db = await initializeDatabase();
+    return await db.delete('Hive', where: 'hiveId = ?', whereArgs: [hiveId]);
+  }
+
+  Future<int> insertChecklist(Map<String, dynamic> checklist) async {
+    Database db = await initializeDatabase();
+    return await db.insert('Checklist', checklist);
+  }
+
+  Future<List<Map<String, dynamic>>> getAllChecklists() async {
+    Database db = await initializeDatabase();
+    return await db.query('Checklist');
+  }
+
+  Future<int> updateChecklist(Map<String, dynamic> checklist) async {
+    Database db = await initializeDatabase();
+    return await db.update('Checklist', checklist,
+        where: 'checklistId = ?', whereArgs: [checklist['checklistId']]);
+  }
+
+  Future<int> deleteChecklist(String checklistId) async {
+    Database db = await initializeDatabase();
+    return await db.delete('Checklist', where: 'checklistId = ?', whereArgs: [checklistId]);
+  }
 }
