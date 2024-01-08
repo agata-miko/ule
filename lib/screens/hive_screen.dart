@@ -1,9 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pszczoly_v3/models/note.dart';
 import 'package:pszczoly_v3/screens/checklist_screen.dart';
-import 'package:pszczoly_v3/screens/hives_list_screen.dart';
 import 'package:pszczoly_v3/widgets/image_input.dart';
 
 import '../providers/hive_list_provider.dart';

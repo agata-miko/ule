@@ -12,7 +12,8 @@ class Hive {
   File? photo;
   String? notes;
 
-  Hive ({this.photo, required this.hiveName, this.notes, String? hiveId}) : hiveId = generateUniqueId();
+
+  Hive ({this.photo, required this.hiveName, this.notes, String? hiveId}) : hiveId = hiveId ?? generateUniqueId();
 
   Map<String, dynamic> toJson() {
     return {
