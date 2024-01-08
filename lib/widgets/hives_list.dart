@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pszczoly_v3/models/hive.dart';
@@ -5,21 +6,44 @@ import 'package:pszczoly_v3/providers/hive_list_provider.dart';
 import 'package:pszczoly_v3/screens/checklist_screen.dart';
 import 'package:pszczoly_v3/screens/hive_screen.dart';
 
-class HivesList extends ConsumerWidget {
+class HivesList extends ConsumerStatefulWidget {
   const HivesList({super.key});
 
-  // final List<Hive> hives;
-
   @override
-  Widget build(BuildContext context, ref) {
+  ConsumerState<HivesList> createState() {
+    return _HivesListState();
+  }
+}
+
+class _HivesListState extends ConsumerState<HivesList> {
+  @override
+  Widget build(BuildContext context) {
     final List<Hive> hives = ref.watch(hiveDataProvider);
-    return (hives.isEmpty)
-        ? const Padding(
+    final Future<List<Map<String, dynamic>>> hivesListFromDatabase =
+        ref.read(databaseProvider).getAllHives();
+
+    return FutureBuilder<List<Map<String, dynamic>>>(
+      future: hivesListFromDatabase,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return const Padding(
             padding: EdgeInsets.all(20.0),
             child: Text('Zaden ul nie zostal jeszcze dodany. Dodaj teraz!'),
-          )
-        : ListView.builder(
-            itemCount: hives.length,
+          );
+        } else {
+          final List<Hive> hivesList = snapshot.data!
+              .map((row) => Hive(
+                    hiveName: row['hiveName'] as String,
+                    hiveId: row['hiveId'] as String,
+                    photo: File('${row['photoPath']}'),
+                  ))
+              .toList();
+          return ListView.builder(
+            itemCount: hivesList.length,
             itemBuilder: (context, index) => Padding(
               padding: const EdgeInsets.all(8.0),
               child: ListTile(
@@ -29,17 +53,16 @@ class HivesList extends ConsumerWidget {
                   decoration: BoxDecoration(
                     shape: BoxShape.rectangle,
                     borderRadius: BorderRadius.circular(5.0),
-                    image: hives[index].photo != null
+                    image: hivesList[index].photo != null
                         ? DecorationImage(
-                      fit: BoxFit.cover,
-                      image: FileImage(hives[index].photo!),
-                    )
+                            fit: BoxFit.cover,
+                            image: FileImage(hivesList[index].photo!),
+                          )
                         : null,
                   ),
                 ),
-
                 title: Text(
-                  hives[index].hiveName,
+                  hivesList[index].hiveName,
                   style: Theme.of(context).textTheme.titleMedium!.copyWith(
                       color: Theme.of(context).colorScheme.onBackground),
                 ),
@@ -47,8 +70,8 @@ class HivesList extends ConsumerWidget {
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (ctx) => ChecklistScreen(
-                                hiveId: hives[index].hiveId,
-                                hiveName: hives[index].hiveName,
+                                hiveId: hivesList[index].hiveId,
+                                hiveName: hivesList[index].hiveName,
                               )));
                     },
                     icon: const Icon(Icons.checklist)),
@@ -56,14 +79,17 @@ class HivesList extends ConsumerWidget {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => HiveScreen(
-                          hiveName: hives[index].hiveName,
-                          selectedImage: hives[index].photo,
-                          hiveId: hives[index].hiveId),
+                          hiveName: hivesList[index].hiveName,
+                          selectedImage: hivesList[index].photo,
+                          hiveId: hivesList[index].hiveId),
                     ),
                   );
                 },
               ),
             ),
           );
+        }
+      },
+    );
   }
 }
