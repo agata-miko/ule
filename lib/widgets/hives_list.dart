@@ -20,7 +20,7 @@ class _HivesListState extends ConsumerState<HivesList> {
   Widget build(BuildContext context) {
     final List<Hive> hives = ref.watch(hiveDataProvider);
     final Future<List<Map<String, dynamic>>> hivesListFromDatabase =
-        ref.read(databaseProvider).getAllHives();
+    ref.read(databaseProvider).getAllHives();
 
     return FutureBuilder<List<Map<String, dynamic>>>(
       future: hivesListFromDatabase,
@@ -37,10 +37,10 @@ class _HivesListState extends ConsumerState<HivesList> {
         } else {
           final List<Hive> hivesList = snapshot.data!
               .map((row) => Hive(
-                    hiveName: row['hiveName'] as String,
-                    hiveId: row['hiveId'] as String,
-                    photo: File('${row['photoPath']}'),
-                  ))
+            hiveName: row['hiveName'] as String,
+            hiveId: row['hiveId'] as String,
+            photo: File('${row['photoPath']}'),
+          ))
               .toList();
           return ListView.builder(
             itemCount: hivesList.length,
@@ -55,9 +55,9 @@ class _HivesListState extends ConsumerState<HivesList> {
                     borderRadius: BorderRadius.circular(5.0),
                     image: hivesList[index].photo != null
                         ? DecorationImage(
-                            fit: BoxFit.cover,
-                            image: FileImage(hivesList[index].photo!),
-                          )
+                      fit: BoxFit.cover,
+                      image: FileImage(hivesList[index].photo!),
+                    )
                         : null,
                   ),
                 ),
@@ -70,9 +70,9 @@ class _HivesListState extends ConsumerState<HivesList> {
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (ctx) => ChecklistScreen(
-                                hiveId: hivesList[index].hiveId,
-                                hiveName: hivesList[index].hiveName,
-                              )));
+                            hiveId: hivesList[index].hiveId,
+                            hiveName: hivesList[index].hiveName,
+                          )));
                     },
                     icon: const Icon(Icons.checklist)),
                 onTap: () {

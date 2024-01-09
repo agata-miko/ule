@@ -160,6 +160,22 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  google_fonts:
+    dependency: "direct main"
+    description:
+      name: google_fonts
+      sha256: f0b8d115a13ecf827013ec9fc883390ccc0e87a96ed5347a3114cac177ef18e8
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.1.0"
+  helpful_extensions:
+    dependency: transitive
+    description:
+      name: helpful_extensions
+      sha256: ffafe0a54b207490b7d9f779ab730709c798f2ffe67cebcaebaf0a59c29684cb
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.5.1"
   http:
     dependency: transitive
     description:
@@ -288,6 +304,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
+  modern_themes:
+    dependency: "direct main"
+    description:
+      name: modern_themes
+      sha256: d77dd12c63a9ea0420e821929479c44fb72813fa72267c39e9f9a07ceb2e4321
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.5.4"
   path:
     dependency: "direct main"
     description:
@@ -511,4 +535,4 @@ packages:
     version: "1.0.4"
 sdks:
   dart: ">=3.2.0 <4.0.0"
-  flutter: ">=3.10.0"
+  flutter: ">=3.10.6"

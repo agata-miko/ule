@@ -30,7 +30,7 @@ class HivesListScreen extends ConsumerWidget {
                       ),
                     );
                   },
-                  child: const Text('Dodaj nowy ul'),
+                  child: Text('Dodaj nowy ul', style: Theme.of(context).textTheme.bodySmall),
                 ),
               ],
             ),

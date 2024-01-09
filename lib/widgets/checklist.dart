@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pszczoly_v3/models/question.dart';
 import 'package:pszczoly_v3/providers/simple_providers.dart';
+import 'package:pszczoly_v3/widgets/percentage_slider.dart';
 
 class Checklist extends ConsumerStatefulWidget {
   const Checklist({super.key});
@@ -81,14 +82,7 @@ class ChecklistState extends ConsumerState<Checklist> {
           ),
         );
       case ResponseType.percentage:
-        return Slider(divisions: 10,
-            value: question.response ?? 0.0,
-            onChanged: (double value) {
-              setState(() {
-                question.response = value;
-              });
-            });
-      // Add cases for other response types as needed
+        return PercentageSlider();
       default:
         return Container(); // Return an empty container for unknown types
     }

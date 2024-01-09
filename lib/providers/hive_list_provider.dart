@@ -7,33 +7,35 @@ import 'package:pszczoly_v3/models/hive.dart';
 import 'package:pszczoly_v3/services/database_helper.dart';
 
 final hiveDataProvider =
-StateNotifierProvider<HiveDataNotifier, List<Hive>>((ref) => HiveDataNotifier()); //this is hives list provider?
+StateNotifierProvider<HiveDataNotifier, List<Hive>>((ref) => HiveDataNotifier());
+
 final databaseProvider = Provider<DatabaseHelper>((ref) => DatabaseHelper());
 
-final hivesListProvider = FutureProvider<List<Hive>>((ref) async {
-  final databaseHelper = ref.read(databaseProvider);
-  final hiveDataList = await databaseHelper.getAllHives();
-  return hiveDataList.map((hiveData) => Hive.fromJson(hiveData)).toList();
-});
+//NOT NECESSARY?
+// final hivesListProvider = FutureProvider<List<Hive>>((ref) async {
+//   final databaseHelper = ref.read(databaseProvider);
+//   final hiveDataList = await databaseHelper.getAllHives();
+//   return hiveDataList.map((hiveData) => Hive.fromJson(hiveData)).toList();
+// });
 
 class HiveDataNotifier extends StateNotifier<List<Hive>> {
   final DatabaseHelper databaseHelper = DatabaseHelper();
 
   HiveDataNotifier() : super([]);
 
-void addHive({File? photo, hiveName}) async {
-  final appDir = await syspaths.getApplicationDocumentsDirectory();
-  final fileName = path.basename(photo!.path);
-  final copiedPhoto = await photo.copy('${appDir.path}/$fileName');
+  void addHive({File? photo, hiveName}) async {
+    final appDir = await syspaths.getApplicationDocumentsDirectory();
+    final fileName = path.basename(photo!.path);
+    final copiedPhoto = await photo.copy('${appDir.path}/$fileName');
 
-  final newHive = Hive(photo: copiedPhoto, hiveName: hiveName);
-  await databaseHelper.insertHive(newHive.toJson());
+    final newHive = Hive(photo: copiedPhoto, hiveName: hiveName);
+    await databaseHelper.insertHive(newHive.toJson());
 
-  final allHives = await databaseHelper.getAllHives();
-  print('All Hives in the Database: $allHives');
+    final allHives = await databaseHelper.getAllHives();
+    print('All Hives in the Database: $allHives');
 
-  state = [...state, newHive];
-}
+    state = [...state, newHive];
+  }
 
   void updateHivePhoto(String hiveName, File? photo) {
     state = [
@@ -59,4 +61,3 @@ void addHive({File? photo, hiveName}) async {
 //     return _hives;
 //   }
 // }
-
