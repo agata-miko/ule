@@ -6,6 +6,7 @@ import 'package:pszczoly_v3/widgets/image_input.dart';
 
 import '../providers/hive_list_provider.dart';
 
+// //ignore: must_be_immutable - this comment make flutter ignore this warning
 class HiveScreen extends ConsumerStatefulWidget {
   HiveScreen({super.key, this.selectedImage, required this.hiveName, required this.hiveId});
 

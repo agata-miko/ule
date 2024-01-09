@@ -18,7 +18,7 @@ class HivesList extends ConsumerStatefulWidget {
 class _HivesListState extends ConsumerState<HivesList> {
   @override
   Widget build(BuildContext context) {
-    final List<Hive> hives = ref.watch(hiveDataProvider);
+    ref.watch(hiveDataProvider);
     final Future<List<Map<String, dynamic>>> hivesListFromDatabase =
     ref.read(databaseProvider).getAllHives();
 

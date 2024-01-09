@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 class PercentageSlider extends StatefulWidget {
+  const PercentageSlider({super.key});
+
   @override
-  _PercentageSliderState createState() => _PercentageSliderState();
+  PercentageSliderState createState() => PercentageSliderState();
 }
 
-class _PercentageSliderState extends State<PercentageSlider> {
+class PercentageSliderState extends State<PercentageSlider> {
   double _selectedPercentage = 50; // Initial percentage value
 
   @override
@@ -14,20 +16,24 @@ class _PercentageSliderState extends State<PercentageSlider> {
       children: <Widget>[
         Text(
           '${_selectedPercentage.round()}%',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
         ),
-        SizedBox(height: 10),
-        Slider(
-          value: _selectedPercentage,
-          onChanged: (value) {
-            setState(() {
-              _selectedPercentage = value;
-            });
-          },
-          min: 0,
-          max: 100,
-          divisions: 100,
-          label: '${_selectedPercentage.round()}%',
+        SliderTheme(
+          data: const SliderThemeData(
+              thumbShape: RoundSliderThumbShape(enabledThumbRadius: 7),
+              trackHeight: 1),
+          child: Slider(
+            value: _selectedPercentage,
+            onChanged: (value) {
+              setState(() {
+                _selectedPercentage = value;
+              });
+            },
+            min: 0,
+            max: 100,
+            divisions: 100,
+            // label: '${_selectedPercentage.round()}%',
+          ),
         ),
       ],
     );

@@ -1,11 +1,8 @@
-import 'dart:io';
-
 import 'package:pszczoly_v3/data/checklist_questions_data.dart';
 import 'package:pszczoly_v3/models/checklist_responses.dart';
 import 'package:pszczoly_v3/models/question.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'package:pszczoly_v3/models/hive.dart';
 
 class DatabaseHelper {
   static const String _databaseName = 'Hives.db';

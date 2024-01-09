@@ -31,9 +31,7 @@ class HiveDataNotifier extends StateNotifier<List<Hive>> {
     final newHive = Hive(photo: copiedPhoto, hiveName: hiveName);
     await databaseHelper.insertHive(newHive.toJson());
 
-    final allHives = await databaseHelper.getAllHives();
-    print('All Hives in the Database: $allHives');
-
+    await databaseHelper.getAllHives();
     state = [...state, newHive];
   }
 

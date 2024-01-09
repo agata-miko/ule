@@ -16,7 +16,6 @@ class ChecklistState extends ConsumerState<Checklist> {
   Widget build(BuildContext context) {
     final checklistQuestions = ref.watch(questionsProvider);
 
-
     return ListView.builder(
       itemCount: checklistQuestions.length,
       itemBuilder: (context, index) {
@@ -31,7 +30,7 @@ class ChecklistState extends ConsumerState<Checklist> {
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(question.text),
+            child: Text(question.text, style: Theme.of(context).textTheme.bodyMedium,),
           ),
           buildResponseWidget(question),
         ],
@@ -45,6 +44,14 @@ class ChecklistState extends ConsumerState<Checklist> {
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            // Switch(
+            //   value: question.response,
+            //   onChanged: (value) {
+            //     setState(() {
+            //       question.response = value;
+            //     });
+            //   },
+            // ),
             Radio(
               value: true,
               groupValue: question.response,
@@ -70,10 +77,15 @@ class ChecklistState extends ConsumerState<Checklist> {
       case ResponseType.text:
         return Padding(
           padding: const EdgeInsets.all(8.0),
-          child: TextField(
-            decoration: const InputDecoration(
-                hintText: 'Odpowiedź',
-                hintStyle: TextStyle(fontSize: 12, color: Colors.grey)),
+          child: TextField(style: TextStyle(height: 1),
+            decoration: InputDecoration(
+              hintText: 'Odpowiedź',
+              hintStyle: const TextStyle(fontSize: 16, color: Colors.grey),
+              filled: true,
+              fillColor: Colors.grey.withOpacity(0.1), // Adjust color as needed
+              border: InputBorder.none,
+              // Remove the default border
+            ),
             onChanged: (String value) {
               setState(() {
                 question.response = value;
@@ -82,7 +94,7 @@ class ChecklistState extends ConsumerState<Checklist> {
           ),
         );
       case ResponseType.percentage:
-        return PercentageSlider();
+        return const PercentageSlider();
       default:
         return Container(); // Return an empty container for unknown types
     }

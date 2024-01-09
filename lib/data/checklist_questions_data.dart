@@ -3,7 +3,7 @@ import 'package:pszczoly_v3/models/question.dart';
 //all questions will be changed to eng or the app fully pl? voice to text in pl?
 
 List<Question> checklistQuestions = [
-  Question(id: 'q1', text: 'Odkład (tak/nie)', responseType: ResponseType.yesNo),
+  Question(id: 'q1', text: 'Odkład', responseType: ResponseType.yesNo),
   Question(id: 'q2', text: 'Półnadstawka nr 1 (%)', responseType: ResponseType.percentage),
   Question(id: 'q3', text: 'Półnadstawka nr 2 (%)', responseType: ResponseType.percentage),
   Question(id: 'q4', text: 'Półnadstawka nr 3 (%)', responseType: ResponseType.percentage),

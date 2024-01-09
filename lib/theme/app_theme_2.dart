@@ -7,11 +7,12 @@ ThemeData lightTheme = ThemeData(
   textTheme: const TextTheme(
     displayLarge: TextStyle(fontSize: 32),
     bodyLarge: TextStyle(fontSize: 18),
+    bodyMedium: TextStyle(fontSize: 16),
     bodySmall: TextStyle(fontSize: 10),
   ).apply(fontFamily: GoogleFonts.bungeeSpice().fontFamily),
   appBarTheme: AppBarTheme(titleTextStyle: TextStyle(fontFamily: GoogleFonts.bungeeSpice().fontFamily, fontSize: 32),
-    color: Color(0xFFd5bdaf),
-    iconTheme: IconThemeData(color: Colors.black54),
+    color: const Color(0xFFd5bdaf),
+    iconTheme: const IconThemeData(color: Colors.black54),
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
