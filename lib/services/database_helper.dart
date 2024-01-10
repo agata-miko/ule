@@ -66,11 +66,12 @@ class DatabaseHelper {
     );
   }
 
-  Future<int> updateHive(Map<String, dynamic> hive) async {
-    Database db = await initializeDatabase();
-    return await db.update('Hive', hive,
-        where: 'hiveId = ?', whereArgs: [hive['hiveId']]);
-  }
+  // niepotrzebne, update mozliwy tylko jesli dodajemy zdjecie przez hive screen
+  // Future<int> updateHive(Map<String, dynamic> hive) async {
+  //   Database db = await initializeDatabase();
+  //   return await db.update('Hive', hive,
+  //       where: 'hiveId = ?', whereArgs: [hive['hiveId']]);
+  // }
 
   Future<int> deleteHive(String hiveId) async {
     Database db = await initializeDatabase();

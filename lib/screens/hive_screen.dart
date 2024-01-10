@@ -51,8 +51,6 @@ class _HiveScreenState extends ConsumerState<HiveScreen> {
                       ),
                     )
                   : ImageInput(onPickImage: (image) {
-                      widget.selectedImage = image;
-                    }, updateHiveData: (image) {
                       updateHiveData(context, image);
                     }),
             ),

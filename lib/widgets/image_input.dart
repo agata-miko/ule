@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pszczoly_v3/providers/hive_list_provider.dart';
 
 
 class ImageInput extends ConsumerStatefulWidget {
-  ImageInput({super.key, required this.onPickImage, this.updateHiveData});
+ const ImageInput({super.key, required this.onPickImage});
 
   final void Function(File image) onPickImage;
-  Function? updateHiveData;
 
   @override
   ConsumerState<ImageInput> createState() => _ImageInputState();
@@ -33,9 +31,6 @@ class _ImageInputState extends ConsumerState<ImageInput> {
     });
 
     widget.onPickImage(_selectedImage!);
-    if (widget.updateHiveData != null) {
-      widget.updateHiveData!(_selectedImage!);
-    }
   }
 
   @override
