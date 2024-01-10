@@ -6,8 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pszczoly_v3/models/hive.dart';
 import 'package:pszczoly_v3/services/database_helper.dart';
 
-final hiveDataProvider =
-StateNotifierProvider<HiveDataNotifier, List<Hive>>((ref) => HiveDataNotifier());
+final hiveDataProvider = StateNotifierProvider<HiveDataNotifier, List<Hive>>(
+    (ref) => HiveDataNotifier());
 
 final databaseProvider = Provider<DatabaseHelper>((ref) => DatabaseHelper());
 
@@ -35,27 +35,22 @@ class HiveDataNotifier extends StateNotifier<List<Hive>> {
     state = [...state, newHive];
   }
 
-  void updateHivePhoto(String hiveName, File? photo) {
+  void updateHivePhoto(String hiveName, File? photo) async {
+    // Update the database with the new photo path
+    await databaseHelper
+        .updateHive({'hiveName': hiveName, 'photoPath': photo?.path});
+
+    // Update the state
     state = [
       for (var hive in state)
         if (hive.hiveName == hiveName)
-          Hive(hiveName: hiveName, photo: photo)
-
+          Hive(
+            hiveName: hiveName,
+            photo: photo,
+            hiveId: hive.hiveId,
+          )
         else
           hive,
     ];
   }
 }
-
-
-//
-//   List<Hive> get hives => _hives;
-//
-//   void addHive(Hive hive) {
-//     _hives.add(hive);
-//   }
-//
-//   List<Hive> getAllHives() {
-//     return _hives;
-//   }
-// }

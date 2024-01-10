@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pszczoly_v3/screens/checklist_screen.dart';
 import 'package:pszczoly_v3/screens/checklists_list_screen.dart';
 import 'package:pszczoly_v3/widgets/image_input.dart';
-
 import '../providers/hive_list_provider.dart';
 
 // //ignore: must_be_immutable - this comment make flutter ignore this warning
@@ -24,6 +23,13 @@ class HiveScreen extends ConsumerStatefulWidget {
 }
 
 class _HiveScreenState extends ConsumerState<HiveScreen> {
+  updateHiveData(BuildContext context, File newImage) {
+    ref
+        .read(hiveDataProvider.notifier)
+        .updateHivePhoto(widget.hiveName, newImage);
+    ref.read(databaseProvider).updateHivePhoto(widget.hiveId, newImage);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,11 +50,11 @@ class _HiveScreenState extends ConsumerState<HiveScreen> {
                         fit: BoxFit.cover,
                       ),
                     )
-                  : ImageInput(
-                      onPickImage: (image) {
-                        widget.selectedImage = image;
-                      },
-                    ),
+                  : ImageInput(onPickImage: (image) {
+                      widget.selectedImage = image;
+                    }, updateHiveData: (image) {
+                      updateHiveData(context, image);
+                    }),
             ),
             widget.selectedImage == null
                 ? TextButton(

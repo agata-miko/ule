@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:pszczoly_v3/data/checklist_questions_data.dart';
 import 'package:pszczoly_v3/models/checklist_responses.dart';
 import 'package:pszczoly_v3/models/question.dart';
@@ -52,6 +54,16 @@ class DatabaseHelper {
   Future<List<Map<String, dynamic>>> getAllHives() async {
     Database db = await initializeDatabase();
     return await db.query('Hive');
+  }
+
+  Future<int> updateHivePhoto(String hiveId, File newPhoto) async {
+    Database db = await initializeDatabase();
+    return await db.update(
+      'Hive',
+      {'photoPath': newPhoto.path},
+      where: 'hiveId = ?',
+      whereArgs: [hiveId],
+    );
   }
 
   Future<int> updateHive(Map<String, dynamic> hive) async {
