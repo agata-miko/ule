@@ -26,11 +26,21 @@ class ChecklistState extends ConsumerState<Checklist> {
 
   Widget buildQuestionCard(Question question) {
     return Card(
+      elevation: 0,
+      color: Theme.of(context).colorScheme.secondary.withOpacity(0.1),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(question.text, style: Theme.of(context).textTheme.bodyMedium,),
+            child: Text(
+              question.text.toUpperCase(),
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium!
+                  .copyWith(fontWeight: FontWeight.bold),
+              textAlign: TextAlign.start,
+            ),
           ),
           buildResponseWidget(question),
         ],
@@ -77,12 +87,14 @@ class ChecklistState extends ConsumerState<Checklist> {
       case ResponseType.text:
         return Padding(
           padding: const EdgeInsets.all(8.0),
-          child: TextField(style: TextStyle(height: 1),
+          child: TextField(
+            style: TextStyle(height: 1),
             decoration: InputDecoration(
               hintText: 'Odpowiedź',
               hintStyle: const TextStyle(fontSize: 16, color: Colors.grey),
               filled: true,
-              fillColor: Colors.grey.withOpacity(0.1), // Adjust color as needed
+              fillColor: Colors.grey.withOpacity(0.1),
+              // Adjust color as needed
               border: InputBorder.none,
               // Remove the default border
             ),

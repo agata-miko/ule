@@ -5,13 +5,13 @@ import 'package:pszczoly_v3/screens/add_hive_screen.dart';
 import 'package:pszczoly_v3/widgets/hives_list.dart';
 
 class HivesListScreen extends ConsumerWidget {
-  const HivesListScreen({super.key, required this.hives});
+  HivesListScreen({super.key, required this.hives});
 
   final List<Hive> hives;
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context, ref) {
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Lista uli'),
@@ -19,25 +19,59 @@ class HivesListScreen extends ConsumerWidget {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            const SizedBox(height: 10),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [const SizedBox(width: 150, height: 37,child: SearchBar(hintText: 'Wyszukaj'),),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (ctx) => const AddHiveScreen(),
+            const SizedBox(height: 20),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: SizedBox(
+                      width: double.infinity,
+                      child: TextField(
+                        controller: _searchController,
+                        decoration: InputDecoration(
+                            hintText: 'Znajdź ul...',
+                            hintStyle: Theme.of(context).textTheme.bodyMedium,
+                            suffixIcon: IconButton(
+                              icon: const Icon(Icons.clear),
+                              onPressed: () => _searchController.clear(),
+                            ),
+                            prefixIcon: IconButton(
+                              icon: const Icon(Icons.search),
+                              onPressed: () {}, // tutaj wyszukiwanie
+                            ),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20))),
+                      )),
+                ),
+                const SizedBox(height: 20,),
+                Center(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (ctx) => const AddHiveScreen(),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      width: 150,
+                      child: Row(
+                        children: [
+                          Text('Dodaj nowy ul',
+                              style: Theme.of(context).textTheme.bodyMedium),
+                          Icon(Icons.add_home),
+                        ],
                       ),
-                    );
-                  },
-                  child: Text('Dodaj nowy ul', style: Theme.of(context).textTheme.bodySmall),
+                    ),
+                  ),
                 ),
               ],
             ),
             const SizedBox(
               height: 10,
             ),
-            const SizedBox(height: 400, child: HivesList()),
+            const SizedBox(height: 320, child: HivesList()),
           ],
         ),
       ),

@@ -9,10 +9,10 @@ ThemeData lightTheme = ThemeData(
     bodyLarge: TextStyle(fontSize: 18),
     bodyMedium: TextStyle(fontSize: 16),
     bodySmall: TextStyle(fontSize: 10),
-  ).apply(fontFamily: GoogleFonts.bungeeSpice().fontFamily),
-  appBarTheme: AppBarTheme(titleTextStyle: TextStyle(fontFamily: GoogleFonts.bungeeSpice().fontFamily, fontSize: 32),
+  ).apply(fontFamily: GoogleFonts.montserrat().fontFamily),
+  appBarTheme: AppBarTheme(titleTextStyle: TextStyle(fontFamily: GoogleFonts.montserrat().fontFamily, fontSize: 32),
     color: const Color(0xFFd5bdaf),
-    iconTheme: const IconThemeData(color: Colors.black54),
+    iconTheme: const IconThemeData(color: Colors.white),
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
@@ -21,11 +21,11 @@ ThemeData lightTheme = ThemeData(
     ),
   ),
   colorScheme: const ColorScheme(
-    primaryContainer: Color.fromRGBO(255, 255, 255, 1),
+    primaryContainer: Colors.white,
     secondaryContainer: Colors.white,
-    background: Color.fromRGBO(255, 255, 255, 1),
+    background: Colors.white,
     primary: Color(0xFFd5bdaf),
-    secondary: Color(0xFFd5bdaf),
+    secondary: Color(0xFFe3d5ca),
     brightness: Brightness.light,
     error: Colors.red,
     onBackground: Colors.black54,

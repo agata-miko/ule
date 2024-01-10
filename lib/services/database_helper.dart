@@ -71,7 +71,6 @@ class DatabaseHelper {
         'response': question.response,
       });
     }
-
     return checklistId;
   }
 

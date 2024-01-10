@@ -4,10 +4,10 @@ import 'package:pszczoly_v3/models/question.dart';
 
 List<Question> checklistQuestions = [
   Question(id: 'q1', text: 'Odkład', responseType: ResponseType.yesNo),
-  Question(id: 'q2', text: 'Półnadstawka nr 1 (%)', responseType: ResponseType.percentage),
-  Question(id: 'q3', text: 'Półnadstawka nr 2 (%)', responseType: ResponseType.percentage),
-  Question(id: 'q4', text: 'Półnadstawka nr 3 (%)', responseType: ResponseType.percentage),
-  Question(id: 'q5', text: 'Półnadstawka: woda (%)', responseType: ResponseType.percentage),
+  Question(id: 'q2', text: 'Półnadstawka nr 1', responseType: ResponseType.percentage),
+  Question(id: 'q3', text: 'Półnadstawka nr 2', responseType: ResponseType.percentage),
+  Question(id: 'q4', text: 'Półnadstawka nr 3', responseType: ResponseType.percentage),
+  Question(id: 'q5', text: 'Półnadstawka: woda', responseType: ResponseType.percentage),
   Question(id: 'q6', text: 'Stan ramki pracy: odbudowana komórka trutowa (tak/nie)', responseType: ResponseType.yesNo),
   Question(id: 'q7', text: 'Stan ramki pracy: odbudowana komórka czerw. (tak/nie)', responseType: ResponseType.yesNo),
   Question(id: 'q8', text: 'Stan ramki pracy: brak odbudowy (tak/nie)', responseType: ResponseType.yesNo),

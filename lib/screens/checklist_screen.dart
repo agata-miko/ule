@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pszczoly_v3/widgets/checklist.dart';
 
 class ChecklistScreen extends StatefulWidget {
-  const ChecklistScreen({super.key, required this.hiveId, required this.hiveName});
+  const ChecklistScreen(
+      {super.key, required this.hiveId, required this.hiveName});
 
   final String hiveId;
   final String hiveName;
@@ -18,8 +19,12 @@ class _ChecklistScreenState extends State<ChecklistScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-            '${widget.hiveName} ${checklistDate.day}/${checklistDate.month}/${checklistDate.year}'), //different way to display data in dd/mm/yyyy
+        flexibleSpace: FlexibleSpaceBar(
+            title: Text(
+          '${widget.hiveName} ${checklistDate.day}/${checklistDate.month}/${checklistDate.year}',
+          style: const TextStyle(color: Colors.white),
+        )),
+        //different way to display data in dd/mm/yyyy???
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -29,8 +34,16 @@ class _ChecklistScreenState extends State<ChecklistScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                TextButton(onPressed: () {Navigator.of(context).pop();}, child: const Text('Cofnij')),
-                ElevatedButton(onPressed: () {Navigator.of(context).pop();}, child: const Text('Zapisz')),
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('Cofnij')),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('Zapisz')),
               ],
             ),
           ],

@@ -25,13 +25,14 @@ class HiveDataNotifier extends StateNotifier<List<Hive>> {
 
   void addHive({File? photo, hiveName}) async {
     final appDir = await syspaths.getApplicationDocumentsDirectory();
-    final fileName = path.basename(photo!.path);
-    final copiedPhoto = await photo.copy('${appDir.path}/$fileName');
+    final fileName = path.basename(photo?.path ?? '');
+    final copiedPhoto = await photo?.copy('${appDir.path}/$fileName');
 
     final newHive = Hive(photo: copiedPhoto, hiveName: hiveName);
     await databaseHelper.insertHive(newHive.toJson());
 
-    await databaseHelper.getAllHives();
+    var hives = await databaseHelper.getAllHives();
+    print(hives);
     state = [...state, newHive];
   }
 

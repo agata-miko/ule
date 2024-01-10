@@ -20,7 +20,7 @@ class _HivesListState extends ConsumerState<HivesList> {
   Widget build(BuildContext context) {
     ref.watch(hiveDataProvider);
     final Future<List<Map<String, dynamic>>> hivesListFromDatabase =
-    ref.read(databaseProvider).getAllHives();
+        ref.read(databaseProvider).getAllHives();
 
     return FutureBuilder<List<Map<String, dynamic>>>(
       future: hivesListFromDatabase,
@@ -37,10 +37,10 @@ class _HivesListState extends ConsumerState<HivesList> {
         } else {
           final List<Hive> hivesList = snapshot.data!
               .map((row) => Hive(
-            hiveName: row['hiveName'] as String,
-            hiveId: row['hiveId'] as String,
-            photo: File('${row['photoPath']}'),
-          ))
+                    hiveName: row['hiveName'] as String,
+                    hiveId: row['hiveId'] as String,
+                    photo: File('${row['photoPath']}'),
+                  ))
               .toList();
           return ListView.builder(
             itemCount: hivesList.length,
@@ -48,31 +48,33 @@ class _HivesListState extends ConsumerState<HivesList> {
               padding: const EdgeInsets.all(8.0),
               child: ListTile(
                 leading: Container(
-                  width: 52,
-                  height: 52,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.circular(5.0),
-                    image: hivesList[index].photo != null
-                        ? DecorationImage(
-                      fit: BoxFit.cover,
-                      image: FileImage(hivesList[index].photo!),
-                    )
-                        : null,
-                  ),
+                  width: 60,
+                  height: 60,
+                  decoration: hivesList[index].photo != null
+                      ? BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          borderRadius: BorderRadius.circular(5.0),
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: FileImage(hivesList[index].photo!),
+                          ))
+                      : BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
                 ),
                 title: Text(
                   hivesList[index].hiveName,
-                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
                       color: Theme.of(context).colorScheme.onBackground),
                 ),
                 trailing: IconButton(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (ctx) => ChecklistScreen(
-                            hiveId: hivesList[index].hiveId,
-                            hiveName: hivesList[index].hiveName,
-                          )));
+                                hiveId: hivesList[index].hiveId,
+                                hiveName: hivesList[index].hiveName,
+                              )));
                     },
                     icon: const Icon(Icons.checklist)),
                 onTap: () {
