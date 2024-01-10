@@ -29,9 +29,17 @@ class DatabaseHelper {
         checklistId TEXT PRIMARY KEY,
         hiveId TEXT,
         checklistDate INTEGER,
-        questionId TEXT,
-        answers TEXT,
         FOREIGN KEY (hiveId) REFERENCES Hive(hiveId)
+      )
+    ''');
+
+    await db.execute('''
+      CREATE TABLE ChecklistAnswers (
+        checklistAnswerId TEXT PRIMARY KEY,
+        checklistId TEXT,
+        questionId TEXT,
+        answer TEXT,
+        FOREIGN KEY (checklistId) REFERENCES Checklists(checklistId)
       )
     ''');
   }

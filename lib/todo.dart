@@ -7,3 +7,4 @@
 //DONE how to rebuild the HivesList when going back from HiveScreen, so the photo can be added without leaving the screen
 //TODO photos editing??
 //TODO progress indicators
+//TODO EXTRA zmiana pozycji ula na liscie

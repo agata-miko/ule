@@ -9,7 +9,11 @@ import '../providers/hive_list_provider.dart';
 
 // //ignore: must_be_immutable - this comment make flutter ignore this warning
 class HiveScreen extends ConsumerStatefulWidget {
-  HiveScreen({super.key, this.selectedImage, required this.hiveName, required this.hiveId});
+  HiveScreen(
+      {super.key,
+      this.selectedImage,
+      required this.hiveName,
+      required this.hiveId});
 
   File? selectedImage;
   String hiveName;
@@ -29,13 +33,17 @@ class _HiveScreenState extends ConsumerState<HiveScreen> {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: widget.selectedImage != null
-                  ? SizedBox(height: 250, width: double.infinity,
-                    child: Image.file(
+              child: widget.selectedImage != null &&
+                      widget.selectedImage!.path.isNotEmpty &&
+                      File(widget.selectedImage!.path).existsSync()
+                  ? SizedBox(
+                      height: 250,
+                      width: double.infinity,
+                      child: Image.file(
                         widget.selectedImage!,
                         fit: BoxFit.cover,
                       ),
-                  )
+                    )
                   : ImageInput(
                       onPickImage: (image) {
                         widget.selectedImage = image;
@@ -43,13 +51,17 @@ class _HiveScreenState extends ConsumerState<HiveScreen> {
                     ),
             ),
             widget.selectedImage == null
-                ? TextButton(onPressed: () {
-                ref.read(hiveDataProvider.notifier).updateHivePhoto(widget.hiveName, widget.selectedImage);
-                Navigator.of(context).pop();
-            }, child: const Text('Dodaj zdjęcie'),) :
-            const SizedBox(
-              height: 20,
-            ),
+                ? TextButton(
+                    onPressed: () {
+                      ref.read(hiveDataProvider.notifier).updateHivePhoto(
+                          widget.hiveName, widget.selectedImage);
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('Dodaj zdjęcie'),
+                  )
+                : const SizedBox(
+                    height: 20,
+                  ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -57,8 +69,10 @@ class _HiveScreenState extends ConsumerState<HiveScreen> {
                   onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                          builder: (ctx) => ChecklistScreen(hiveId: widget.hiveId,
-                            hiveName: widget.hiveName,)),
+                          builder: (ctx) => ChecklistScreen(
+                                hiveId: widget.hiveId,
+                                hiveName: widget.hiveName,
+                              )),
                     );
                   },
                   child: const Text('Nowa checklista'),
