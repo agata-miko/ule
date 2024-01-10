@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pszczoly_v3/screens/checklist_screen.dart';
+import 'package:pszczoly_v3/screens/checklists_list_screen.dart';
 import 'package:pszczoly_v3/widgets/image_input.dart';
 
 import '../providers/hive_list_provider.dart';
@@ -62,9 +63,14 @@ class _HiveScreenState extends ConsumerState<HiveScreen> {
                   },
                   child: const Text('Nowa checklista'),
                 ),
-                const ElevatedButton(
-                  onPressed: null,
-                  child: Text('Poprzednie checklisty'),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                          builder: (ctx) => ChecklistListScreen()),
+                    );
+                  },
+                  child: const Text('Poprzednie checklisty'),
                 ),
               ],
             ),

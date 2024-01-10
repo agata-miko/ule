@@ -47,22 +47,27 @@ class _HivesListState extends ConsumerState<HivesList> {
             itemBuilder: (context, index) => Padding(
               padding: const EdgeInsets.all(8.0),
               child: ListTile(
-                leading: Container(
-                  width: 60,
-                  height: 60,
-                  decoration: hivesList[index].photo != null
-                      ? BoxDecoration(
-                          shape: BoxShape.rectangle,
-                          borderRadius: BorderRadius.circular(5.0),
-                          image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: FileImage(hivesList[index].photo!),
-                          ))
-                      : BoxDecoration(
+                leading: (hivesList[index].photo?.path.isNotEmpty ?? false) &&
+                        File(hivesList[index].photo!.path).existsSync()
+                    ? Container(
+                        width: 60,
+                        height: 60,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.rectangle,
+                            borderRadius: BorderRadius.circular(5.0),
+                            image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: FileImage(hivesList[index].photo!),
+                            )))
+                    : Container(
+                        width: 60,
+                        height: 60,
+                        decoration: BoxDecoration(
                           shape: BoxShape.rectangle,
                           borderRadius: BorderRadius.circular(5.0),
                         ),
-                ),
+                        child: const Icon(Icons.home_filled),
+                      ),
                 title: Text(
                   hivesList[index].hiveName,
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(

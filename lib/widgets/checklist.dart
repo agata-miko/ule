@@ -88,7 +88,7 @@ class ChecklistState extends ConsumerState<Checklist> {
         return Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextField(
-            style: TextStyle(height: 1),
+            style: const TextStyle(height: 1),
             decoration: InputDecoration(
               hintText: 'Odpowiedź',
               hintStyle: const TextStyle(fontSize: 16, color: Colors.grey),

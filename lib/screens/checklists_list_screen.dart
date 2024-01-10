@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pszczoly_v3/models/hive.dart';
-import 'package:pszczoly_v3/screens/add_hive_screen.dart';
-import 'package:pszczoly_v3/widgets/hives_list.dart';
 
-class HivesListScreen extends ConsumerWidget {
-  HivesListScreen({super.key, required this.hives});
+class ChecklistListScreen extends ConsumerWidget {
+  ChecklistListScreen({super.key});
 
-  final List<Hive> hives;
   final TextEditingController _searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context, ref) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Lista uli'),
+        title: const Text('Uzupełnione checklisty'),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -30,7 +26,7 @@ class HivesListScreen extends ConsumerWidget {
                       child: TextField(
                         controller: _searchController,
                         decoration: InputDecoration(
-                            hintText: 'Znajdź ul...',
+                            hintText: 'Znajdź checklistę...',
                             hintStyle: Theme.of(context).textTheme.bodyMedium,
                             suffixIcon: IconButton(
                               icon: const Icon(Icons.clear),
@@ -47,44 +43,12 @@ class HivesListScreen extends ConsumerWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                // Center(
-                //   child: ElevatedButton(
-                //     onPressed: () {
-                //       Navigator.of(context).push(
-                //         MaterialPageRoute(
-                //           builder: (ctx) => const AddHiveScreen(),
-                //         ),
-                //       );
-                //     },
-                //     child: Container(
-                //       width: 150,
-                //       child: Row(
-                //         children: [
-                //           Text('Dodaj nowy ul',
-                //               style: Theme.of(context).textTheme.bodyMedium),
-                //           Icon(Icons.add_home),
-                //         ],
-                //       ),
-                //     ),
-                //   ),
-                // ),
               ],
             ),
             const SizedBox(
               height: 10,
             ),
-            const SizedBox(height: 340, child: HivesList()),
-            FloatingActionButton(
-              onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (ctx) => const AddHiveScreen(),
-                ),
-              );
-            },
-              backgroundColor: Theme.of(context).colorScheme.secondary,
-              child: const Icon(Icons.add_home),
-            )
+            const SizedBox(height: 340, child: Center(child: Text('Lista checklist'))),
           ],
         ),
       ),
