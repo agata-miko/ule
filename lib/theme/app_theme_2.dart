@@ -10,9 +10,11 @@ ThemeData lightTheme = ThemeData(
     bodyMedium: TextStyle(fontSize: 16),
     bodySmall: TextStyle(fontSize: 10),
   ).apply(fontFamily: GoogleFonts.montserrat().fontFamily),
-  appBarTheme: AppBarTheme(titleTextStyle: TextStyle(fontFamily: GoogleFonts.montserrat().fontFamily, fontSize: 32),
+  appBarTheme: AppBarTheme(titleTextStyle: TextStyle(fontFamily: GoogleFonts.montserrat().fontFamily, fontSize: 32, color: Colors.white),
     color: const Color(0xFFd5bdaf),
     iconTheme: const IconThemeData(color: Colors.white),
+    elevation: 5,
+    centerTitle: true,
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(

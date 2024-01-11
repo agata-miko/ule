@@ -48,7 +48,7 @@ class _HivesListState extends ConsumerState<HivesList> {
             itemBuilder: (context, index) =>
                 Dismissible(
                   key: Key(hivesList[index].hiveId),
-                  background: Container(color: Colors.red,
+                  background: Container(color: Colors.red[300],
                     alignment: Alignment.centerRight,
                     child: const Icon(Icons.delete),),
                   confirmDismiss: (direction) async {

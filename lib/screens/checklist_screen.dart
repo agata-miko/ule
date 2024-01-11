@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:pszczoly_v3/widgets/checklist.dart';
 
 class ChecklistScreen extends StatefulWidget {
@@ -14,18 +15,20 @@ class ChecklistScreen extends StatefulWidget {
 
 class _ChecklistScreenState extends State<ChecklistScreen> {
   DateTime checklistDate = DateTime.now();
+  final DateFormat _dateFormat = DateFormat('dd/MM/yyyy');
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        flexibleSpace: FlexibleSpaceBar(
-            title: Text(
-          '${widget.hiveName} ${checklistDate.day}/${checklistDate.month}/${checklistDate.year}',
-          style: const TextStyle(color: Colors.white),
-        )),
+            title: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                        '${widget.hiveName} ${_dateFormat.format(checklistDate)}',
+                        style: Theme.of(context).appBarTheme.titleTextStyle,
+                      ),
+            )),
         //different way to display data in dd/mm/yyyy???
-      ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
