@@ -8,3 +8,4 @@
 //TODO photos editing??
 //TODO progress indicators
 //TODO EXTRA zmiana pozycji ula na liscie
+//TODO funkcjonalnosc do wyszukiwania!

@@ -57,7 +57,7 @@ class _HivesListState extends ConsumerState<HivesList> {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: Text('Usunięcie ula'),
+                          title: const Text('Usunięcie ula'),
                           content: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
@@ -65,7 +65,7 @@ class _HivesListState extends ConsumerState<HivesList> {
                                 '''Na pewno chcesz usunąć ul ${hivesList[index]
                                     .hiveName}? \n\nWszystkie checklisty dla ula zostaną nieodracalnie usunięte.''',
                                 textAlign: TextAlign.left),
-                              SizedBox(height: 15,),
+                              const SizedBox(height: 15,),
                               Text(
                                 '''Tej operacji nie da się cofnąć!''',
                                 textAlign: TextAlign.left, style: TextStyle(color: Theme.of(context).colorScheme.error),),
@@ -77,14 +77,14 @@ class _HivesListState extends ConsumerState<HivesList> {
                                 Navigator.of(context).pop(
                                     false); // Dismiss the dialog and reject the deletion
                               },
-                              child: Text('Anuluj'),
+                              child: const Text('Anuluj'),
                             ),
                             TextButton(
                               onPressed: () {
                                 Navigator.of(context).pop(
                                     true); // Dismiss the dialog and confirm the deletion
                               },
-                              child: Text('Usuń'),
+                              child: const Text('Usuń'),
                             ),
                           ],
                         );
