@@ -9,9 +9,10 @@ class QuestionAnswer {
   String questionAnswerId;
   String checklistId;
   String questionId;
+  String answerType;
   dynamic answer;
 
-  QuestionAnswer({this.answer, required this.checklistId, required this.questionId,
+  QuestionAnswer({this.answer, required this.checklistId, required this.questionId, required this.answerType,
       String? questionAnswerId})
       : questionAnswerId = questionAnswerId ?? generateUniqueId();
 
@@ -20,6 +21,7 @@ class QuestionAnswer {
       'questionAnswerId': questionAnswerId,
       'checklistId': checklistId,
       'questionId': questionId,
+      'answerType': answerType,
       'answer': answer,
     };
   }
@@ -29,5 +31,6 @@ class QuestionAnswer {
           answer: json['answer'],
           checklistId: json['checklistId'],
           questionId: json['questionId'],
+          answerType: json['answerType'],
           questionAnswerId: json['questionAnswerId']);
 }

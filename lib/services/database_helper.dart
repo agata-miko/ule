@@ -11,8 +11,7 @@ class DatabaseHelper {
 
   static Future<Database> initializeDatabase() async {
     final String path = join(await getDatabasesPath(), _databaseName);
-    return openDatabase(path, version: _databaseVersion,
-        onCreate: _onCreate);
+    return openDatabase(path, version: _databaseVersion, onCreate: _onCreate);
   }
 
   static Future<void> _onCreate(Database db, int version) async {
@@ -35,10 +34,11 @@ class DatabaseHelper {
     ''');
 
     await db.execute('''
-      CREATE TABLE ChecklistAnswers (
-        checklistAnswerId TEXT PRIMARY KEY,
+      CREATE TABLE QuestionAnswers (
+        questionAnswerId TEXT PRIMARY KEY,
         checklistId TEXT,
         questionId TEXT,
+        answerType TEXT,
         answer TEXT,
         FOREIGN KEY (checklistId) REFERENCES Checklists(checklistId)
       )
@@ -80,7 +80,11 @@ class DatabaseHelper {
     return await db.query('Checklists');
   }
 
-
+  Future<int> deleteChecklist(String filledChecklistId) async {
+    Database db = await initializeDatabase();
+    return await db.delete('Checklists',
+        where: 'filledChecklistId = ?', whereArgs: [filledChecklistId]);
+  }
 
 
 
@@ -121,26 +125,13 @@ class DatabaseHelper {
   //       ));
   //     }
 
-    //   checklists.add(FilledChecklist(
-    //     hiveId: hiveId as int,
-    //     checklistDate: checklistDate,
-    //     answers: questions,
-    //   ));
-    // }
+  //   checklists.add(FilledChecklist(
+  //     hiveId: hiveId as int,
+  //     checklistDate: checklistDate,
+  //     answers: questions,
+  //   ));
+  // }
 
   //   return checklists;
   // }
-
-
-  Future<int> updateChecklist(Map<String, dynamic> checklist) async {
-    Database db = await initializeDatabase();
-    return await db.update('Checklist', checklist,
-        where: 'checklistId = ?', whereArgs: [checklist['checklistId']]);
-  }
-
-  Future<int> deleteChecklist(String checklistId) async {
-    Database db = await initializeDatabase();
-    return await db.delete(
-        'Checklist', where: 'checklistId = ?', whereArgs: [checklistId]);
-  }
 }
