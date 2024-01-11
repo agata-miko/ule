@@ -1,26 +1,84 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pszczoly_v3/models/filled_checklist.dart';
 import 'package:pszczoly_v3/models/question.dart';
+import 'package:pszczoly_v3/models/question_answer.dart';
+import 'package:pszczoly_v3/providers/hive_list_provider.dart';
 import 'package:pszczoly_v3/providers/simple_providers.dart';
 import 'package:pszczoly_v3/widgets/percentage_slider.dart';
+import 'package:uuid/uuid.dart';
 
 class Checklist extends ConsumerStatefulWidget {
-  const Checklist({super.key});
+  Checklist({Key? key, this.hiveId, this.checklistDate})
+      : checklistId = generateUniqueId(),
+        super(key: key);
+
+  final hiveId;
+  final checklistDate;
+
+  factory Checklist.newInstance() {
+    return Checklist(key: UniqueKey());
+  }
+
+  final String checklistId;
+  final List<QuestionAnswer> questionAnswerList = [];
+
+  void addOrUpdateQuestionAnswer(QuestionAnswer questionAnswer) {
+    final existingIndex = questionAnswerList
+        .indexWhere((qa) => qa.questionId == questionAnswer.questionId);
+    if (existingIndex != -1) {
+      questionAnswerList[existingIndex] = questionAnswer;
+    } else {
+      questionAnswerList.add(questionAnswer);
+    }
+  }
 
   @override
   ConsumerState createState() => ChecklistState();
 }
 
 class ChecklistState extends ConsumerState<Checklist> {
+
   @override
   Widget build(BuildContext context) {
     final checklistQuestions = ref.watch(questionsProvider);
 
-    return ListView.builder(
-      itemCount: checklistQuestions.length,
-      itemBuilder: (context, index) {
-        return buildQuestionCard(checklistQuestions[index]);
-      },
+    return Column(
+      children: [
+        Expanded(
+          child: ListView.builder(
+            itemCount: checklistQuestions.length,
+            itemBuilder: (context, index) {
+              return buildQuestionCard(checklistQuestions[index]);
+            },
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Cofnij')),
+            ElevatedButton(
+                onPressed: () {
+                  ref.read(databaseProvider).insertChecklist(
+                      FilledChecklist(
+                              hiveId: widget.hiveId,
+                              checklistDate: widget.checklistDate,
+                              checklistId: widget.checklistId,
+                  ).toJson());
+                  for (QuestionAnswer qa in widget.questionAnswerList) {
+                    ref.read(databaseProvider).insertQuestionAnswer(qa.toJson());
+                  }
+                  ref.read(databaseProvider).printTables();
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Zapisz')),
+          ],
+        ),
+      ],
     );
   }
 
@@ -69,6 +127,11 @@ class ChecklistState extends ConsumerState<Checklist> {
                 setState(() {
                   question.response = value;
                 });
+                widget.addOrUpdateQuestionAnswer(QuestionAnswer(
+                    checklistId: widget.checklistId,
+                    questionId: question.id,
+                    answerType: question.responseType,
+                    answer: question.response));
               },
             ),
             const Text('Tak'),
@@ -79,6 +142,11 @@ class ChecklistState extends ConsumerState<Checklist> {
                 setState(() {
                   question.response = value;
                 });
+                widget.addOrUpdateQuestionAnswer(QuestionAnswer(
+                    checklistId: widget.checklistId,
+                    questionId: question.id,
+                    answerType: question.responseType,
+                    answer: question.response));
               },
             ),
             const Text('Nie'),
@@ -102,13 +170,18 @@ class ChecklistState extends ConsumerState<Checklist> {
               setState(() {
                 question.response = value;
               });
+              widget.addOrUpdateQuestionAnswer(QuestionAnswer(
+                  checklistId: widget.checklistId,
+                  questionId: question.id,
+                  answerType: question.responseType,
+                  answer: question.response));
             },
           ),
         );
       case ResponseType.percentage:
-        return const PercentageSlider();
+        return PercentageSlider();
       default:
-        return Container(); // Return an empty container for unknown types
+        return Container(); // Return an empty container for unknown type
     }
   }
 }

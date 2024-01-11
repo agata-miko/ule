@@ -6,13 +6,7 @@ class FilledChecklist {
   DateTime checklistDate;
 
   FilledChecklist(
-      {required this.hiveId, required this.checklistDate, String? checklistId})
-      : checklistId = checklistId ?? generateUniqueId();
-
-  static String generateUniqueId() {
-    var uuid = const Uuid();
-    return uuid.v4();
-  }
+      {required this.hiveId, required this.checklistDate, required this.checklistId});
 
   Map<String, dynamic> toJson() {
     return {

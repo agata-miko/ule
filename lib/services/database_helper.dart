@@ -86,8 +86,47 @@ class DatabaseHelper {
         where: 'filledChecklistId = ?', whereArgs: [filledChecklistId]);
   }
 
+  Future<int> insertQuestionAnswer(Map<String, dynamic> questionAnswer) async {
+    Database db = await initializeDatabase();
+    return await db.insert('QuestionAnswers', questionAnswer);
+  }
 
+  Future<List<Map<String, dynamic>>> getAllQuestionAnswers() async {
+    Database db = await initializeDatabase();
+    return await db.query('Checklists');
+  }
 
+  Future<void> printTables() async {
+    final String path = join(await getDatabasesPath(), _databaseName);
+    final Database db = await openDatabase(path);
+
+    // Query to retrieve table names
+    final List<Map<String, dynamic>> tables = await db.rawQuery(
+      "SELECT name FROM sqlite_master WHERE type='table';",
+    );
+
+    // Iterate through tables
+    for (final table in tables) {
+      final tableName = table['name'] as String;
+      print('Table: $tableName');
+
+      // Query to retrieve all rows from the current table
+      final List<Map<String, dynamic>> rows = await db.query(tableName);
+
+      // Print column names
+      print('Columns: ${rows.isNotEmpty ? rows[0].keys.join(', ') : 'No data'}');
+
+      // Print each row
+      for (final row in rows) {
+        print(row);
+      }
+
+      print('\n'); // Add a newline for better readability
+    }
+
+    // Close the database when done
+    await db.close();
+  }
   // Future<List<FilledChecklist>> getAllChecklists() async {
   //   Database db = await initializeDatabase();
   //   List<Map<String, dynamic>> checklistData = await db.query('Checklist');

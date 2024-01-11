@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:pszczoly_v3/models/question.dart';
 
 class PercentageSlider extends StatefulWidget {
-  const PercentageSlider({super.key});
+  PercentageSlider({super.key});
 
   @override
   PercentageSliderState createState() => PercentageSliderState();
 }
 
 class PercentageSliderState extends State<PercentageSlider> {
-  double _selectedPercentage = 50; // Initial percentage value
+  double _selectedPercentage = 50;
 
   @override
   Widget build(BuildContext context) {

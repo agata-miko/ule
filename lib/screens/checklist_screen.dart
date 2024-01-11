@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:pszczoly_v3/models/filled_checklist.dart';
+import 'package:pszczoly_v3/models/question_answer.dart';
 import 'package:pszczoly_v3/providers/hive_list_provider.dart';
 import 'package:pszczoly_v3/widgets/checklist.dart';
 
@@ -17,6 +18,7 @@ class ChecklistScreen extends ConsumerStatefulWidget {
 }
 
 class _ChecklistScreenState extends ConsumerState<ChecklistScreen> {
+
   DateTime checklistDate = DateTime.now();
   final DateFormat _dateFormat = DateFormat('dd/MM/yyyy');
 
@@ -36,28 +38,7 @@ class _ChecklistScreenState extends ConsumerState<ChecklistScreen> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: <Widget>[
-            const Expanded(child: Checklist()),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                TextButton(
-                    onPressed: () {
-                      print(ref.read(databaseProvider).getChecklists());
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text('Cofnij')),
-                ElevatedButton(
-                    onPressed: () {
-                      ref.read(databaseProvider).insertChecklist(
-                          FilledChecklist(
-                                  hiveId: widget.hiveId,
-                                  checklistDate: checklistDate)
-                              .toJson());
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text('Zapisz')),
-              ],
-            ),
+            Expanded(child: Checklist(hiveId: widget.hiveId, checklistDate: checklistDate,)),
           ],
         ),
       ),

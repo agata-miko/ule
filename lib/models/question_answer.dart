@@ -9,7 +9,7 @@ class QuestionAnswer {
   String questionAnswerId;
   String checklistId;
   String questionId;
-  String answerType;
+  dynamic answerType;
   dynamic answer;
 
   QuestionAnswer({this.answer, required this.checklistId, required this.questionId, required this.answerType,
@@ -21,8 +21,8 @@ class QuestionAnswer {
       'questionAnswerId': questionAnswerId,
       'checklistId': checklistId,
       'questionId': questionId,
-      'answerType': answerType,
-      'answer': answer,
+      'answerType': answerType.toString(),
+      'answer': answer.toString(),
     };
   }
 
