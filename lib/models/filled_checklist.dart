@@ -2,7 +2,7 @@ import 'package:uuid/uuid.dart';
 
 class FilledChecklist {
   String checklistId;
-  int hiveId;
+  String hiveId;
   DateTime checklistDate;
 
   FilledChecklist(

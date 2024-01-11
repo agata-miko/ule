@@ -4,24 +4,28 @@ import 'package:google_fonts/google_fonts.dart';
 ThemeData lightTheme = ThemeData(
   brightness: Brightness.light,
   useMaterial3: true,
+
   textTheme: const TextTheme(
     displayLarge: TextStyle(fontSize: 32),
     bodyLarge: TextStyle(fontSize: 18),
     bodyMedium: TextStyle(fontSize: 16),
     bodySmall: TextStyle(fontSize: 10),
   ).apply(fontFamily: GoogleFonts.montserrat().fontFamily),
+
   appBarTheme: AppBarTheme(titleTextStyle: TextStyle(fontFamily: GoogleFonts.montserrat().fontFamily, fontSize: 32, color: Colors.white),
     color: const Color(0xFFd5bdaf),
     iconTheme: const IconThemeData(color: Colors.white),
     elevation: 5,
     centerTitle: true,
   ),
+
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
       backgroundColor: MaterialStateProperty.all(const Color(0xFFe3d5ca)),
       foregroundColor: MaterialStateProperty.all(Colors.black54),
     ),
   ),
+
   colorScheme: const ColorScheme(
     primaryContainer: Colors.white,
     secondaryContainer: Colors.white,

@@ -70,22 +70,19 @@ class DatabaseHelper {
     return await db.delete('Hive', where: 'hiveId = ?', whereArgs: [hiveId]);
   }
 
-  // Future<int> insertChecklist(FilledChecklist checklist) async {
-  //   Database db = await initializeDatabase();
-  //   int checklistId = await db.insert('Checklist', {
-  //     'hiveId': checklist.hiveId,
-  //     'checklistDate': checklist.checklistDate.millisecondsSinceEpoch,
-  //   });
-  //
-  //   for (var question in checklist.answers) {
-  //     await db.insert('Checklist', {
-  //       'checklistId': checklistId,
-  //       'questionId': question.id,
-  //       'response': question.response,
-  //     });
-  //   }
-  //   return checklistId;
-  // }
+  Future<int> insertChecklist(Map<String, dynamic> filledChecklist) async {
+    Database db = await initializeDatabase();
+    return await db.insert('Checklists', filledChecklist);
+  }
+
+  Future<List<Map<String, dynamic>>> getChecklists() async {
+    Database db = await initializeDatabase();
+    return await db.query('Checklists');
+  }
+
+
+
+
 
   // Future<List<FilledChecklist>> getAllChecklists() async {
   //   Database db = await initializeDatabase();
