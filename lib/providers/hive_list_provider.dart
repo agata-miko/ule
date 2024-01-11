@@ -11,13 +11,6 @@ final hiveDataProvider = StateNotifierProvider<HiveDataNotifier, List<Hive>>(
 
 final databaseProvider = Provider<DatabaseHelper>((ref) => DatabaseHelper());
 
-//NOT NECESSARY?
-// final hivesListProvider = FutureProvider<List<Hive>>((ref) async {
-//   final databaseHelper = ref.read(databaseProvider);
-//   final hiveDataList = await databaseHelper.getAllHives();
-//   return hiveDataList.map((hiveData) => Hive.fromJson(hiveData)).toList();
-// });
-
 class HiveDataNotifier extends StateNotifier<List<Hive>> {
   final DatabaseHelper databaseHelper = DatabaseHelper();
 
@@ -36,11 +29,6 @@ class HiveDataNotifier extends StateNotifier<List<Hive>> {
   }
 
   void updateHivePhoto(String hiveName, File? photo) async {
-    // Update the database with the new photo path
-    await databaseHelper
-        .updateHive({'hiveName': hiveName, 'photoPath': photo?.path});
-
-    // Update the state
     state = [
       for (var hive in state)
         if (hive.hiveName == hiveName)
@@ -53,4 +41,7 @@ class HiveDataNotifier extends StateNotifier<List<Hive>> {
           hive,
     ];
   }
-}
+  void deleteHive(String hiveId) async {
+    state = state.where((hive) => hive.hiveId != hiveId).toList();
+  }
+} 
