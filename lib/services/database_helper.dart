@@ -1,7 +1,4 @@
 import 'dart:io';
-import 'package:pszczoly_v3/data/checklist_questions_data.dart';
-import 'package:pszczoly_v3/models/filled_checklist.dart';
-import 'package:pszczoly_v3/models/question.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -96,6 +93,8 @@ class DatabaseHelper {
     return await db.query('Checklists');
   }
 
+
+  //TYLKO DO TESTOW
   Future<void> printTables() async {
     final String path = join(await getDatabasesPath(), _databaseName);
     final Database db = await openDatabase(path);

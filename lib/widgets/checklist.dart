@@ -6,7 +6,6 @@ import 'package:pszczoly_v3/models/question_answer.dart';
 import 'package:pszczoly_v3/providers/hive_list_provider.dart';
 import 'package:pszczoly_v3/providers/simple_providers.dart';
 import 'package:pszczoly_v3/widgets/percentage_slider.dart';
-import 'package:uuid/uuid.dart';
 
 class Checklist extends ConsumerStatefulWidget {
   Checklist({Key? key, this.hiveId, this.checklistDate})

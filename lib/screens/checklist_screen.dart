@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:pszczoly_v3/models/filled_checklist.dart';
-import 'package:pszczoly_v3/models/question_answer.dart';
-import 'package:pszczoly_v3/providers/hive_list_provider.dart';
 import 'package:pszczoly_v3/widgets/checklist.dart';
 
 class ChecklistScreen extends ConsumerStatefulWidget {

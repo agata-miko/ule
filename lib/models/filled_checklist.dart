@@ -1,5 +1,3 @@
-import 'package:uuid/uuid.dart';
-
 class FilledChecklist {
   String checklistId;
   String hiveId;

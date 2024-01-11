@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pszczoly_v3/models/question.dart';
 
 class PercentageSlider extends StatefulWidget {
   PercentageSlider({super.key});
