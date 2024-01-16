@@ -24,23 +24,24 @@ class Checklist extends ConsumerStatefulWidget {
 }
 
 class ChecklistState extends ConsumerState<Checklist> {
-    final checklistQuestions1 = getChecklistQuestions();
+  final checklistQuestions1 = getChecklistQuestions();
+  Map<String, dynamic> questionAnswersMap = {};
+  final List<QuestionAnswer> finalQuestionAnswerList = [];
 
-  final List<QuestionAnswer> questionAnswerList = [];
-
-  void addOrUpdateQuestionAnswer(QuestionAnswer questionAnswer) {
-    final existingIndex = questionAnswerList
-        .indexWhere((qa) => qa.questionId == questionAnswer.questionId);
-    if (existingIndex != -1) {
-      questionAnswerList[existingIndex] = questionAnswer;
-    } else {
-      questionAnswerList.add(questionAnswer);
+  void addOrUpdateFinalAnswers() {
+    for (QuestionAnswer qa in questionAnswersMap.values) {
+      final existingIndex = finalQuestionAnswerList
+          .indexWhere((item) => item.questionId == qa.questionId);
+      if (existingIndex != -1) {
+        finalQuestionAnswerList[existingIndex] = qa;
+      } else {
+        finalQuestionAnswerList.add(qa);
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Column(
       children: [
         Expanded(
@@ -61,18 +62,20 @@ class ChecklistState extends ConsumerState<Checklist> {
                 child: const Text('Cofnij')),
             ElevatedButton(
                 onPressed: () {
-                  ref.read(databaseProvider).insertChecklist(
-                      FilledChecklist(
-                              hiveId: widget.hiveId,
-                              checklistDate: widget.checklistDate,
-                              checklistId: widget.checklistId,
-                  ).toJson());
-                  for (QuestionAnswer qa in questionAnswerList) {
-                    ref.read(databaseProvider).insertQuestionAnswer(qa.toJson());
+                  addOrUpdateFinalAnswers();
+                  ref.read(databaseProvider).insertChecklist(FilledChecklist(
+                        hiveId: widget.hiveId,
+                        checklistDate: widget.checklistDate,
+                        checklistId: widget.checklistId,
+                      ).toJson());
+                  for (QuestionAnswer qa in questionAnswersMap.values) {
+                    ref
+                        .read(databaseProvider)
+                        .insertQuestionAnswer(qa.toJson());
                   }
                   ref.read(databaseProvider).printTables();
                   Navigator.of(context).pop();
-                  questionAnswerList.clear();
+                  finalQuestionAnswerList.clear();
                 },
                 child: const Text('Zapisz')),
           ],
@@ -82,7 +85,6 @@ class ChecklistState extends ConsumerState<Checklist> {
   }
 
   Widget buildQuestionCard(Question question) {
-    print(question.response);
     return Card(
       elevation: 0,
       color: Theme.of(context).colorScheme.secondary.withOpacity(0.1),
@@ -100,13 +102,13 @@ class ChecklistState extends ConsumerState<Checklist> {
               textAlign: TextAlign.start,
             ),
           ),
-          buildResponseWidget(question),
+          buildResponseWidget(question, questionAnswersMap[question.id]),
         ],
       ),
     );
   }
 
-  Widget buildResponseWidget(Question question) {
+  Widget buildResponseWidget(Question question, dynamic questionAnswer) {
     switch (question.responseType) {
       case ResponseType.yesNo:
         return Row(
@@ -114,31 +116,35 @@ class ChecklistState extends ConsumerState<Checklist> {
           children: [
             Radio(
               value: true,
-              groupValue: question.response,
+              groupValue: questionAnswer is QuestionAnswer
+                  ? (questionAnswer as QuestionAnswer).answer
+                  : null,
               onChanged: (value) {
                 setState(() {
-                  question.response = value;
-                });
-                addOrUpdateQuestionAnswer(QuestionAnswer(
+                  questionAnswersMap[question.id] = QuestionAnswer(
                     checklistId: widget.checklistId,
                     questionId: question.id,
-                    answerType: question.responseType,
-                    answer: question.response));
+                    answerType: ResponseType.yesNo.toString(),
+                    answer: value,
+                  );
+                });
               },
             ),
             const Text('Tak'),
             Radio(
               value: false,
-              groupValue: question.response,
+              groupValue: questionAnswer is QuestionAnswer
+                  ? (questionAnswer as QuestionAnswer).answer
+                  : null,
               onChanged: (value) {
                 setState(() {
-                  question.response = value;
-                });
-                addOrUpdateQuestionAnswer(QuestionAnswer(
+                  questionAnswersMap[question.id] = QuestionAnswer(
                     checklistId: widget.checklistId,
                     questionId: question.id,
-                    answerType: question.responseType,
-                    answer: question.response));
+                    answerType: ResponseType.yesNo.toString(),
+                    answer: value,
+                  );
+                });
               },
             ),
             const Text('Nie'),
@@ -160,13 +166,13 @@ class ChecklistState extends ConsumerState<Checklist> {
             ),
             onChanged: (String value) {
               setState(() {
-                question.response = value;
-              });
-              addOrUpdateQuestionAnswer(QuestionAnswer(
+                questionAnswersMap[question.id] = QuestionAnswer(
                   checklistId: widget.checklistId,
                   questionId: question.id,
-                  answerType: question.responseType,
-                  answer: question.response));
+                  answerType: ResponseType.text.toString(),
+                  answer: value,
+                );
+              });
             },
           ),
         );
