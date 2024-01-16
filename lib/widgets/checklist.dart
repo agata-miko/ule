@@ -134,7 +134,7 @@ class ChecklistState extends ConsumerState<Checklist> {
             Radio(
               value: false,
               groupValue: questionAnswer is QuestionAnswer
-                  ? (questionAnswer as QuestionAnswer).answer
+                  ? (questionAnswer).answer
                   : null,
               onChanged: (value) {
                 setState(() {
@@ -177,7 +177,21 @@ class ChecklistState extends ConsumerState<Checklist> {
           ),
         );
       case ResponseType.percentage:
-        return PercentageSlider();
+        return PercentageSlider(
+          selectedPercentage: questionAnswer is QuestionAnswer
+              ? (questionAnswer as QuestionAnswer).answer ?? 50
+              : 50,
+          onChanged: (value) {
+            setState(() {
+              questionAnswersMap[question.id] = QuestionAnswer(
+                checklistId: widget.checklistId,
+                questionId: question.id,
+                answerType: ResponseType.percentage.toString(),
+                answer: value,
+              );
+            });
+          },
+        );
       default:
         return Container(); // Return an empty container for unknown type
     }
