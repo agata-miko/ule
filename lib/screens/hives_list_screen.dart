@@ -10,11 +10,26 @@ class HivesListScreen extends ConsumerWidget {
   final List<Hive> hives;
   final TextEditingController _searchController = TextEditingController();
 
+  void _showAddHiveModal(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (BuildContext context) {
+        return Container(
+          constraints: BoxConstraints(
+            maxHeight: MediaQuery.of(context).size.height * 0.8,
+          ), // Adjust the height as needed
+          child: AddHiveScreen(),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context, ref) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Lista uli'),
+        title: const Text('Moje ule'),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -76,15 +91,16 @@ class HivesListScreen extends ConsumerWidget {
             const SizedBox(height: 340, child: HivesList()),
             FloatingActionButton(
               onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (ctx) => const AddHiveScreen(),
-                ),
-              );
-            },
+                _showAddHiveModal(context);
+                // Navigator.of(context).push(
+                //   MaterialPageRoute(
+                //     builder: (ctx) => const AddHiveScreen(),
+                //   ),
+                // );
+              },
               backgroundColor: Theme.of(context).colorScheme.secondary,
               child: const Icon(Icons.add_home),
-            )
+            ),
           ],
         ),
       ),

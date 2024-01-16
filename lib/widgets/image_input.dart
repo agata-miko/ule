@@ -61,7 +61,7 @@ class _ImageInputState extends ConsumerState<ImageInput> {
         ),
       ),
       height: 250,
-      width: double.infinity,
+      width: 250,
       alignment: Alignment.center,
       child: content,
     );

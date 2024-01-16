@@ -157,9 +157,7 @@ class ChecklistState extends ConsumerState<Checklist> {
               hintStyle: const TextStyle(fontSize: 16, color: Colors.grey),
               filled: true,
               fillColor: Colors.grey.withOpacity(0.1),
-              // Adjust color as needed
               border: InputBorder.none,
-              // Remove the default border
             ),
             onChanged: (String value) {
               setState(() {

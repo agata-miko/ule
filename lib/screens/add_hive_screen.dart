@@ -38,6 +38,9 @@ class _AddHiveScreenState extends ConsumerState<AddHiveScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
+            const SizedBox(
+              height: 10,
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: ImageInput(
@@ -45,9 +48,6 @@ class _AddHiveScreenState extends ConsumerState<AddHiveScreen> {
                   photo = image;
                 },
               ),
-            ),
-            const SizedBox(
-              height: 20,
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -59,10 +59,18 @@ class _AddHiveScreenState extends ConsumerState<AddHiveScreen> {
             const SizedBox(
               height: 20,
             ),
-            ElevatedButton(
+            FloatingActionButton.extended(
               onPressed: _saveHive,
-              child: const Text('Dodaj ul'),
+              backgroundColor: Theme.of(context).colorScheme.secondary,
+              label: const Text('Dodaj ul'),
             ),
+            const SizedBox(
+              height: 20,
+            ),
+            // ElevatedButton(
+            //   onPressed: _saveHive,
+            //   child: const Text('Dodaj ul'),
+            // ),
           ],
         ),
       ),

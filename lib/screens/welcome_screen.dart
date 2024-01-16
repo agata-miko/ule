@@ -9,55 +9,84 @@ class WelcomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     return Scaffold(
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(height: 300, width: double.infinity,
-                child: Image.asset('assets/images/logo4.png'),
-              ),
-              const SizedBox(height: 20),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30),
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: 'Username',
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(width: 0.2),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(width: 0.2),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30),
-                child: TextField(
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    hintText: 'Password',
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(width: 0.2),
-                    ),
-                    focusedBorder:
-                        OutlineInputBorder(borderSide: BorderSide(width: 0.2)),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => HivesListScreen(hives: ref.watch(hiveDataProvider))));
-                },
-                child: const Text('Login'),
-              ),
-            ],
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Opacity(
+            opacity: 0.8,
+            child: Image.asset(
+              'assets/images/background1.png',
+              // Replace with your image file path
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
+          Center(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 300,
+                  ),
+                  // const SizedBox(height: 20),
+                  // Padding(
+                  //   padding: EdgeInsets.symmetric(horizontal: 30),
+                  //   child: TextField(
+                  //     decoration: InputDecoration(
+                  //       filled: true,
+                  //       fillColor: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.8),
+                  //       hintText: 'Username',
+                  //       enabledBorder: OutlineInputBorder(
+                  //         borderSide: BorderSide(width: 0.2),
+                  //       ),
+                  //       focusedBorder: OutlineInputBorder(
+                  //         borderSide: BorderSide(width: 0.2),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                  // const SizedBox(height: 10),
+                  // Padding(
+                  //   padding: EdgeInsets.symmetric(horizontal: 30),
+                  //   child: TextField(
+                  //     obscureText: true,
+                  //     decoration: InputDecoration(
+                  //       filled: true,
+                  //       fillColor: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.8),
+                  //       hintText: 'Password',
+                  //       enabledBorder: OutlineInputBorder(
+                  //         borderSide: BorderSide(width: 0.2),
+                  //       ),
+                  //       focusedBorder: OutlineInputBorder(
+                  //           borderSide: BorderSide(width: 0.2)),
+                  //     ),
+                  //   ),
+                  // ),
+                  SizedBox(
+                    child: Text(
+                      'Dzień dobry!\nGotów na przegląd swojej pasieki?\nZaczynajmy!',
+                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                            color: Colors.pink,
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  FloatingActionButton.extended(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (ctx) => HivesListScreen(
+                              hives: ref.watch(hiveDataProvider))));
+                    },
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
+                    label: const Text('Zaczynajmy'),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
