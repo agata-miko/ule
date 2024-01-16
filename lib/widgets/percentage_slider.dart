@@ -12,7 +12,7 @@ class PercentageSlider extends StatefulWidget {
 }
 
 class PercentageSliderState extends State<PercentageSlider> {
-  double _selectedPercentage = 50;
+  double _selectedPercentage = 0;
 
   @override
   void initState() {

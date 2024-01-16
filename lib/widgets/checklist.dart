@@ -176,8 +176,8 @@ class ChecklistState extends ConsumerState<Checklist> {
       case ResponseType.percentage:
         return PercentageSlider(
           selectedPercentage: questionAnswer is QuestionAnswer
-              ? (questionAnswer).answer ?? 50
-              : 50,
+              ? (questionAnswer).answer ?? 0
+              : 0,
           onChanged: (value) {
             setState(() {
               questionAnswersMap[question.id] = QuestionAnswer(
