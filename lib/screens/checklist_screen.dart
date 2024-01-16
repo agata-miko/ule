@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:pszczoly_v3/widgets/checklist.dart';
+import 'package:uuid/uuid.dart';
 
 class ChecklistScreen extends ConsumerStatefulWidget {
   const ChecklistScreen(
@@ -35,7 +36,7 @@ class _ChecklistScreenState extends ConsumerState<ChecklistScreen> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: <Widget>[
-            Expanded(child: Checklist(hiveId: widget.hiveId, checklistDate: checklistDate,)),
+            Expanded(child: Checklist(key: ValueKey(Uuid().v4), hiveId: widget.hiveId, checklistDate: checklistDate,)),
           ],
         ),
       ),

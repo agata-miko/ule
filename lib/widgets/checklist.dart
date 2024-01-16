@@ -1,25 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pszczoly_v3/main.dart';
 import 'package:pszczoly_v3/models/filled_checklist.dart';
 import 'package:pszczoly_v3/models/question.dart';
 import 'package:pszczoly_v3/models/question_answer.dart';
+import 'package:pszczoly_v3/providers/checklist_questions_provider.dart';
 import 'package:pszczoly_v3/providers/hive_list_provider.dart';
 import 'package:pszczoly_v3/providers/simple_providers.dart';
 import 'package:pszczoly_v3/widgets/percentage_slider.dart';
+import 'package:pszczoly_v3/data/checklist_questions_data.dart';
 
 class Checklist extends ConsumerStatefulWidget {
-  Checklist({Key? key, this.hiveId, this.checklistDate})
+  Checklist({Key? key, required this.hiveId, required this.checklistDate})
       : checklistId = generateUniqueId(),
         super(key: key);
 
-  final hiveId;
-  final checklistDate;
-
-  factory Checklist.newInstance() {
-    return Checklist(key: UniqueKey());
-  }
-
+  final String hiveId;
+  final DateTime checklistDate;
   final String checklistId;
+
+  @override
+  ConsumerState createState() => ChecklistState();
+}
+
+class ChecklistState extends ConsumerState<Checklist> {
+    final checklistQuestions1 = getChecklistQuestions();
+
   final List<QuestionAnswer> questionAnswerList = [];
 
   void addOrUpdateQuestionAnswer(QuestionAnswer questionAnswer) {
@@ -33,22 +39,15 @@ class Checklist extends ConsumerStatefulWidget {
   }
 
   @override
-  ConsumerState createState() => ChecklistState();
-}
-
-class ChecklistState extends ConsumerState<Checklist> {
-
-  @override
   Widget build(BuildContext context) {
-    final checklistQuestions = ref.watch(questionsProvider);
 
     return Column(
       children: [
         Expanded(
           child: ListView.builder(
-            itemCount: checklistQuestions.length,
+            itemCount: checklistQuestions1.length,
             itemBuilder: (context, index) {
-              return buildQuestionCard(checklistQuestions[index]);
+              return buildQuestionCard(checklistQuestions1[index]);
             },
           ),
         ),
@@ -68,11 +67,12 @@ class ChecklistState extends ConsumerState<Checklist> {
                               checklistDate: widget.checklistDate,
                               checklistId: widget.checklistId,
                   ).toJson());
-                  for (QuestionAnswer qa in widget.questionAnswerList) {
+                  for (QuestionAnswer qa in questionAnswerList) {
                     ref.read(databaseProvider).insertQuestionAnswer(qa.toJson());
                   }
                   ref.read(databaseProvider).printTables();
                   Navigator.of(context).pop();
+                  questionAnswerList.clear();
                 },
                 child: const Text('Zapisz')),
           ],
@@ -82,6 +82,7 @@ class ChecklistState extends ConsumerState<Checklist> {
   }
 
   Widget buildQuestionCard(Question question) {
+    print(question.response);
     return Card(
       elevation: 0,
       color: Theme.of(context).colorScheme.secondary.withOpacity(0.1),
@@ -111,14 +112,6 @@ class ChecklistState extends ConsumerState<Checklist> {
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Switch(
-            //   value: question.response,
-            //   onChanged: (value) {
-            //     setState(() {
-            //       question.response = value;
-            //     });
-            //   },
-            // ),
             Radio(
               value: true,
               groupValue: question.response,
@@ -126,7 +119,7 @@ class ChecklistState extends ConsumerState<Checklist> {
                 setState(() {
                   question.response = value;
                 });
-                widget.addOrUpdateQuestionAnswer(QuestionAnswer(
+                addOrUpdateQuestionAnswer(QuestionAnswer(
                     checklistId: widget.checklistId,
                     questionId: question.id,
                     answerType: question.responseType,
@@ -141,7 +134,7 @@ class ChecklistState extends ConsumerState<Checklist> {
                 setState(() {
                   question.response = value;
                 });
-                widget.addOrUpdateQuestionAnswer(QuestionAnswer(
+                addOrUpdateQuestionAnswer(QuestionAnswer(
                     checklistId: widget.checklistId,
                     questionId: question.id,
                     answerType: question.responseType,
@@ -169,7 +162,7 @@ class ChecklistState extends ConsumerState<Checklist> {
               setState(() {
                 question.response = value;
               });
-              widget.addOrUpdateQuestionAnswer(QuestionAnswer(
+              addOrUpdateQuestionAnswer(QuestionAnswer(
                   checklistId: widget.checklistId,
                   questionId: question.id,
                   answerType: question.responseType,

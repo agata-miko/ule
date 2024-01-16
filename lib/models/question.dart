@@ -16,5 +16,5 @@ class Question {
     required this.text,
     required this.responseType,
     this.response,
-  });
+  }) {print('teraz dziala konstruktor question $this.response');}
 }

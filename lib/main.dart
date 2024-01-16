@@ -4,7 +4,6 @@ import 'package:pszczoly_v3/screens/welcome_screen.dart';
 import 'package:pszczoly_v3/services/database_helper.dart';
 import '../theme/app_theme_2.dart';
 
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await DatabaseHelper.initializeDatabase();
