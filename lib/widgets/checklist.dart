@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pszczoly_v3/main.dart';
 import 'package:pszczoly_v3/models/filled_checklist.dart';
 import 'package:pszczoly_v3/models/question.dart';
 import 'package:pszczoly_v3/models/question_answer.dart';
-import 'package:pszczoly_v3/providers/checklist_questions_provider.dart';
 import 'package:pszczoly_v3/providers/hive_list_provider.dart';
-import 'package:pszczoly_v3/providers/simple_providers.dart';
 import 'package:pszczoly_v3/widgets/percentage_slider.dart';
 import 'package:pszczoly_v3/data/checklist_questions_data.dart';
 
@@ -117,7 +114,7 @@ class ChecklistState extends ConsumerState<Checklist> {
             Radio(
               value: true,
               groupValue: questionAnswer is QuestionAnswer
-                  ? (questionAnswer as QuestionAnswer).answer
+                  ? (questionAnswer).answer
                   : null,
               onChanged: (value) {
                 setState(() {
@@ -179,7 +176,7 @@ class ChecklistState extends ConsumerState<Checklist> {
       case ResponseType.percentage:
         return PercentageSlider(
           selectedPercentage: questionAnswer is QuestionAnswer
-              ? (questionAnswer as QuestionAnswer).answer ?? 50
+              ? (questionAnswer).answer ?? 50
               : 50,
           onChanged: (value) {
             setState(() {

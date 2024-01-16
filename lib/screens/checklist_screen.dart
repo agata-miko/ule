@@ -36,7 +36,7 @@ class _ChecklistScreenState extends ConsumerState<ChecklistScreen> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: <Widget>[
-            Expanded(child: Checklist(key: ValueKey(Uuid().v4), hiveId: widget.hiveId, checklistDate: checklistDate,)),
+            Expanded(child: Checklist(key: ValueKey(const Uuid().v4), hiveId: widget.hiveId, checklistDate: checklistDate,)),
           ],
         ),
       ),
