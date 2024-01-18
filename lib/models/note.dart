@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pszczoly_v3/providers/hive_list_provider.dart';
 
@@ -38,18 +39,17 @@ class NoteEditorState extends ConsumerState<NoteEditor> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16.0),
-      child: Column(
-        children: [
-          TextField(
-            controller: _textEditingController,
-            textAlign: TextAlign.justify,
-            decoration: const InputDecoration(
-              border: UnderlineInputBorder(),
-            ),
-          ),
-          IconButton(
-              onPressed: _saveNoteToTheDatabase, icon: const Icon(Icons.add)),
-        ],
+      child: TextField(
+        maxLines: null,
+        controller: _textEditingController,
+        textAlign: TextAlign.justify,
+        decoration: const InputDecoration(
+          border: UnderlineInputBorder(),
+        ),
+        textInputAction: TextInputAction.done,
+        onSubmitted: (String value) {
+          _saveNoteToTheDatabase();
+        },
       ),
     );
   }

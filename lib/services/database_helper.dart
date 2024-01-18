@@ -81,7 +81,7 @@ class DatabaseHelper {
       whereArgs: [hiveId],
     );
 
-    if (result.isNotEmpty) {
+    if (result != null && result.isNotEmpty && result[0]['note'] != null) {
       return result[0]['note'];
     } else {
       return 'Notatki';
