@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pszczoly_v3/models/note.dart';
 import 'package:pszczoly_v3/screens/checklist_screen.dart';
 import 'package:pszczoly_v3/screens/checklists_list_screen.dart';
 import 'package:pszczoly_v3/widgets/image_input.dart';
@@ -64,10 +65,10 @@ class _HiveScreenState extends ConsumerState<HiveScreen> {
                     child: const Text('Dodaj zdjęcie'),
                   )
                 : const SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
                   onPressed: () {
@@ -88,13 +89,11 @@ class _HiveScreenState extends ConsumerState<HiveScreen> {
                           builder: (ctx) => ChecklistListScreen()),
                     );
                   },
-                  child: const Text('Poprzednie checklisty'),
+                  child: const Text('Zobacz checklisty'),
                 ),
               ],
             ),
-            const SizedBox(
-              height: 20,
-            ),
+            NoteEditor(hiveId: widget.hiveId,),
             // const NoteEditor(),
           ],
         ),

@@ -17,7 +17,7 @@ class DatabaseHelper {
         hiveId TEXT PRIMARY KEY,
         hiveName TEXT,
         photoPath TEXT,
-        notes TEXT
+        note TEXT
       )
     ''');
 
@@ -60,6 +60,32 @@ class DatabaseHelper {
       where: 'hiveId = ?',
       whereArgs: [hiveId],
     );
+  }
+
+  Future<int> updateHiveNote(String hiveId, String newNote) async {
+    Database db = await initializeDatabase();
+    return await db.update(
+      'Hive',
+      {'note': newNote},
+      where: 'hiveId = ?',
+      whereArgs: [hiveId],
+    );
+  }
+
+  Future<String> getHiveNote(String hiveId) async {
+    Database db = await initializeDatabase();
+    List<Map<String, dynamic>> result = await db.query(
+      'Hive',
+      columns: ['note'],
+      where: 'hiveId = ?',
+      whereArgs: [hiveId],
+    );
+
+    if (result.isNotEmpty) {
+      return result[0]['note'];
+    } else {
+      return 'Notatki';
+    }
   }
 
   Future<int> deleteHive(String hiveId) async {

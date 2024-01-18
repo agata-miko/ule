@@ -20,14 +20,14 @@ class Hive {
       'hiveId': hiveId,
       'hiveName': hiveName,
       'photoPath': photo?.path,
-      'notes': notes,
+      'note': notes,
     };
   }
     factory Hive.fromJson(Map<String, dynamic> json) => Hive(
         hiveId: json['hiveId'],
         hiveName: json['hiveName'],
         photo: json['photoPath'] != null ? File(json['photoPath']) : null,
-        notes: json['notes'],
+        notes: json['note'],
     );
 
 }

@@ -26,7 +26,7 @@ class WelcomeScreen extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 300,
                   ),
                   // const SizedBox(height: 20),

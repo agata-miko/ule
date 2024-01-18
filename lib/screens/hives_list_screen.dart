@@ -12,14 +12,18 @@ class HivesListScreen extends ConsumerWidget {
 
   void _showAddHiveModal(BuildContext context) {
     showModalBottomSheet(
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(25.0))),
       context: context,
       isScrollControlled: true,
       builder: (BuildContext context) {
-        return Container(
-          constraints: BoxConstraints(
-            maxHeight: MediaQuery.of(context).size.height * 0.8,
-          ), // Adjust the height as needed
-          child: AddHiveScreen(),
+        return ClipRRect(
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(25.0)),
+          child: Container(
+            constraints: BoxConstraints(
+              maxHeight: MediaQuery.of(context).size.height * 0.8,
+            ), // Adjust the height as needed
+            child: const AddHiveScreen(),
+          ),
         );
       },
     );

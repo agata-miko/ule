@@ -18,15 +18,14 @@ ThemeData lightTheme = ThemeData(
       fontSize: 32,
       color: const Color(0xFFA1887F),
     ),
-    color: Colors.white,
+    color: Colors.transparent,
     iconTheme: const IconThemeData(color: Color(0xFFA1887F)),
-    elevation: 5,
     centerTitle: true,
   ),
 
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
-      backgroundColor: MaterialStateProperty.all(const Color(0xFFD4BAA6)), // Beige for buttons
+      backgroundColor: MaterialStateProperty.all(const Color(0xFFD4BAA6)),
       foregroundColor: MaterialStateProperty.all(Colors.black54),
     ),
   ),
@@ -35,8 +34,8 @@ ThemeData lightTheme = ThemeData(
     primaryContainer: Colors.white,
     secondaryContainer: Colors.white,
     background: Colors.white,
-    primary: Color(0xFFA1887F), // Warmer brownish color as the primary color
-    secondary: Color(0xFFD4BAA6), // Beige as the secondary color
+    primary: Color(0xFFA1887F),
+    secondary: Color(0xFFD4BAA6),
     brightness: Brightness.light,
     error: Colors.red,
     onBackground: Colors.black54,
@@ -44,6 +43,6 @@ ThemeData lightTheme = ThemeData(
     onPrimary: Colors.black54,
     onSecondary: Colors.black54,
     onSurface: Colors.black54,
-    surface: Color(0xFFE2D8CB), // Lighter beige surface color
+    surface: Color(0xFFE2D8CB),
   ),
 );
