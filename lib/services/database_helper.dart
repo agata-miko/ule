@@ -25,7 +25,7 @@ class DatabaseHelper {
       CREATE TABLE Checklists (
         checklistId TEXT PRIMARY KEY,
         hiveId TEXT,
-        checklistDate INTEGER,
+        checklistDate TEXT,
         FOREIGN KEY (hiveId) REFERENCES Hive(hiveId)
       )
     ''');
@@ -104,9 +104,9 @@ class DatabaseHelper {
     return await db.insert('Checklists', filledChecklist);
   }
 
-  Future<List<Map<String, dynamic>>> getChecklists() async {
+  Future<List<Map<String, dynamic>>> getChecklistsForAHive(hiveId) async {
     Database db = await initializeDatabase();
-    return await db.query('Checklists');
+    return await db.query('Checklists', where: 'hiveId = ?', whereArgs: [hiveId]);
   }
 
   Future<int> deleteChecklist(String filledChecklistId) async {
@@ -114,16 +114,6 @@ class DatabaseHelper {
     return await db.delete('Checklists',
         where: 'filledChecklistId = ?', whereArgs: [filledChecklistId]);
   }
-
-  // Future<void> deleteChecklistsWithHive(String hiveId) async {
-  //   Database db = await initializeDatabase();
-  //   await db.delete(
-  //     'QuestionAnswers',
-  //     where: 'EXISTS (SELECT 1 FROM Checklists WHERE hiveId = ? AND Checklists.checklistId = QuestionAnswers.checklistId)',
-  //     whereArgs: [hiveId],
-  //   );
-  //   await db.delete('Checklists', where: 'hiveId = ?', whereArgs: [hiveId]);
-  // }
 
   Future<int> insertQuestionAnswer(Map<String, dynamic> questionAnswer) async {
     Database db = await initializeDatabase();
@@ -168,50 +158,4 @@ class DatabaseHelper {
     // Close the database when done
     await db.close();
   }
-// Future<List<FilledChecklist>> getAllChecklists() async {
-//   Database db = await initializeDatabase();
-//   List<Map<String, dynamic>> checklistData = await db.query('Checklist');
-//
-//   List<FilledChecklist> checklists = [];
-//
-//   for (var data in checklistData) {
-//     String checklistId = data['checklistId'];
-//     String hiveId = data['hiveId'];
-//     DateTime checklistDate =
-//     DateTime.fromMillisecondsSinceEpoch(data['checklistDate']);
-//
-//     List<Map<String, dynamic>> questionData = await db.query('Checklist',
-//         where: 'checklistId = ?', whereArgs: [checklistId]);
-//
-//     List<Question> questions = [];
-//
-//     for (var question in questionData) {
-//       String questionId = question['questionId'];
-//
-//       // Find the corresponding question in checklistQuestions
-//       Question? foundQuestion;
-//       for (var q in checklistQuestions) {
-//         if (q.id == questionId) {
-//           foundQuestion = q;
-//           break;
-//         }
-//       }
-//
-//       questions.add(Question(
-//         id: question['questionId'],
-//         response: question['response'],
-//         text: foundQuestion?.text ?? 'Not Found',
-//         responseType: foundQuestion?.responseType ?? ResponseType.text,
-//       ));
-//     }
-
-//   checklists.add(FilledChecklist(
-//     hiveId: hiveId as int,
-//     checklistDate: checklistDate,
-//     answers: questions,
-//   ));
-// }
-
-//   return checklists;
-// }
 }

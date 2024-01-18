@@ -34,7 +34,7 @@ class _HiveScreenState extends ConsumerState<HiveScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.hiveName)),
+      appBar: AppBar(title: SingleChildScrollView(scrollDirection: Axis.horizontal, child: Text(widget.hiveName))),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -86,7 +86,7 @@ class _HiveScreenState extends ConsumerState<HiveScreen> {
                   onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                          builder: (ctx) => ChecklistListScreen()),
+                          builder: (ctx) => ChecklistListScreen(hiveId: widget.hiveId, hiveName: widget.hiveName,)),
                     );
                   },
                   child: const Text('Zobacz checklisty'),

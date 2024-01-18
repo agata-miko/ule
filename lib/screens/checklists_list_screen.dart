@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pszczoly_v3/widgets/checklists_list.dart';
 
 class ChecklistListScreen extends ConsumerWidget {
-  ChecklistListScreen({super.key});
+  ChecklistListScreen({super.key, required this.hiveId, required this.hiveName});
+
+  final String hiveId;
+  final String hiveName;
 
   final TextEditingController _searchController = TextEditingController();
 
@@ -10,7 +14,7 @@ class ChecklistListScreen extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Uzupełnione checklisty'),
+        title: SingleChildScrollView(scrollDirection: Axis.horizontal, child: Text('$hiveName Uzupełnione checklisty')),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -48,7 +52,7 @@ class ChecklistListScreen extends ConsumerWidget {
             const SizedBox(
               height: 10,
             ),
-            const SizedBox(height: 340, child: Center(child: Text('Lista checklist'))),
+            SizedBox(height: 340, child: Center(child: ListOfChecklists(hiveId: hiveId))),
           ],
         ),
       ),
