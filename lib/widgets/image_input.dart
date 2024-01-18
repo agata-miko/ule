@@ -54,14 +54,14 @@ class _ImageInputState extends ConsumerState<ImageInput> {
     }
 
     return Container(
-      decoration: BoxDecoration(
-        border: Border.all(
-          width: 1,
-          color: Theme.of(context).colorScheme.primary.withOpacity(0.5),
-        ),
-      ),
+      // decoration: BoxDecoration(
+      //   border: Border.all(
+      //     width: 1,
+      //     color: Theme.of(context).colorScheme.primary.withOpacity(0.5),
+      //   ),
+      // ),
       height: 250,
-      width: 250,
+      width: double.infinity,
       alignment: Alignment.center,
       child: content,
     );

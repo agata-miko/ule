@@ -91,10 +91,9 @@ class _HivesListState extends ConsumerState<HivesList> {
                       },
                     );
                   },
-                  onDismissed: (direction) {
+                  onDismissed: (direction) async {
+                    await ref.read(databaseProvider).deleteHive(hivesList[index].hiveId);
                     ref.read(hiveDataProvider.notifier).deleteHive(
-                        hivesList[index].hiveId);
-                    ref.read(databaseProvider).deleteHive(
                         hivesList[index].hiveId);
                   },
                   child: Padding(

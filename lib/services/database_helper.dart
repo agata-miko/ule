@@ -81,7 +81,7 @@ class DatabaseHelper {
       whereArgs: [hiveId],
     );
 
-    if (result != null && result.isNotEmpty && result[0]['note'] != null) {
+    if (result.isNotEmpty && result[0]['note'] != null) {
       return result[0]['note'];
     } else {
       return 'Notatki';
@@ -90,6 +90,12 @@ class DatabaseHelper {
 
   Future<int> deleteHive(String hiveId) async {
     Database db = await initializeDatabase();
+    await db.delete(
+      'QuestionAnswers',
+      where: 'EXISTS (SELECT 1 FROM Checklists WHERE hiveId = ? AND Checklists.checklistId = QuestionAnswers.checklistId)',
+      whereArgs: [hiveId],
+    );
+    await db.delete('Checklists', where: 'hiveId = ?', whereArgs: [hiveId]);
     return await db.delete('Hive', where: 'hiveId = ?', whereArgs: [hiveId]);
   }
 
@@ -109,6 +115,16 @@ class DatabaseHelper {
         where: 'filledChecklistId = ?', whereArgs: [filledChecklistId]);
   }
 
+  // Future<void> deleteChecklistsWithHive(String hiveId) async {
+  //   Database db = await initializeDatabase();
+  //   await db.delete(
+  //     'QuestionAnswers',
+  //     where: 'EXISTS (SELECT 1 FROM Checklists WHERE hiveId = ? AND Checklists.checklistId = QuestionAnswers.checklistId)',
+  //     whereArgs: [hiveId],
+  //   );
+  //   await db.delete('Checklists', where: 'hiveId = ?', whereArgs: [hiveId]);
+  // }
+
   Future<int> insertQuestionAnswer(Map<String, dynamic> questionAnswer) async {
     Database db = await initializeDatabase();
     return await db.insert('QuestionAnswers', questionAnswer);
@@ -118,7 +134,6 @@ class DatabaseHelper {
     Database db = await initializeDatabase();
     return await db.query('Checklists');
   }
-
 
   //TYLKO DO TESTOW
   Future<void> printTables() async {
@@ -139,7 +154,8 @@ class DatabaseHelper {
       final List<Map<String, dynamic>> rows = await db.query(tableName);
 
       // Print column names
-      print('Columns: ${rows.isNotEmpty ? rows[0].keys.join(', ') : 'No data'}');
+      print(
+          'Columns: ${rows.isNotEmpty ? rows[0].keys.join(', ') : 'No data'}');
 
       // Print each row
       for (final row in rows) {
@@ -152,50 +168,50 @@ class DatabaseHelper {
     // Close the database when done
     await db.close();
   }
-  // Future<List<FilledChecklist>> getAllChecklists() async {
-  //   Database db = await initializeDatabase();
-  //   List<Map<String, dynamic>> checklistData = await db.query('Checklist');
-  //
-  //   List<FilledChecklist> checklists = [];
-  //
-  //   for (var data in checklistData) {
-  //     String checklistId = data['checklistId'];
-  //     String hiveId = data['hiveId'];
-  //     DateTime checklistDate =
-  //     DateTime.fromMillisecondsSinceEpoch(data['checklistDate']);
-  //
-  //     List<Map<String, dynamic>> questionData = await db.query('Checklist',
-  //         where: 'checklistId = ?', whereArgs: [checklistId]);
-  //
-  //     List<Question> questions = [];
-  //
-  //     for (var question in questionData) {
-  //       String questionId = question['questionId'];
-  //
-  //       // Find the corresponding question in checklistQuestions
-  //       Question? foundQuestion;
-  //       for (var q in checklistQuestions) {
-  //         if (q.id == questionId) {
-  //           foundQuestion = q;
-  //           break;
-  //         }
-  //       }
-  //
-  //       questions.add(Question(
-  //         id: question['questionId'],
-  //         response: question['response'],
-  //         text: foundQuestion?.text ?? 'Not Found',
-  //         responseType: foundQuestion?.responseType ?? ResponseType.text,
-  //       ));
-  //     }
+// Future<List<FilledChecklist>> getAllChecklists() async {
+//   Database db = await initializeDatabase();
+//   List<Map<String, dynamic>> checklistData = await db.query('Checklist');
+//
+//   List<FilledChecklist> checklists = [];
+//
+//   for (var data in checklistData) {
+//     String checklistId = data['checklistId'];
+//     String hiveId = data['hiveId'];
+//     DateTime checklistDate =
+//     DateTime.fromMillisecondsSinceEpoch(data['checklistDate']);
+//
+//     List<Map<String, dynamic>> questionData = await db.query('Checklist',
+//         where: 'checklistId = ?', whereArgs: [checklistId]);
+//
+//     List<Question> questions = [];
+//
+//     for (var question in questionData) {
+//       String questionId = question['questionId'];
+//
+//       // Find the corresponding question in checklistQuestions
+//       Question? foundQuestion;
+//       for (var q in checklistQuestions) {
+//         if (q.id == questionId) {
+//           foundQuestion = q;
+//           break;
+//         }
+//       }
+//
+//       questions.add(Question(
+//         id: question['questionId'],
+//         response: question['response'],
+//         text: foundQuestion?.text ?? 'Not Found',
+//         responseType: foundQuestion?.responseType ?? ResponseType.text,
+//       ));
+//     }
 
-  //   checklists.add(FilledChecklist(
-  //     hiveId: hiveId as int,
-  //     checklistDate: checklistDate,
-  //     answers: questions,
-  //   ));
-  // }
+//   checklists.add(FilledChecklist(
+//     hiveId: hiveId as int,
+//     checklistDate: checklistDate,
+//     answers: questions,
+//   ));
+// }
 
-  //   return checklists;
-  // }
+//   return checklists;
+// }
 }
