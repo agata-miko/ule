@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pszczoly_v3/models/hive.dart';
 import 'package:pszczoly_v3/screens/add_hive_screen.dart';
 import 'package:pszczoly_v3/widgets/hives_list.dart';
+import 'package:pszczoly_v3/providers/search_query_providers.dart';
 
 class HivesListScreen extends ConsumerWidget {
   HivesListScreen({super.key, required this.hives});
@@ -12,7 +13,8 @@ class HivesListScreen extends ConsumerWidget {
 
   void _showAddHiveModal(BuildContext context) {
     showModalBottomSheet(
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(25.0))),
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(25.0))),
       context: context,
       isScrollControlled: true,
       builder: (BuildContext context) {
@@ -31,6 +33,7 @@ class HivesListScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
+    final searchQuery = ref.watch(hivesSearchQueryProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Moje ule'),
@@ -48,12 +51,18 @@ class HivesListScreen extends ConsumerWidget {
                       width: double.infinity,
                       child: TextField(
                         controller: _searchController,
+                        onChanged: (query) {
+                          ref.read(hivesSearchQueryProvider.notifier).updateSearchQuery(query);
+                        },
                         decoration: InputDecoration(
                             hintText: 'Znajdź ul...',
                             hintStyle: Theme.of(context).textTheme.bodyMedium,
                             suffixIcon: IconButton(
                               icon: const Icon(Icons.clear),
-                              onPressed: () => _searchController.clear(),
+                              onPressed: () {
+                                _searchController.clear();
+                                ref.read(hivesSearchQueryProvider.notifier).updateSearchQuery('');
+                              },
                             ),
                             prefixIcon: IconButton(
                               icon: const Icon(Icons.search),

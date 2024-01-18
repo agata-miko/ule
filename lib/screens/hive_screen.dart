@@ -34,7 +34,7 @@ class _HiveScreenState extends ConsumerState<HiveScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: SingleChildScrollView(scrollDirection: Axis.horizontal, child: Text(widget.hiveName))),
+      appBar: AppBar(title: FittedBox(fit: BoxFit.scaleDown, child: Text(widget.hiveName))),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[

@@ -5,6 +5,7 @@ import 'package:pszczoly_v3/models/hive.dart';
 import 'package:pszczoly_v3/providers/hive_list_provider.dart';
 import 'package:pszczoly_v3/screens/checklist_screen.dart';
 import 'package:pszczoly_v3/screens/hive_screen.dart';
+import 'package:pszczoly_v3/providers/search_query_providers.dart';
 
 class HivesList extends ConsumerStatefulWidget {
   const HivesList({super.key});
@@ -16,8 +17,10 @@ class HivesList extends ConsumerStatefulWidget {
 }
 
 class _HivesListState extends ConsumerState<HivesList> {
+
   @override
   Widget build(BuildContext context) {
+    final searchQuery = ref.watch(hivesSearchQueryProvider);
     ref.watch(hiveDataProvider);
     final Future<List<Map<String, dynamic>>> hivesListFromDatabase =
     ref.read(databaseProvider).getAllHives();
@@ -43,11 +46,17 @@ class _HivesListState extends ConsumerState<HivesList> {
                 photo: File('${row['photoPath']}'),
               ))
               .toList();
+          List<Hive> displayHives = searchQuery.isEmpty && searchQuery == null
+              ? hivesList
+              : hivesList
+              .where((hive) =>
+              hive.hiveName.toLowerCase().contains(searchQuery.toLowerCase()))
+              .toList();
           return ListView.builder(
-            itemCount: hivesList.length,
+            itemCount: displayHives.length,
             itemBuilder: (context, index) =>
                 Dismissible(
-                  key: Key(hivesList[index].hiveId),
+                  key: Key(displayHives[index].hiveId),
                   background: Container(color: Colors.red[300],
                     alignment: Alignment.centerRight,
                     child: const Icon(Icons.delete),),
@@ -62,7 +71,7 @@ class _HivesListState extends ConsumerState<HivesList> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Text(
-                                '''Na pewno chcesz usunąć ul ${hivesList[index]
+                                '''Na pewno chcesz usunąć ul ${displayHives[index]
                                     .hiveName}? \n\nWszystkie checklisty dla ula zostaną nieodracalnie usunięte.''',
                                 textAlign: TextAlign.left),
                               const SizedBox(height: 15,),
@@ -92,16 +101,17 @@ class _HivesListState extends ConsumerState<HivesList> {
                     );
                   },
                   onDismissed: (direction) async {
-                    await ref.read(databaseProvider).deleteHive(hivesList[index].hiveId);
+                    await ref.read(databaseProvider).deleteHive(displayHives[index].hiveId);
                     ref.read(hiveDataProvider.notifier).deleteHive(
-                        hivesList[index].hiveId);
+                        displayHives[index].hiveId);
+                    ref.read(hivesSearchQueryProvider.notifier).updateSearchQuery('');
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ListTile(
-                      leading: (hivesList[index].photo?.path.isNotEmpty ??
+                      leading: (displayHives[index].photo?.path.isNotEmpty ??
                           false) &&
-                          File(hivesList[index].photo!.path).existsSync()
+                          File(displayHives[index].photo!.path).existsSync()
                           ? Container(
                           width: 60,
                           height: 60,
@@ -110,7 +120,7 @@ class _HivesListState extends ConsumerState<HivesList> {
                               borderRadius: BorderRadius.circular(5.0),
                               image: DecorationImage(
                                 fit: BoxFit.cover,
-                                image: FileImage(hivesList[index].photo!),
+                                image: FileImage(displayHives[index].photo!),
                               )))
                           : Container(
                         width: 60,
@@ -122,7 +132,7 @@ class _HivesListState extends ConsumerState<HivesList> {
                         child: const Icon(Icons.home_filled),
                       ),
                       title: Text(
-                        hivesList[index].hiveName,
+                        displayHives[index].hiveName,
                         style: Theme
                             .of(context)
                             .textTheme
@@ -138,8 +148,8 @@ class _HivesListState extends ConsumerState<HivesList> {
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (ctx) =>
                                     ChecklistScreen(
-                                      hiveId: hivesList[index].hiveId,
-                                      hiveName: hivesList[index].hiveName,
+                                      hiveId: displayHives[index].hiveId,
+                                      hiveName: displayHives[index].hiveName,
                                     )));
                           },
                           icon: const Icon(Icons.checklist)),
@@ -148,9 +158,9 @@ class _HivesListState extends ConsumerState<HivesList> {
                           MaterialPageRoute(
                             builder: (context) =>
                                 HiveScreen(
-                                    hiveName: hivesList[index].hiveName,
-                                    selectedImage: hivesList[index].photo,
-                                    hiveId: hivesList[index].hiveId),
+                                    hiveName: displayHives[index].hiveName,
+                                    selectedImage: displayHives[index].photo,
+                                    hiveId: displayHives[index].hiveId),
                           ),
                         );
                       },

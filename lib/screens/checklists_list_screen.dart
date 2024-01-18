@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pszczoly_v3/providers/search_query_providers.dart';
 import 'package:pszczoly_v3/widgets/checklists_list.dart';
 
 class ChecklistListScreen extends ConsumerWidget {
@@ -14,7 +15,7 @@ class ChecklistListScreen extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     return Scaffold(
       appBar: AppBar(
-        title: SingleChildScrollView(scrollDirection: Axis.horizontal, child: Text('$hiveName Uzupełnione checklisty')),
+        title: FittedBox(fit: BoxFit.scaleDown, child: Text(hiveName)),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -34,7 +35,7 @@ class ChecklistListScreen extends ConsumerWidget {
                             hintStyle: Theme.of(context).textTheme.bodyMedium,
                             suffixIcon: IconButton(
                               icon: const Icon(Icons.clear),
-                              onPressed: () => _searchController.clear(),
+                              onPressed: ()  {_searchController.clear();},
                             ),
                             prefixIcon: IconButton(
                               icon: const Icon(Icons.search),
