@@ -36,6 +36,10 @@ class HivesListScreen extends ConsumerWidget {
     final searchQuery = ref.watch(hivesSearchQueryProvider);
     return Scaffold(
       appBar: AppBar(
+        leading: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+          child: Hero(tag: 'logoTag',child: Image.asset('assets/images/logo.png')),
+        ),
         title: const Text('Moje ule'),
       ),
       body: SingleChildScrollView(
