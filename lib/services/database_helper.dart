@@ -111,8 +111,9 @@ class DatabaseHelper {
 
   Future<int> deleteChecklist(String filledChecklistId) async {
     Database db = await initializeDatabase();
+    await db.delete('QuestionAnswers', where: 'checklistId = ?', whereArgs: [filledChecklistId]);
     return await db.delete('Checklists',
-        where: 'filledChecklistId = ?', whereArgs: [filledChecklistId]);
+        where: 'checklistId = ?', whereArgs: [filledChecklistId]);
   }
 
   Future<int> insertQuestionAnswer(Map<String, dynamic> questionAnswer) async {

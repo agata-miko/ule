@@ -28,7 +28,7 @@ class _StartingScreenState extends ConsumerState<StartingScreen> {
             PageRouteBuilder(
               pageBuilder: (context, animation, secondaryAnimation) =>
                   HivesListScreen(hives: hiveData),
-              transitionDuration: const Duration(microseconds: 180),
+              transitionDuration: const Duration(seconds: 1),
             ),
           );
         }
