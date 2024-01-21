@@ -92,7 +92,8 @@ class DatabaseHelper {
     Database db = await initializeDatabase();
     await db.delete(
       'QuestionAnswers',
-      where: 'EXISTS (SELECT 1 FROM Checklists WHERE hiveId = ? AND Checklists.checklistId = QuestionAnswers.checklistId)',
+      where:
+          'EXISTS (SELECT 1 FROM Checklists WHERE hiveId = ? AND Checklists.checklistId = QuestionAnswers.checklistId)',
       whereArgs: [hiveId],
     );
     await db.delete('Checklists', where: 'hiveId = ?', whereArgs: [hiveId]);
@@ -106,12 +107,14 @@ class DatabaseHelper {
 
   Future<List<Map<String, dynamic>>> getChecklistsForAHive(hiveId) async {
     Database db = await initializeDatabase();
-    return await db.query('Checklists', where: 'hiveId = ?', whereArgs: [hiveId]);
+    return await db
+        .query('Checklists', where: 'hiveId = ?', whereArgs: [hiveId]);
   }
 
   Future<int> deleteChecklist(String filledChecklistId) async {
     Database db = await initializeDatabase();
-    await db.delete('QuestionAnswers', where: 'checklistId = ?', whereArgs: [filledChecklistId]);
+    await db.delete('QuestionAnswers',
+        where: 'checklistId = ?', whereArgs: [filledChecklistId]);
     return await db.delete('Checklists',
         where: 'checklistId = ?', whereArgs: [filledChecklistId]);
   }
@@ -123,7 +126,14 @@ class DatabaseHelper {
 
   Future<List<Map<String, dynamic>>> getAllQuestionAnswers() async {
     Database db = await initializeDatabase();
-    return await db.query('Checklists');
+    return await db.query('QuestionAnswers');
+  }
+
+  Future<List<Map<String, dynamic>>> getQuestionAnswersForChecklist(
+      String filledChecklistId) async {
+    Database db = await initializeDatabase();
+    return await db.query('QuestionAnswers',
+        where: 'checklistId = ?', whereArgs: [filledChecklistId]);
   }
 
   //TYLKO DO TESTOW

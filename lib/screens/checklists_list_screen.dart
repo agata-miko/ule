@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pszczoly_v3/providers/search_query_providers.dart';
 import 'package:pszczoly_v3/widgets/checklists_list.dart';
 
 class ChecklistListScreen extends ConsumerWidget {
@@ -53,7 +52,7 @@ class ChecklistListScreen extends ConsumerWidget {
             const SizedBox(
               height: 10,
             ),
-            SizedBox(height: 340, child: Center(child: ListOfChecklists(hiveId: hiveId))),
+            SizedBox(height: 340, child: Center(child: ListOfChecklists(hiveId: hiveId, hiveName: hiveName,))),
           ],
         ),
       ),
