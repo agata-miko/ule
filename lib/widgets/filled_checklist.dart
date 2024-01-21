@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pszczoly_v3/models/question.dart';
 import 'package:pszczoly_v3/models/question_answer.dart';
 import 'package:pszczoly_v3/providers/hive_list_provider.dart';
 import 'package:pszczoly_v3/data/checklist_questions_data.dart';
@@ -52,10 +53,14 @@ class ChecklistState extends ConsumerState<FilledChecklistDisplay> {
           return ListView.builder(
               itemCount: min(checklistQuestions1.length,
                   questionAnswerForAChecklist.length),
-              itemBuilder: (context, index) => ListTile(
-                    title: Text(checklistQuestions1[index].text),
-                    subtitle: Text(questionAnswerForAChecklist[index].answer),
-                  ));
+              itemBuilder: (context, index) {
+                QuestionAnswer currentAnswer = questionAnswerForAChecklist[index];
+                Question currentQuestion = checklistQuestions1.firstWhere((question) => question.id == currentAnswer.questionId);
+                return ListTile(
+                  title: Text(currentQuestion.text),
+                  subtitle: Text(questionAnswerForAChecklist[index].answer),
+                );
+              });
         });
   }
 }

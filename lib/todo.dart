@@ -10,3 +10,4 @@
 //TODO EXTRA zmiana pozycji ula na liscie
 //TODO funkcjonalnosc do wyszukiwania!
 //TODO czyszczenie searchbarow po usunieciu wyszukanego ula
+//TODO prompt ze nie wszystkie pytania zostaly wypenione?

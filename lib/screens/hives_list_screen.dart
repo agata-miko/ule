@@ -33,7 +33,7 @@ class HivesListScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final searchQuery = ref.watch(hivesSearchQueryProvider);
+    ref.watch(hivesSearchQueryProvider);
     return Scaffold(
       appBar: AppBar(
         leading: Padding(
@@ -70,7 +70,7 @@ class HivesListScreen extends ConsumerWidget {
                             ),
                             prefixIcon: IconButton(
                               icon: const Icon(Icons.search),
-                              onPressed: () {}, // tutaj wyszukiwanie
+                              onPressed: () {},
                             ),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(20))),
