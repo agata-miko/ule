@@ -25,6 +25,28 @@ class ChecklistState extends ConsumerState<FilledChecklistDisplay> {
         .read(databaseProvider)
         .getQuestionAnswersForChecklist(widget.checklistId);
 
+    final Map<String, QuestionAnswer> defaultAnswerMap = {
+      'N/A': QuestionAnswer(
+        questionId: 'N/A',
+        answerType: null,
+        checklistId: 'N/A',
+        answer: 'Brak danych',
+        questionAnswerId: 'N/A',
+      ),
+    };
+
+    String formatAnswer(QuestionAnswer qa) {
+      print('Processing answer: ${qa.answerType}, ${qa.answer}');
+      switch (qa.answerType) {
+        case 'ResponseType.yesNo':
+          return qa.answer == 'true' ? 'Tak' : 'Nie';
+        case 'ResponseType.percentage':
+          return '${double.parse(qa.answer)}%';
+        default:
+          return qa.answer;
+      }
+    }
+
     return FutureBuilder(
       future: questionAnswersList,
       builder: (context, snapshot) {
@@ -55,17 +77,11 @@ class ChecklistState extends ConsumerState<FilledChecklistDisplay> {
           Question currentQuestion = checklistQuestions1[index];
           QuestionAnswer? currentAnswer = questionAnswerForAChecklist.firstWhere(
                 (answer) => answer.questionId == currentQuestion.id,
-            orElse: () => QuestionAnswer(
-              questionId: currentQuestion.id,
-              answerType: null, // Set your default answerType here if needed
-              checklistId: widget.checklistId,
-              answer: 'Brak danych',
-              questionAnswerId: 'N/A',
-            ),
+            orElse: () => defaultAnswerMap['N/A']!,
           );
           return ListTile(
             title: Text(currentQuestion.text),
-            subtitle: Text(currentAnswer.answer, style: TextStyle(color: currentAnswer.answer == 'Brak danych' ? Colors.grey[300] : null),),
+            subtitle: Text(formatAnswer(currentAnswer), style: TextStyle(color: currentAnswer.answer == 'Brak danych' ? Colors.grey[300] : null),),
           );
         });
         //Second approach - displaying only the answered questions - need to choose which one id preffered

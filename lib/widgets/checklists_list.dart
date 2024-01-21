@@ -2,6 +2,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pszczoly_v3/providers/hive_list_provider.dart';
+import 'package:pszczoly_v3/providers/search_query_providers.dart';
 import 'package:pszczoly_v3/screens/filled_checklist_screen.dart';
 import 'package:pszczoly_v3/models/checklist.dart';
 
@@ -21,6 +22,7 @@ class ListOfChecklists extends ConsumerStatefulWidget {
 class _ListOfChecklists extends ConsumerState<ListOfChecklists> {
   @override
   Widget build(BuildContext context) {
+    final searchQuery = ref.watch(checklistSearchQueryProvider);
     ref.watch(hiveDataProvider);
     final Future<List<Map<String, dynamic>>> hivesListFromDatabase =
     ref.read(databaseProvider).getChecklistsForAHive(widget.hiveId);
@@ -49,11 +51,19 @@ class _ListOfChecklists extends ConsumerState<ListOfChecklists> {
               ))
               .toList();
 
+          List<Checklist> displayChecklists = searchQuery.isEmpty && searchQuery == null
+              ? checklistList
+              : checklistList
+              .where((checklist) => checklist.checklistDate.toString()
+              .toLowerCase()
+              .contains(searchQuery.toLowerCase()))
+              .toList();
+
           return ListView.builder(
-            itemCount: checklistList.length,
+            itemCount: displayChecklists.length,
             itemBuilder: (context, index) =>
                 Dismissible(
-                  key: Key(checklistList[index].checklistId),
+                  key: Key(displayChecklists[index].checklistId),
                   background: Container(
                     color: Colors.red[300],
                     alignment: Alignment.centerRight,
@@ -108,7 +118,7 @@ class _ListOfChecklists extends ConsumerState<ListOfChecklists> {
                   onDismissed: (direction) async {
                     await ref
                         .read(databaseProvider)
-                        .deleteChecklist(checklistList[index].checklistId);
+                        .deleteChecklist(displayChecklists[index].checklistId);
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -121,7 +131,7 @@ class _ListOfChecklists extends ConsumerState<ListOfChecklists> {
                             const SizedBox(width: 30),
                             Text(
                               DateFormat.yMd()
-                                  .format(checklistList[index].checklistDate),
+                                  .format(displayChecklists[index].checklistDate),
                               style: Theme
                                   .of(context)
                                   .textTheme
@@ -137,8 +147,8 @@ class _ListOfChecklists extends ConsumerState<ListOfChecklists> {
                       ),
                       onTap: () {Navigator.of(context).push(MaterialPageRoute(
                           builder: (ctx) => FilledChecklistScreen(hiveId: widget.hiveId,
-                              checklistId: checklistList[index].checklistId,
-                              checklistDate: checklistList[index].checklistDate,
+                              checklistId: displayChecklists[index].checklistId,
+                              checklistDate: displayChecklists[index].checklistDate,
                               hiveName: widget.hiveName)));},
                     ),
                   ),

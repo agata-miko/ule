@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pszczoly_v3/providers/search_query_providers.dart';
 import 'package:pszczoly_v3/widgets/checklists_list.dart';
 
 class ChecklistListScreen extends ConsumerWidget {
@@ -12,6 +13,7 @@ class ChecklistListScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
+    ref.watch(checklistSearchQueryProvider);
     return Scaffold(
       appBar: AppBar(
         title: FittedBox(fit: BoxFit.scaleDown, child: Text(hiveName)),
@@ -29,12 +31,16 @@ class ChecklistListScreen extends ConsumerWidget {
                       width: double.infinity,
                       child: TextField(
                         controller: _searchController,
+                        onChanged: (query) {
+                          ref.read(checklistSearchQueryProvider.notifier).updateSearchQuery(query);
+                        },
                         decoration: InputDecoration(
                             hintText: 'Znajdź checklistę...',
                             hintStyle: Theme.of(context).textTheme.bodyMedium,
                             suffixIcon: IconButton(
                               icon: const Icon(Icons.clear),
-                              onPressed: ()  {_searchController.clear();},
+                              onPressed: ()  {_searchController.clear();
+                              ref.read(checklistSearchQueryProvider.notifier).updateSearchQuery('');},
                             ),
                             prefixIcon: IconButton(
                               icon: const Icon(Icons.search),
