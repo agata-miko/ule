@@ -40,13 +40,15 @@ class ChecklistListScreen extends ConsumerWidget {
                             suffixIcon: IconButton(
                               icon: const Icon(Icons.clear),
                               onPressed: ()  {_searchController.clear();
-                              ref.read(checklistSearchQueryProvider.notifier).updateSearchQuery('');},
+                              ref.read(checklistSearchQueryProvider.notifier).updateSearchQuery('');
+                              FocusScope.of(context).unfocus();},
                             ),
                             prefixIcon: IconButton(
                               icon: const Icon(Icons.search),
                               onPressed: () {}, // tutaj wyszukiwanie
                             ),
                             border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
                                 borderRadius: BorderRadius.circular(20))),
                       )),
                 ),

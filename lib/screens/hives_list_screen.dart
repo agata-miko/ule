@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:pszczoly_v3/models/hive.dart';
 import 'package:pszczoly_v3/screens/add_hive_screen.dart';
 import 'package:pszczoly_v3/widgets/hives_list.dart';
@@ -35,17 +37,25 @@ class HivesListScreen extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     ref.watch(hivesSearchQueryProvider);
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-          child: Hero(tag: 'logoTag',child: Image.asset('assets/images/logo.png')),
-        ),
-        title: const Text('Moje ule'),
+        leadingWidth: 100,
+        leading: Center(
+            child: Text(
+          'ULala',
+          style: TextStyle(
+            fontFamily: GoogleFonts.zeyada().fontFamily,
+            fontSize: 31,
+          ),
+        )),
+        // title: const Text('Moje ule'),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            const SizedBox(height: 20),
+            // Text('Dodane ule', style: Theme.of(context).textTheme.bodyLarge,),
+            // const SizedBox(height: 10,),
+            // const Divider(thickness: 0.1),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -56,7 +66,9 @@ class HivesListScreen extends ConsumerWidget {
                       child: TextField(
                         controller: _searchController,
                         onChanged: (query) {
-                          ref.read(hivesSearchQueryProvider.notifier).updateSearchQuery(query);
+                          ref
+                              .read(hivesSearchQueryProvider.notifier)
+                              .updateSearchQuery(query);
                         },
                         decoration: InputDecoration(
                             hintText: 'Znajdź ul...',
@@ -65,7 +77,10 @@ class HivesListScreen extends ConsumerWidget {
                               icon: const Icon(Icons.clear),
                               onPressed: () {
                                 _searchController.clear();
-                                ref.read(hivesSearchQueryProvider.notifier).updateSearchQuery('');
+                                ref
+                                    .read(hivesSearchQueryProvider.notifier)
+                                    .updateSearchQuery('');
+                                FocusScope.of(context).unfocus();
                               },
                             ),
                             prefixIcon: IconButton(
@@ -73,12 +88,11 @@ class HivesListScreen extends ConsumerWidget {
                               onPressed: () {},
                             ),
                             border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
                                 borderRadius: BorderRadius.circular(20))),
                       )),
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
+                SizedBox(height: 10,)
                 // Center(
                 //   child: ElevatedButton(
                 //     onPressed: () {
@@ -102,10 +116,10 @@ class HivesListScreen extends ConsumerWidget {
                 // ),
               ],
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            const SizedBox(height: 340, child: HivesList()),
+            // const SizedBox(
+            //   height: 10,
+            // ),
+            const SizedBox(height: 380, child: HivesList()),
             FloatingActionButton(
               onPressed: () {
                 _showAddHiveModal(context);
@@ -115,7 +129,9 @@ class HivesListScreen extends ConsumerWidget {
                 //   ),
                 // );
               },
-              backgroundColor: Theme.of(context).colorScheme.secondary,
+              shape: CircleBorder(),
+              backgroundColor: Colors.white,
+              elevation: 8,
               child: const Icon(Icons.add_home),
             ),
           ],

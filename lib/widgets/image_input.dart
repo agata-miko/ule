@@ -35,20 +35,40 @@ class _ImageInputState extends ConsumerState<ImageInput> {
 
   @override
   Widget build(BuildContext context) {
-    Widget content = TextButton.icon(
-      icon: const Icon(Icons.camera),
-      label: const Text('Zrób zdjęcie'),
-      onPressed: _takePicture,
+    Widget content = Card(
+      color: Theme.of(context).colorScheme.primaryContainer,
+      elevation: 0,
+      child: GestureDetector(
+        onTap: () {
+          _takePicture();
+        },
+        child: const Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Icon(Icons.camera_alt_outlined, size: 45,),
+            Text('Zrób zdjęcie'),
+          ],
+        ),
+      ),
     );
+
+    // TextButton.icon(
+    //   icon: const Icon(Icons.camera_alt_outlined,),
+    //   label: Text('Zrób zdjęcie', style: Theme.of(context).textTheme.bodyMedium,),
+    //   onPressed: _takePicture,
+    // );
 
     if (_selectedImage != null) {
       content = GestureDetector(
         onTap: _takePicture,
-        child: Image.file(
-          _selectedImage!,
-          fit: BoxFit.cover,
-          width: double.infinity,
-          height: double.infinity,
+        child: ClipRRect(borderRadius: BorderRadius.circular(20),
+          child: Image.file(
+            _selectedImage!,
+            fit: BoxFit.cover,
+            width: double.infinity,
+            height: double.infinity,
+          ),
         ),
       );
     }

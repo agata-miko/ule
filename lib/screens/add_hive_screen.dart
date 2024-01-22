@@ -53,16 +53,17 @@ class _AddHiveScreenState extends ConsumerState<AddHiveScreen> {
               padding: const EdgeInsets.all(8.0),
               child: TextField(
                 controller: _titleController,
-                decoration: const InputDecoration(hintText: 'Nazwa/numer ula'),
+                decoration: InputDecoration(hintText: 'Nazwa/numer ula', hintStyle: Theme.of(context).textTheme.bodyMedium),
               ),
             ),
             const SizedBox(
               height: 20,
             ),
             FloatingActionButton.extended(
+              shape: CircleBorder(),
+              // shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
               onPressed: _saveHive,
-              backgroundColor: Theme.of(context).colorScheme.secondary,
-              label: const Text('Dodaj ul'),
+              label: const Icon(Icons.add),
             ),
             const SizedBox(
               height: 20,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:modern_themes/modern_themes_comps.dart';
 import 'package:pszczoly_v3/models/filled_checklist.dart';
 import 'package:pszczoly_v3/models/question.dart';
 import 'package:pszczoly_v3/models/question_answer.dart';
@@ -84,7 +85,7 @@ class ChecklistState extends ConsumerState<Checklist> {
   Widget buildQuestionCard(Question question) {
     return Card(
       elevation: 0,
-      color: Theme.of(context).colorScheme.secondary.withOpacity(0.1),
+      color: Theme.of(context).colorScheme.primaryContainer,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -94,13 +95,13 @@ class ChecklistState extends ConsumerState<Checklist> {
               question.text.toUpperCase(),
               style: Theme.of(context)
                   .textTheme
-                  .bodyMedium!
-                  .copyWith(fontWeight: FontWeight.bold),
+                  .bodyMedium!,
+                  // .copyWith(fontWeight: FontWeight.bold),
               textAlign: TextAlign.start,
             ),
           ),
           buildResponseWidget(question, questionAnswersMap[question.id]),
-        ],
+        Divider(thickness: 0.1),],
       ),
     );
   }
@@ -154,9 +155,9 @@ class ChecklistState extends ConsumerState<Checklist> {
             style: const TextStyle(height: 1),
             decoration: InputDecoration(
               hintText: 'Odpowiedź',
-              hintStyle: const TextStyle(fontSize: 16, color: Colors.grey),
+              hintStyle: Theme.of(context).textTheme.bodyMedium,
               filled: true,
-              fillColor: Colors.grey.withOpacity(0.1),
+              fillColor: Colors.grey[50],
               border: InputBorder.none,
             ),
             onChanged: (String value) {

@@ -125,8 +125,8 @@ class _HivesListState extends ConsumerState<HivesList> {
                           width: 60,
                           height: 60,
                           decoration: BoxDecoration(
-                              shape: BoxShape.rectangle,
-                              borderRadius: BorderRadius.circular(5.0),
+                              shape: BoxShape.circle,
+                              // borderRadius: BorderRadius.circular(20),
                               image: DecorationImage(
                                 fit: BoxFit.cover,
                                 image: FileImage(displayHives[index].photo!),
@@ -142,7 +142,7 @@ class _HivesListState extends ConsumerState<HivesList> {
                         ),
                   title: Text(
                     displayHives[index].hiveName,
-                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                         color: Theme.of(context).colorScheme.onBackground),
                   ),
                   trailing: IconButton(
@@ -153,7 +153,7 @@ class _HivesListState extends ConsumerState<HivesList> {
                                   hiveName: displayHives[index].hiveName,
                                 )));
                       },
-                      icon: const Icon(Icons.checklist)),
+                      icon: const Icon(Icons.edit_note, color: Colors.black54,)),
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(

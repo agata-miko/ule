@@ -135,7 +135,7 @@ class _ListOfChecklists extends ConsumerState<ListOfChecklists> {
                               style: Theme
                                   .of(context)
                                   .textTheme
-                                  .titleLarge!
+                                  .bodyLarge!
                                   .copyWith(
                                   color: Theme
                                       .of(context)

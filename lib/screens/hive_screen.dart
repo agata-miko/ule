@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pszczoly_v3/models/note.dart';
 import 'package:pszczoly_v3/screens/checklist_screen.dart';
 import 'package:pszczoly_v3/screens/checklists_list_screen.dart';
@@ -34,21 +35,34 @@ class _HiveScreenState extends ConsumerState<HiveScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: FittedBox(fit: BoxFit.scaleDown, child: Text(widget.hiveName))),
+      appBar: AppBar(
+        title: Text(
+          'ULala',
+          style: TextStyle(
+            fontFamily: GoogleFonts.zeyada().fontFamily,
+            fontSize: 31,
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
+            Text(
+              'Ul ${widget.hiveName}',
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: widget.selectedImage != null &&
                       widget.selectedImage!.path.isNotEmpty &&
                       File(widget.selectedImage!.path).existsSync()
-                  ? SizedBox(
-                      height: 250,
-                      width: double.infinity,
+                  ? ClipRRect(
+                     borderRadius: BorderRadius.circular(20),
                       child: Image.file(
                         widget.selectedImage!,
                         fit: BoxFit.cover,
+                        height: 250,
+                        width: double.infinity,
                       ),
                     )
                   : ImageInput(onPickImage: (image) {
@@ -86,14 +100,19 @@ class _HiveScreenState extends ConsumerState<HiveScreen> {
                   onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                          builder: (ctx) => ChecklistListScreen(hiveId: widget.hiveId, hiveName: widget.hiveName,)),
+                          builder: (ctx) => ChecklistListScreen(
+                                hiveId: widget.hiveId,
+                                hiveName: widget.hiveName,
+                              )),
                     );
                   },
                   child: const Text('Zobacz checklisty'),
                 ),
               ],
             ),
-            NoteEditor(hiveId: widget.hiveId,),
+            NoteEditor(
+              hiveId: widget.hiveId,
+            ),
             // const NoteEditor(),
           ],
         ),
