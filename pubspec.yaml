@@ -46,6 +46,7 @@ dependencies:
   modern_themes: ^1.5.4
   google_fonts: ^6.1.0
   animated_text_kit: ^4.2.2
+  palette_generator: ^0.3.3+3
 
 dev_dependencies:
   flutter_test:
