@@ -34,8 +34,39 @@ class _HiveScreenState extends ConsumerState<HiveScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var imageDisplay = widget.selectedImage != null &&
+            widget.selectedImage!.path.isNotEmpty &&
+            File(widget.selectedImage!.path).existsSync()
+        ? Image.file(
+            widget.selectedImage!,
+            fit: BoxFit.cover,
+          )
+        : ImageInput(onPickImage: (image) {
+            updateHiveData(context, image);
+          });
+    widget.selectedImage == null
+        ? TextButton(
+            onPressed: () {
+              ref
+                  .read(hiveDataProvider.notifier)
+                  .updateHivePhoto(widget.hiveName, widget.selectedImage);
+              Navigator.of(context).pop();
+            },
+            child: const Text('Dodaj zdjęcie'),
+          )
+        : const SizedBox(
+            height: 10,
+          );
+
+    bool _shouldExtendBody() {
+      // Check if the keyboard is open and the screen is adjusting
+      return !(MediaQuery.of(context).viewInsets.bottom > 0 &&
+          MediaQuery.of(context).viewInsets.bottom !=
+              MediaQuery.of(context).padding.bottom);
+    }
+
     return Scaffold(
-      extendBodyBehindAppBar: true,
+      extendBodyBehindAppBar: _shouldExtendBody(),
       appBar: AppBar(
         //TODO make the appbar's text and icon color dependent on the color palette of the photo taken by user
         title: Text(
@@ -47,83 +78,60 @@ class _HiveScreenState extends ConsumerState<HiveScreen> {
         ),
       ),
       body: Stack(
-        children: <Widget>[
-          // Background Image
-          Positioned.fill(
-            bottom: 100.0,
-            child: widget.selectedImage != null &&
-                    widget.selectedImage!.path.isNotEmpty &&
-                    File(widget.selectedImage!.path).existsSync()
-                ? Image.file(
-                    widget.selectedImage!,
-                    fit: BoxFit.cover,
-                  )
-                : ImageInput(onPickImage: (image) {
-                    updateHiveData(context, image);
-                  }),
-          ),
-
-          // Overlay Card
+        children: [
           Positioned(
-            bottom: 0.0,
-            left: 0.0,
-            right: 0.0,
-            top: 350,
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(
-                maxHeight: 300,
-              ),
-              child: Container(
-                decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20)), color: Colors.white),
+            child: imageDisplay,
+            bottom: MediaQuery.of(context).size.height * 0.2,
+            left: 0,
+            right: 0,
+            top: 0,
+          ),
+          Positioned(bottom: 0,
+              left: 0,
+              right: 0,
+            top: null,
+            child: Container(height: MediaQuery.of(context).size.height * 0.5,
+              child: Card(color: Theme.of(context).colorScheme.primaryContainer,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: SingleChildScrollView(
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      const SizedBox(height: 20,),
-                      Text(widget.hiveName, style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 25), textAlign: TextAlign.center),
-                      const SizedBox(height: 20,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (ctx) => ChecklistScreen(
-                                    hiveId: widget.hiveId,
-                                    hiveName: widget.hiveName,
-                                  ),
-                                ),
-                              );
-                            },
-                            child: const Text('Nowa checklista'),
-                          ),
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (ctx) => ChecklistListScreen(
-                                    hiveId: widget.hiveId,
-                                    hiveName: widget.hiveName,
-                                  ),
-                                ),
-                              );
-                            },
-                            child: const Text('Zobacz checklisty'),
-                          ),
-                        ],
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (ctx) => ChecklistScreen(
+                                  hiveId: widget.hiveId,
+                                  hiveName: widget.hiveName,
+                                )),
+                          );
+                        },
+                        child: const Text('Nowa checklista'),
                       ),
-                      const SizedBox(height: 10),
-                      NoteEditor(hiveId: widget.hiveId),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (ctx) => ChecklistListScreen(
+                                  hiveId: widget.hiveId,
+                                  hiveName: widget.hiveName,
+                                )),
+                          );
+                        },
+                        child: const Text('Zobacz checklisty'),
+                      ),
+                      NoteEditor(
+                        hiveId: widget.hiveId,
+                      ),
                     ],
                   ),
                 ),
               ),
-            ),
-          ),
+                        ),
+            ),),
         ],
       ),
     );

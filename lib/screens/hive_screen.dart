@@ -52,17 +52,16 @@
 //             //   style: Theme.of(context).textTheme.bodyLarge,
 //             // ),
 //             Padding(
-//               padding: const EdgeInsets.all(8.0),
+//               padding: const EdgeInsets.all(8),
 //               child: widget.selectedImage != null &&
 //                       widget.selectedImage!.path.isNotEmpty &&
 //                       File(widget.selectedImage!.path).existsSync()
-//                   ? ClipRRect(
-//                       borderRadius: BorderRadius.circular(30),
+//                   ? ClipOval(
 //                       child: Image.file(
 //                         widget.selectedImage!,
 //                         fit: BoxFit.cover,
-//                         height: 250,
-//                         width: double.infinity,
+//                         height: MediaQuery.of(context).size.height / 2,
+//                         width: MediaQuery.of(context).size.height / 2,
 //                       ),
 //                     )
 //                   : ImageInput(onPickImage: (image) {
@@ -111,11 +110,11 @@
 //                     },
 //                     child: const Text('Zobacz checklisty'),
 //                   ),
+//                   NoteEditor(
+//                     hiveId: widget.hiveId,
+//                   ),
 //                 ],
 //               ),
-//             ),
-//             NoteEditor(
-//               hiveId: widget.hiveId,
 //             ),
 //             // const NoteEditor(),
 //           ],
