@@ -68,18 +68,18 @@
 //                       updateHiveData(context, image);
 //                     }),
 //             ),
-//             widget.selectedImage == null
-//                 ? TextButton(
-//                     onPressed: () {
-//                       ref.read(hiveDataProvider.notifier).updateHivePhoto(
-//                           widget.hiveName, widget.selectedImage);
-//                       Navigator.of(context).pop();
-//                     },
-//                     child: const Text('Dodaj zdjęcie'),
-//                   )
-//                 : const SizedBox(
-//                     height: 10,
-//                   ),
+//             // widget.selectedImage == null
+//             //     ? TextButton(
+//             //         onPressed: () {
+//             //           ref.read(hiveDataProvider.notifier).updateHivePhoto(
+//             //               widget.hiveName, widget.selectedImage);
+//             //           Navigator.of(context).pop();
+//             //         },
+//             //         child: const Text('Dodaj zdjęcie'),
+//             //       )
+//             //     : const SizedBox(
+//             //         height: 10,
+//             //       ),
 //             Padding(
 //               padding: const EdgeInsets.all(8.0),
 //               child: Column(

@@ -80,7 +80,7 @@ class _ImageInputState extends ConsumerState<ImageInput> {
       //     color: Theme.of(context).colorScheme.primary.withOpacity(0.5),
       //   ),
       // ),
-      height: MediaQuery.of(context).size.height * 0.3,
+      height: 250,
       width: double.infinity,
       alignment: Alignment.center,
       child: content,

@@ -44,19 +44,8 @@ class _HiveScreenState extends ConsumerState<HiveScreen> {
         : ImageInput(onPickImage: (image) {
             updateHiveData(context, image);
           });
-    widget.selectedImage == null
-        ? TextButton(
-            onPressed: () {
-              ref
-                  .read(hiveDataProvider.notifier)
-                  .updateHivePhoto(widget.hiveName, widget.selectedImage);
-              Navigator.of(context).pop();
-            },
-            child: const Text('Dodaj zdjęcie'),
-          )
-        : const SizedBox(
-            height: 10,
-          );
+
+    bool isImageDisplayPhoto() {return imageDisplay is Image ? true : false;}
 
     bool _shouldExtendBody() {
       // Check if the keyboard is open and the screen is adjusting
@@ -88,8 +77,8 @@ class _HiveScreenState extends ConsumerState<HiveScreen> {
               child: SizedBox(height: MediaQuery.of(context).size.height * 0.8,
                 child: Stack(
                   children: [
-                    imageDisplay,
-                    Container(
+                    isImageDisplayPhoto() ? imageDisplay : Center(child: imageDisplay),
+                    if (isImageDisplayPhoto()) Container(
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           begin: Alignment.center,
