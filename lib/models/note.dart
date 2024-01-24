@@ -39,6 +39,7 @@ class NoteEditorState extends ConsumerState<NoteEditor> {
     return Container(
       padding: const EdgeInsets.all(16.0),
       child: TextField(
+        style: Theme.of(context).textTheme.bodyMedium,
         maxLines: null,
         controller: _textEditingController,
         textAlign: TextAlign.justify,

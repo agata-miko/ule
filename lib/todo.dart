@@ -12,3 +12,4 @@
 //TODO czyszczenie searchbarow po usunieciu wyszukanego ula
 //TODO prompt ze nie wszystkie pytania zostaly wypelnione?
 //TODO MediaQuery
+//TODO dodawanie zdjecia z biblioteki IMAGE PICKER?

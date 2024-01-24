@@ -17,10 +17,10 @@ class _ImageInputState extends ConsumerState<ImageInput> {
 
   File? _selectedImage;
 
-  void _takePicture() async {
+  void _takePicture(ImageSource source) async {
     final imagePicker = ImagePicker();
     final pickedImage =
-        await imagePicker.pickImage(source: ImageSource.camera, maxWidth: 600);
+        await imagePicker.pickImage(source: source, maxWidth: 600);
 
     if (pickedImage == null) {
       return;
@@ -38,18 +38,35 @@ class _ImageInputState extends ConsumerState<ImageInput> {
     Widget content = Card(
       color: Theme.of(context).colorScheme.primaryContainer,
       elevation: 0,
-      child: GestureDetector(
-        onTap: () {
-          _takePicture();
-        },
-        child: const Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Icon(Icons.camera_alt_outlined, size: 45,),
-            Text('Zrób zdjęcie'),
-          ],
-        ),
+      child: Column(
+        children: [
+          GestureDetector(
+            onTap: () {
+              _takePicture(ImageSource.camera);
+            },
+            child: const Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Icon(Icons.camera_alt_outlined, size: 45,),
+                Text('Zrób zdjęcie'),
+              ],
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              _takePicture(ImageSource.gallery);
+            },
+            child: const Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Icon(Icons.photo_library, size: 45,),
+                Text('Wybierz z galerii'),
+              ],
+            ),
+          ),
+        ],
       ),
     );
 
@@ -61,13 +78,15 @@ class _ImageInputState extends ConsumerState<ImageInput> {
 
     if (_selectedImage != null) {
       content = GestureDetector(
-        onTap: _takePicture,
+        onTap: () {
+          _takePicture(ImageSource.camera);
+        },
         child: ClipRRect(borderRadius: BorderRadius.circular(20),
           child: Image.file(
             _selectedImage!,
             fit: BoxFit.cover,
-            width: double.infinity,
-            height: double.infinity,
+            width: MediaQuery.of(context).size.width * 0.9,
+            height: MediaQuery.of(context).size.height * 0.5,
           ),
         ),
       );
@@ -80,10 +99,15 @@ class _ImageInputState extends ConsumerState<ImageInput> {
       //     color: Theme.of(context).colorScheme.primary.withOpacity(0.5),
       //   ),
       // ),
-      height: 250,
+      height: MediaQuery.of(context).size.height * 0.5,
       width: double.infinity,
       alignment: Alignment.center,
-      child: content,
+      child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        content,
+      ],
+    ),
     );
   }
 }

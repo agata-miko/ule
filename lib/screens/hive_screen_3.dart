@@ -40,12 +40,15 @@ class _HiveScreenState extends ConsumerState<HiveScreen> {
         ? Image.file(
             widget.selectedImage!,
             fit: BoxFit.cover,
+            height: MediaQuery.of(context).size.height,
           )
         : ImageInput(onPickImage: (image) {
             updateHiveData(context, image);
           });
 
-    bool isImageDisplayPhoto() {return imageDisplay is Image ? true : false;}
+    bool isImageDisplayPhoto() {
+      return imageDisplay is Image ? true : false;
+    }
 
     bool _shouldExtendBody() {
       // Check if the keyboard is open and the screen is adjusting
@@ -57,12 +60,14 @@ class _HiveScreenState extends ConsumerState<HiveScreen> {
     return Scaffold(
       extendBodyBehindAppBar: _shouldExtendBody(),
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
         //TODO make the appbar's text and icon color dependent on the color palette of the photo taken by user
         title: Text(
           'ULala',
           style: TextStyle(
             fontFamily: GoogleFonts.zeyada().fontFamily,
             fontSize: 31,
+            color: Colors.white,
           ),
         ),
       ),
@@ -74,22 +79,26 @@ class _HiveScreenState extends ConsumerState<HiveScreen> {
             right: 0,
             top: 0,
             child: SingleChildScrollView(
-              child: SizedBox(height: MediaQuery.of(context).size.height * 0.8,
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height * 0.8,
                 child: Stack(
                   children: [
-                    isImageDisplayPhoto() ? imageDisplay : Center(child: imageDisplay),
-                    if (isImageDisplayPhoto()) Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.center,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Colors.transparent,
-                            Theme.of(context).colorScheme.primaryContainer
-                          ],
+                    isImageDisplayPhoto()
+                        ? imageDisplay
+                        : Center(child: imageDisplay),
+                    if (isImageDisplayPhoto())
+                      Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.center,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Colors.transparent,
+                              Theme.of(context).colorScheme.primaryContainer
+                            ],
+                          ),
                         ),
                       ),
-                    ),
                   ],
                 ),
               ),
@@ -102,7 +111,7 @@ class _HiveScreenState extends ConsumerState<HiveScreen> {
             top: null,
             child: ConstrainedBox(
               constraints: BoxConstraints(
-                  maxHeight: MediaQuery.of(context).size.height * 0.5),
+                  maxHeight: MediaQuery.of(context).size.height * 0.4),
               child: Card(
                 color: Theme.of(context).colorScheme.primaryContainer,
                 child: Padding(
@@ -112,6 +121,16 @@ class _HiveScreenState extends ConsumerState<HiveScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: Center(
+                            child: Text(widget.hiveName,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                            ),
+                          ),
+                        ),
                         ElevatedButton(
                           onPressed: () {
                             Navigator.of(context).push(
