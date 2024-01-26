@@ -7,6 +7,7 @@ import 'package:pszczoly_v3/models/question_answer.dart';
 import 'package:pszczoly_v3/providers/hive_list_provider.dart';
 import 'package:pszczoly_v3/widgets/percentage_slider.dart';
 import 'package:pszczoly_v3/data/checklist_questions_data.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Checklist extends ConsumerStatefulWidget {
   Checklist({Key? key, required this.hiveId, required this.checklistDate})
@@ -22,7 +23,7 @@ class Checklist extends ConsumerStatefulWidget {
 }
 
 class ChecklistState extends ConsumerState<Checklist> {
-  final checklistQuestions1 = getChecklistQuestions();
+
   Map<String, dynamic> questionAnswersMap = {};
   final List<QuestionAnswer> finalQuestionAnswerList = [];
 
@@ -40,6 +41,7 @@ class ChecklistState extends ConsumerState<Checklist> {
 
   @override
   Widget build(BuildContext context) {
+    final checklistQuestions1 = getChecklistQuestions(context);
     return Column(
       children: [
         Expanded(
@@ -57,7 +59,7 @@ class ChecklistState extends ConsumerState<Checklist> {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: const Text('Cofnij')),
+                child: Text(AppLocalizations.of(context)!.back)),
             ElevatedButton(
                 onPressed: () {
                   addOrUpdateFinalAnswers();
@@ -75,7 +77,7 @@ class ChecklistState extends ConsumerState<Checklist> {
                   Navigator.of(context).pop();
                   finalQuestionAnswerList.clear();
                 },
-                child: const Text('Zapisz')),
+                child: Text(AppLocalizations.of(context)!.save)),
           ],
         ),
       ],
@@ -101,7 +103,7 @@ class ChecklistState extends ConsumerState<Checklist> {
             ),
           ),
           buildResponseWidget(question, questionAnswersMap[question.id]),
-        Divider(thickness: 0.1),],
+        const Divider(thickness: 0.1),],
       ),
     );
   }
@@ -128,7 +130,7 @@ class ChecklistState extends ConsumerState<Checklist> {
                 });
               },
             ),
-            const Text('Tak'),
+            Text(AppLocalizations.of(context)!.yes),
             Radio(
               value: false,
               groupValue: questionAnswer is QuestionAnswer
@@ -145,7 +147,7 @@ class ChecklistState extends ConsumerState<Checklist> {
                 });
               },
             ),
-            const Text('Nie'),
+            Text(AppLocalizations.of(context)!.no),
           ],
         );
       case ResponseType.text:
@@ -154,7 +156,7 @@ class ChecklistState extends ConsumerState<Checklist> {
           child: TextField(
             style: const TextStyle(height: 1),
             decoration: InputDecoration(
-              hintText: 'Odpowiedź',
+              hintText: AppLocalizations.of(context)!.answerHint,
               hintStyle: Theme.of(context).textTheme.bodyMedium,
               filled: true,
               fillColor: Colors.grey[50],

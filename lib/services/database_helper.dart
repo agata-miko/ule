@@ -1,6 +1,8 @@
 import 'dart:io';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DatabaseHelper {
   static const String _databaseName = 'Hives.db';
@@ -84,7 +86,7 @@ class DatabaseHelper {
     if (result.isNotEmpty && result[0]['note'] != null) {
       return result[0]['note'];
     } else {
-      return 'Notatki';
+      return '';
     }
   }
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pszczoly_v3/providers/search_query_providers.dart';
 import 'package:pszczoly_v3/widgets/checklists_list.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ChecklistListScreen extends ConsumerWidget {
   ChecklistListScreen({super.key, required this.hiveId, required this.hiveName});
@@ -35,7 +36,7 @@ class ChecklistListScreen extends ConsumerWidget {
                           ref.read(checklistSearchQueryProvider.notifier).updateSearchQuery(query);
                         },
                         decoration: InputDecoration(
-                            hintText: 'Znajdź checklistę...',
+                            hintText: AppLocalizations.of(context)!.hintChecklistSearch,
                             hintStyle: Theme.of(context).textTheme.bodyMedium,
                             suffixIcon: IconButton(
                               icon: const Icon(Icons.clear),
@@ -45,7 +46,7 @@ class ChecklistListScreen extends ConsumerWidget {
                             ),
                             prefixIcon: IconButton(
                               icon: const Icon(Icons.search),
-                              onPressed: () {}, // tutaj wyszukiwanie
+                              onPressed: () {},
                             ),
                             border: OutlineInputBorder(
                               borderSide: BorderSide.none,

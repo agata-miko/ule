@@ -2,11 +2,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pszczoly_v3/models/note.dart';
+import 'package:pszczoly_v3/widgets/note.dart';
 import 'package:pszczoly_v3/screens/checklist_screen.dart';
 import 'package:pszczoly_v3/screens/checklists_list_screen.dart';
 import 'package:pszczoly_v3/widgets/image_input.dart';
 import '../providers/hive_list_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HiveScreen extends ConsumerStatefulWidget {
   HiveScreen({
@@ -60,14 +61,14 @@ class _HiveScreenState extends ConsumerState<HiveScreen> {
     return Scaffold(
       extendBodyBehindAppBar: _shouldExtendBody(),
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: IconThemeData(color: isImageDisplayPhoto == true ? Colors.white : Colors.black54),
         //TODO make the appbar's text and icon color dependent on the color palette of the photo taken by user
         title: Text(
           'ULala',
           style: TextStyle(
             fontFamily: GoogleFonts.zeyada().fontFamily,
             fontSize: 31,
-            color: Colors.white,
+            color: isImageDisplayPhoto == true ? Colors.white : Colors.black54,
           ),
         ),
       ),
@@ -111,9 +112,9 @@ class _HiveScreenState extends ConsumerState<HiveScreen> {
             top: null,
             child: ConstrainedBox(
               constraints: BoxConstraints(
-                  maxHeight: MediaQuery.of(context).size.height * 0.4),
+                  maxHeight: MediaQuery.of(context).size.height * 0.6),
               child: Card(
-                color: Theme.of(context).colorScheme.primaryContainer,
+                color: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.9),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SingleChildScrollView(
@@ -127,7 +128,7 @@ class _HiveScreenState extends ConsumerState<HiveScreen> {
                             child: Text(widget.hiveName,
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyLarge!
+                                    .bodyLarge!.copyWith(fontSize: 25, fontWeight: FontWeight.w600)
                             ),
                           ),
                         ),
@@ -141,7 +142,7 @@ class _HiveScreenState extends ConsumerState<HiveScreen> {
                                       )),
                             );
                           },
-                          child: const Text('Nowa checklista'),
+                          child: Text(AppLocalizations.of(context)!.newChecklist),
                         ),
                         ElevatedButton(
                           onPressed: () {
@@ -153,7 +154,7 @@ class _HiveScreenState extends ConsumerState<HiveScreen> {
                                       )),
                             );
                           },
-                          child: const Text('Zobacz checklisty'),
+                          child: Text(AppLocalizations.of(context)!.seeOldChecklists),
                         ),
                         NoteEditor(
                           hiveId: widget.hiveId,

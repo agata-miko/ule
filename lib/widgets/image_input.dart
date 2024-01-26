@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 class ImageInput extends ConsumerStatefulWidget {
@@ -44,25 +45,27 @@ class _ImageInputState extends ConsumerState<ImageInput> {
             onTap: () {
               _takePicture(ImageSource.camera);
             },
-            child: const Column(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Icon(Icons.camera_alt_outlined, size: 45,),
-                Text('Zrób zdjęcie'),
+                const Icon(Icons.camera_alt_outlined, size: 25,),
+                const SizedBox(width: 5,),
+                Text(AppLocalizations.of(context)!.takePhoto),
               ],
             ),
           ),
+          const SizedBox(height: 10,),
           GestureDetector(
             onTap: () {
               _takePicture(ImageSource.gallery);
             },
-            child: const Column(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Icon(Icons.photo_library, size: 45,),
-                Text('Wybierz z galerii'),
+                const Icon(Icons.photo_library, size: 25,),
+                const SizedBox(width: 5,),
+                Text(AppLocalizations.of(context)!.chooseFromGallery),
               ],
             ),
           ),

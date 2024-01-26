@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pszczoly_v3/providers/hive_list_provider.dart';
 import 'package:pszczoly_v3/widgets/image_input.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddHiveScreen extends ConsumerStatefulWidget {
   const AddHiveScreen({super.key});
@@ -34,7 +35,7 @@ class _AddHiveScreenState extends ConsumerState<AddHiveScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Dodaj nowy ul')),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.addHive)),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -53,7 +54,8 @@ class _AddHiveScreenState extends ConsumerState<AddHiveScreen> {
               padding: const EdgeInsets.all(8.0),
               child: TextField(
                 controller: _titleController,
-                decoration: InputDecoration(hintText: 'Nazwa/numer ula', hintStyle: Theme.of(context).textTheme.bodyMedium),
+                maxLength: 30,
+                decoration: InputDecoration(hintText: AppLocalizations.of(context)!.hiveName, hintStyle: Theme.of(context).textTheme.bodyMedium),
               ),
             ),
             const SizedBox(

@@ -5,6 +5,7 @@ import 'package:pszczoly_v3/models/question.dart';
 import 'package:pszczoly_v3/models/question_answer.dart';
 import 'package:pszczoly_v3/providers/hive_list_provider.dart';
 import 'package:pszczoly_v3/data/checklist_questions_data.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FilledChecklistDisplay extends ConsumerStatefulWidget {
   const FilledChecklistDisplay({super.key, required this.checklistId});
@@ -16,7 +17,7 @@ class FilledChecklistDisplay extends ConsumerStatefulWidget {
 }
 
 class ChecklistState extends ConsumerState<FilledChecklistDisplay> {
-  final checklistQuestions1 = getChecklistQuestions();
+
   late List<QuestionAnswer> questionAnswerForAChecklist;
 
   @override
@@ -30,7 +31,7 @@ class ChecklistState extends ConsumerState<FilledChecklistDisplay> {
         questionId: 'N/A',
         answerType: null,
         checklistId: 'N/A',
-        answer: 'Brak danych',
+        answer: AppLocalizations.of(context)!.noData,
         questionAnswerId: 'N/A',
       ),
     };
@@ -39,7 +40,7 @@ class ChecklistState extends ConsumerState<FilledChecklistDisplay> {
       print('Processing answer: ${qa.answerType}, ${qa.answer}');
       switch (qa.answerType) {
         case 'ResponseType.yesNo':
-          return qa.answer == 'true' ? 'Tak' : 'Nie';
+          return qa.answer == 'true' ? AppLocalizations.of(context)!.yes : AppLocalizations.of(context)!.no;
         case 'ResponseType.percentage':
           return '${double.parse(qa.answer)}%';
         default:
@@ -50,14 +51,15 @@ class ChecklistState extends ConsumerState<FilledChecklistDisplay> {
     return FutureBuilder(
       future: questionAnswersList,
       builder: (context, snapshot) {
+        final checklistQuestions1 = getChecklistQuestions(context);
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
             child: CircularProgressIndicator(),
           );
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return const Center(
+          return Center(
             child: Text(
-              'Ups... Wygląda na to, że ta checklista została zapisana bez odpowiedzi.',
+              AppLocalizations.of(context)!.emptyChecklist,
               textAlign: TextAlign.center,
             ),
           );
@@ -81,7 +83,7 @@ class ChecklistState extends ConsumerState<FilledChecklistDisplay> {
           );
           return ListTile(
             title: Text(currentQuestion.text),
-            subtitle: Text(formatAnswer(currentAnswer), style: TextStyle(color: currentAnswer.answer == 'Brak danych' ? Colors.grey[300] : null),),
+            subtitle: Text(formatAnswer(currentAnswer), style: TextStyle(color: currentAnswer.answer == AppLocalizations.of(context)!.noData ? Colors.grey[300] : null),),
           );
         });
         //Second approach - displaying only the answered questions - need to choose which one id preffered

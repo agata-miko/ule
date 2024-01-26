@@ -1,11 +1,14 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:pszczoly_v3/models/hive.dart';
 import 'package:pszczoly_v3/screens/add_hive_screen.dart';
 import 'package:pszczoly_v3/widgets/hives_list.dart';
 import 'package:pszczoly_v3/providers/search_query_providers.dart';
+import 'package:pszczoly_v3/widgets/sunset_widget.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HivesListScreen extends ConsumerWidget {
   HivesListScreen({super.key, required this.hives});
@@ -39,6 +42,7 @@ class HivesListScreen extends ConsumerWidget {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       appBar: AppBar(
+        actions: [SunsetWidget()],
         leadingWidth: 100,
         leading: Center(
             child: Text(
@@ -71,7 +75,7 @@ class HivesListScreen extends ConsumerWidget {
                               .updateSearchQuery(query);
                         },
                         decoration: InputDecoration(
-                            hintText: 'Znajdź ul...',
+                            hintText: AppLocalizations.of(context)!.hintHiveListSearch,
                             hintStyle: Theme.of(context).textTheme.bodyMedium,
                             suffixIcon: IconButton(
                               icon: const Icon(Icons.clear),
@@ -88,32 +92,10 @@ class HivesListScreen extends ConsumerWidget {
                               onPressed: () {},
                             ),
                             border: OutlineInputBorder(
-                              borderSide: BorderSide.none,
+                                borderSide: BorderSide.none,
                                 borderRadius: BorderRadius.circular(20))),
                       )),
                 ),
-                SizedBox(height: 10,)
-                // Center(
-                //   child: ElevatedButton(
-                //     onPressed: () {
-                //       Navigator.of(context).push(
-                //         MaterialPageRoute(
-                //           builder: (ctx) => const AddHiveScreen(),
-                //         ),
-                //       );
-                //     },
-                //     child: Container(
-                //       width: 150,
-                //       child: Row(
-                //         children: [
-                //           Text('Dodaj nowy ul',
-                //               style: Theme.of(context).textTheme.bodyMedium),
-                //           Icon(Icons.add_home),
-                //         ],
-                //       ),
-                //     ),
-                //   ),
-                // ),
               ],
             ),
             // const SizedBox(
@@ -133,6 +115,30 @@ class HivesListScreen extends ConsumerWidget {
               backgroundColor: Colors.white,
               elevation: 8,
               child: const Icon(Icons.add_home),
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: Container(
+        height: 20,
+        child: Row(
+          children: [
+            RichText(
+              text: TextSpan(
+                  text: AppLocalizations.of(context)!.iconsBy,
+                  style: Theme.of(context).textTheme.bodySmall,
+                  children: <TextSpan>[
+                    TextSpan(
+                        text: AppLocalizations.of(context)!.icons8,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodySmall!
+                            .copyWith(decoration: TextDecoration.underline),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            launchUrlString('https://icons8.com');
+                          })
+                  ]),
             ),
           ],
         ),

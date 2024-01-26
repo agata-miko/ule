@@ -14,7 +14,7 @@ ThemeData lightTheme = ThemeData(
   appBarTheme: AppBarTheme(
     titleTextStyle: TextStyle(
       fontFamily: GoogleFonts.roboto(fontWeight: FontWeight.w300).fontFamily,
-      fontSize: 24,
+      fontSize: 20,
       color: Colors.black54,
     ),
     color: Colors.transparent,

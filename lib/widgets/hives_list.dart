@@ -4,10 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pszczoly_v3/models/hive.dart';
 import 'package:pszczoly_v3/providers/hive_list_provider.dart';
 import 'package:pszczoly_v3/screens/checklist_screen.dart';
-import 'package:pszczoly_v3/screens/hive_screen.dart';
 import 'package:pszczoly_v3/providers/search_query_providers.dart';
-import 'package:pszczoly_v3/screens/hive_screen.dart';
 import 'package:pszczoly_v3/screens/hive_screen_3.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HivesList extends ConsumerStatefulWidget {
   const HivesList({super.key});
@@ -34,9 +33,9 @@ class _HivesListState extends ConsumerState<HivesList> {
             child: CircularProgressIndicator(),
           );
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return const Padding(
+          return Padding(
             padding: EdgeInsets.all(20.0),
-            child: Text('Zaden ul nie zostal jeszcze dodany. Dodaj teraz!'),
+            child: Text(AppLocalizations.of(context)!.emptyHivesList),
           );
         } else {
           final List<Hive> hivesList = snapshot.data!
@@ -68,19 +67,21 @@ class _HivesListState extends ConsumerState<HivesList> {
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: const Text('Usunięcie ula'),
+                      title: Text(AppLocalizations.of(context)!.hiveRemoval, textAlign: TextAlign.center,),
                       content: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                              '''Na pewno chcesz usunąć ul ${displayHives[index].hiveName}? \n\nWszystkie checklisty dla ula zostaną nieodracalnie usunięte.''',
-                              textAlign: TextAlign.left),
+                              AppLocalizations.of(context)!
+                                  .confirmHiveRemovalTitle(
+                                      displayHives[index].hiveName),),
+                              const SizedBox(height: 10,),
+                              Text(AppLocalizations.of(context)!.confirmHiveRemovalContent),
                           const SizedBox(
                             height: 15,
                           ),
-                          Text(
-                            '''Tej operacji nie da się cofnąć!''',
-                            textAlign: TextAlign.left,
+                          Text(AppLocalizations.of(context)!.theOpIsNotReversible,
                             style: TextStyle(
                                 color: Theme.of(context).colorScheme.error),
                           ),
@@ -92,14 +93,14 @@ class _HivesListState extends ConsumerState<HivesList> {
                             Navigator.of(context).pop(
                                 false); // Dismiss the dialog and reject the deletion
                           },
-                          child: const Text('Anuluj'),
+                          child: Text(AppLocalizations.of(context)!.cancel),
                         ),
                         TextButton(
                           onPressed: () {
                             Navigator.of(context).pop(
                                 true); // Dismiss the dialog and confirm the deletion
                           },
-                          child: const Text('Usuń'),
+                          child: Text(AppLocalizations.of(context)!.remove),
                         ),
                       ],
                     );
@@ -155,7 +156,10 @@ class _HivesListState extends ConsumerState<HivesList> {
                                   hiveName: displayHives[index].hiveName,
                                 )));
                       },
-                      icon: const Icon(Icons.edit_note, color: Colors.black54,)),
+                      icon: const Icon(
+                        Icons.edit_note,
+                        color: Colors.black54,
+                      )),
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(

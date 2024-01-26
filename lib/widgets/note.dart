@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pszczoly_v3/providers/hive_list_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NoteEditor extends ConsumerStatefulWidget {
   const NoteEditor({super.key, required this.hiveId});
@@ -18,10 +19,14 @@ class NoteEditorState extends ConsumerState<NoteEditor> {
   Future<void> _loadNoteFromTheDatabase() async {
     final String note =
         await ref.read(databaseProvider).getHiveNote(widget.hiveId);
+    if (note == '') {
+      setState(() {
+        _textEditingController.text = AppLocalizations.of(context)!.dbHintNotes;
+    });} else {
     setState(() {
       _textEditingController.text = note;
     });
-  }
+  }}
 
   Future<void> _saveNoteToTheDatabase() async {
     final String newNote = _textEditingController.text;

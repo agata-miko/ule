@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PercentageSlider extends StatefulWidget {
   final double selectedPercentage;
@@ -25,7 +26,7 @@ class PercentageSliderState extends State<PercentageSlider> {
     return Column(
       children: <Widget>[
         Text(
-          '${_selectedPercentage.round()}%',
+          AppLocalizations.of(context)!.sliderPercentage(_selectedPercentage.round()),
           style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
         ),
         SliderTheme(

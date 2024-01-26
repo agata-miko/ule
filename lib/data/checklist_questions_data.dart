@@ -1,33 +1,33 @@
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:pszczoly_v3/models/question.dart';
 
-//all questions will be changed to eng or the app fully pl? voice to text in pl?
-
-List<Question> getChecklistQuestions() {
+List<Question> getChecklistQuestions(BuildContext context) {
   return [
-    Question(id: 'q1', text: 'Odkład', responseType: ResponseType.yesNo),
-    Question(id: 'q2', text: 'Półnadstawka nr 1', responseType: ResponseType.percentage),
-    Question(id: 'q3', text: 'Półnadstawka nr 2', responseType: ResponseType.percentage),
-    Question(id: 'q4', text: 'Półnadstawka nr 3', responseType: ResponseType.percentage),
-    Question(id: 'q5', text: 'Półnadstawka: woda', responseType: ResponseType.percentage),
-    Question(id: 'q6', text: 'Stan ramki pracy: odbudowana komórka trutowa', responseType: ResponseType.yesNo),
-    Question(id: 'q7', text: 'Stan ramki pracy: odbudowana komórka czerw.', responseType: ResponseType.yesNo),
-    Question(id: 'q8', text: 'Stan ramki pracy: brak odbudowy', responseType: ResponseType.yesNo),
-    Question(id: 'q9', text: 'Stan ramki pracy: usunięto zabudowanie?', responseType: ResponseType.yesNo),
-    Question(id: 'q10', text: 'Mateczniki', responseType: ResponseType.yesNo),
-    Question(id: 'q11', text: 'Czerw zasklepiony (szt.)', responseType: ResponseType.text),
-    Question(id: 'q12', text: 'Jakość czerwiu', responseType: ResponseType.text),
-    Question(id: 'q13', text: 'Stan pokarmu w 1/1 (szt.)', responseType: ResponseType.text),
-    Question(id: 'q14', text: 'Stan pierzgi w 1/1', responseType: ResponseType.text),
-    Question(id: 'q15', text: 'Odebrane ramki z czerwiem (szt.)', responseType: ResponseType.text),
-    Question(id: 'q16', text: 'Odebrane ramki z pokarmem (szt.)', responseType: ResponseType.text),
-    Question(id: 'q17', text: 'Odebrane ramki z pierzgą (szt.)', responseType: ResponseType.text),
-    Question(id: 'q18', text: 'Dołożone ramki z węzą (szt.)', responseType: ResponseType.text),
-    Question(id: 'q19', text: 'Stan nowych ramek z węzą: odbudowane', responseType: ResponseType.percentage),
-    Question(id: 'q20', text: 'Stan nowych ramek z węzą: zaczerwione', responseType: ResponseType.percentage),
-    Question(id: 'q21', text: 'Matka: widziana', responseType: ResponseType.yesNo),
-    Question(id: 'q22', text: 'Matka: rasa', responseType: ResponseType.text),
-    Question(id: 'q23', text: 'Matka: kolor opalitka', responseType: ResponseType.text),
-    Question(id: 'q24', text: 'Nastrój rojowy', responseType: ResponseType.yesNo),
-    Question(id: 'q25', text: 'Siła rodziny', responseType: ResponseType.text),
+    Question(id: 'q1', text: AppLocalizations.of(context)!.q1, responseType: ResponseType.yesNo),
+    Question(id: 'q2', text: AppLocalizations.of(context)!.q2, responseType: ResponseType.percentage),
+    Question(id: 'q3', text: AppLocalizations.of(context)!.q3, responseType: ResponseType.percentage),
+    Question(id: 'q4', text: AppLocalizations.of(context)!.q4, responseType: ResponseType.percentage),
+    Question(id: 'q5', text: AppLocalizations.of(context)!.q5, responseType: ResponseType.percentage),
+    Question(id: 'q6', text: AppLocalizations.of(context)!.q6, responseType: ResponseType.yesNo),
+    Question(id: 'q7', text: AppLocalizations.of(context)!.q7, responseType: ResponseType.yesNo),
+    Question(id: 'q8', text: AppLocalizations.of(context)!.q8, responseType: ResponseType.yesNo),
+    Question(id: 'q9', text: AppLocalizations.of(context)!.q9, responseType: ResponseType.yesNo),
+    Question(id: 'q10', text: AppLocalizations.of(context)!.q10, responseType: ResponseType.yesNo),
+    Question(id: 'q11', text: AppLocalizations.of(context)!.q11, responseType: ResponseType.text),
+    Question(id: 'q12', text: AppLocalizations.of(context)!.q12, responseType: ResponseType.text),
+    Question(id: 'q13', text: AppLocalizations.of(context)!.q13, responseType: ResponseType.text),
+    Question(id: 'q14', text: AppLocalizations.of(context)!.q14, responseType: ResponseType.text),
+    Question(id: 'q15', text: AppLocalizations.of(context)!.q15, responseType: ResponseType.text),
+    Question(id: 'q16', text: AppLocalizations.of(context)!.q16, responseType: ResponseType.text),
+    Question(id: 'q17', text: AppLocalizations.of(context)!.q17, responseType: ResponseType.text),
+    Question(id: 'q18', text: AppLocalizations.of(context)!.q18, responseType: ResponseType.text),
+    Question(id: 'q19', text: AppLocalizations.of(context)!.q19, responseType: ResponseType.percentage),
+    Question(id: 'q20', text: AppLocalizations.of(context)!.q20, responseType: ResponseType.percentage),
+    Question(id: 'q21', text: AppLocalizations.of(context)!.q21, responseType: ResponseType.yesNo),
+    Question(id: 'q22', text: AppLocalizations.of(context)!.q22, responseType: ResponseType.text),
+    Question(id: 'q23', text: AppLocalizations.of(context)!.q23, responseType: ResponseType.text),
+    Question(id: 'q24', text: AppLocalizations.of(context)!.q24, responseType: ResponseType.yesNo),
+    Question(id: 'q25', text: AppLocalizations.of(context)!.q25, responseType: ResponseType.text),
   ];
 }
