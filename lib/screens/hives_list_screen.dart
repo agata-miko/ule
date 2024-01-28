@@ -2,11 +2,13 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pszczoly_v3/main.dart';
 import 'package:pszczoly_v3/models/hive.dart';
 import 'package:pszczoly_v3/screens/add_hive_screen.dart';
 import 'package:pszczoly_v3/widgets/hives_list.dart';
 import 'package:pszczoly_v3/providers/search_query_providers.dart';
 import 'package:pszczoly_v3/widgets/sunset_widget.dart';
+import 'package:sqflite/sqflite.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -42,7 +44,29 @@ class HivesListScreen extends ConsumerWidget {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       appBar: AppBar(
-        actions: [SunsetWidget()],
+        actions: [
+          const SunsetWidget(),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: PopupMenuButton<String>(
+              icon: const Icon(Icons.language),
+              //in case of more languages they can be moved to the list that would be used to create the items
+              itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                PopupMenuItem<String>(
+                    value: 'pl',
+                    child: Text(AppLocalizations.of(context)!.polishFlag)),
+                PopupMenuItem<String>(
+                    value: 'en',
+                    child: Text(AppLocalizations.of(context)!.englishFlag)),
+              ],
+              onSelected: (String? language) {
+                if(language != null) {
+                  MyApp.setLocale(context, Locale(language));
+                }
+              },
+            ),
+          ),
+        ],
         leadingWidth: 100,
         leading: Center(
             child: Text(
@@ -52,14 +76,10 @@ class HivesListScreen extends ConsumerWidget {
             fontSize: 31,
           ),
         )),
-        // title: const Text('Moje ule'),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            // Text('Dodane ule', style: Theme.of(context).textTheme.bodyLarge,),
-            // const SizedBox(height: 10,),
-            // const Divider(thickness: 0.1),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -75,7 +95,8 @@ class HivesListScreen extends ConsumerWidget {
                               .updateSearchQuery(query);
                         },
                         decoration: InputDecoration(
-                            hintText: AppLocalizations.of(context)!.hintHiveListSearch,
+                            hintText: AppLocalizations.of(context)!
+                                .hintHiveListSearch,
                             hintStyle: Theme.of(context).textTheme.bodyMedium,
                             suffixIcon: IconButton(
                               icon: const Icon(Icons.clear),

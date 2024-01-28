@@ -37,6 +37,17 @@ ThemeData lightTheme = ThemeData(
   iconTheme: const IconThemeData(
     color: Colors.black54,
   ),
+
+  popupMenuTheme: PopupMenuThemeData(
+    color: Colors.white,
+    textStyle: TextStyle(
+      fontFamily: GoogleFonts.roboto(fontWeight: FontWeight.w300).fontFamily,
+      fontSize: 12,
+      color: Colors.black54,
+    ),
+  ),
+
+
   colorScheme: const ColorScheme(
     primaryContainer: Colors.white,
     secondaryContainer: Colors.white,

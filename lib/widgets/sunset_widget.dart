@@ -30,50 +30,47 @@ class SunsetWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+    return Column(crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+        FutureBuilder<SunsetSunrise>(
+        future: fetchData(),
+    builder: (context, snapshot) {
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return const SizedBox(width: 17, height: 17, child: CircularProgressIndicator());
+      } else if (snapshot.hasError) {
+        return Text(AppLocalizations.of(context)!.error({snapshot.error}));
+      } else if (!snapshot.hasData) {
+        return Text(AppLocalizations.of(context)!.noData);
+      } else {
+        return Column(
           children: [
-          FutureBuilder<SunsetSunrise>(
-          future: fetchData(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Container(width: 17, height: 17, child: const CircularProgressIndicator());
-        } else if (snapshot.hasError) {
-          return Text(AppLocalizations.of(context)!.error({snapshot.error}));
-        } else if (!snapshot.hasData) {
-          return Text(AppLocalizations.of(context)!.noData);
-        } else {
-          return Column(
-            children: [
-              Row(
-                children: [
-                  Image.asset(
-                      'assets/icons/icons8-sunrise-19(-ldpi).png', height: 18,
-                      width: 18),
-                  const SizedBox(width: 5,),
-                  Text(DateFormat('hh:mm a').format(
-        DateFormat('hh:mm:ss a').parse(snapshot.data!.sunrise))),
-                ],
-              ),
-              Row(
-                children: [
-                  Image.asset(
-                      'assets/icons/icons8-sunset-19(-ldpi).png', height: 18,
-                      width: 18),
-                  SizedBox(width: 5,),
-                  Text(DateFormat('hh:mm a').format(
-                      DateFormat('hh:mm:ss a').parse(snapshot.data!.sunset))),
-                ],
-              ),
-            ],
-          );
-        }
-      },
-    ),]
-    ,
-    )
-    ,
-    );
+            Row(
+              children: [
+                Image.asset(
+                    'assets/icons/icons8-sunrise-19(-ldpi).png', height: 18,
+                    width: 18),
+                const SizedBox(width: 5,),
+                Text(DateFormat('hh:mm a').format(
+              DateFormat('hh:mm:ss a').parse(snapshot.data!.sunrise))),
+              ],
+            ),
+            Row(
+              children: [
+                Image.asset(
+                    'assets/icons/icons8-sunset-19(-ldpi).png', height: 18,
+                    width: 18),
+                SizedBox(width: 5,),
+                Text(DateFormat('hh:mm a').format(
+                    DateFormat('hh:mm:ss a').parse(snapshot.data!.sunset))),
+              ],
+            ),
+          ],
+        );
+      }
+    },
+        ),]
+        ,
+        );
   }
 }
