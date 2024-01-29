@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pszczoly_v3/main.dart';
 import 'package:pszczoly_v3/models/hive.dart';
+import 'package:pszczoly_v3/models/language_constants.dart';
 import 'package:pszczoly_v3/screens/add_hive_screen.dart';
 import 'package:pszczoly_v3/widgets/hives_list.dart';
 import 'package:pszczoly_v3/providers/search_query_providers.dart';
@@ -59,9 +60,10 @@ class HivesListScreen extends ConsumerWidget {
                     value: 'en',
                     child: Text(AppLocalizations.of(context)!.englishFlag)),
               ],
-              onSelected: (String? language) {
+              onSelected: (String? language) async {
                 if(language != null) {
-                  MyApp.setLocale(context, Locale(language));
+                  Locale? _locale = await setLocale(language);
+                  MyApp.setLocale(context, _locale!);
                 }
               },
             ),
@@ -140,7 +142,7 @@ class HivesListScreen extends ConsumerWidget {
           ],
         ),
       ),
-      bottomNavigationBar: Container(
+      bottomNavigationBar: SizedBox(
         height: 20,
         child: Row(
           children: [
