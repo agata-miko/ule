@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pszczoly_v3/models/question.dart';
@@ -37,7 +36,6 @@ class ChecklistState extends ConsumerState<FilledChecklistDisplay> {
     };
 
     String formatAnswer(QuestionAnswer qa) {
-      print('Processing answer: ${qa.answerType}, ${qa.answer}');
       switch (qa.answerType) {
         case 'ResponseType.yesNo':
           return qa.answer == 'true' ? AppLocalizations.of(context)!.yes : AppLocalizations.of(context)!.no;

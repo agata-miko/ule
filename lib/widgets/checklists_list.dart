@@ -52,7 +52,7 @@ class _ListOfChecklists extends ConsumerState<ListOfChecklists> {
               .toList();
 
           List<Checklist> displayChecklists =
-              searchQuery.isEmpty && searchQuery == null
+              searchQuery.isEmpty
                   ? checklistList
                   : checklistList
                       .where((checklist) => checklist.checklistDate

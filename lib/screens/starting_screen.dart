@@ -14,6 +14,7 @@ class StartingScreen extends ConsumerStatefulWidget {
 }
 
 class _StartingScreenState extends ConsumerState<StartingScreen> {
+  // ignore: unused_field
   late Timer _timer;
 
   @override
@@ -54,9 +55,6 @@ class _StartingScreenState extends ConsumerState<StartingScreen> {
               animatedTexts: [
                 TypewriterAnimatedText('ULala', speed: Durations.long2),
               ],
-              onTap: () {
-                print("Tap Event");
-              },
             ),
           ),
         ),

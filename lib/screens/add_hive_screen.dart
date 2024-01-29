@@ -62,7 +62,7 @@ class _AddHiveScreenState extends ConsumerState<AddHiveScreen> {
               height: 20,
             ),
             FloatingActionButton.extended(
-              shape: CircleBorder(),
+              shape: const CircleBorder(),
               // shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
               onPressed: _saveHive,
               label: const Icon(Icons.add),

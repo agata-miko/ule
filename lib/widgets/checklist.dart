@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:modern_themes/modern_themes_comps.dart';
 import 'package:pszczoly_v3/models/filled_checklist.dart';
 import 'package:pszczoly_v3/models/question.dart';
 import 'package:pszczoly_v3/models/question_answer.dart';
@@ -73,7 +72,7 @@ class ChecklistState extends ConsumerState<Checklist> {
                         .read(databaseProvider)
                         .insertQuestionAnswer(qa.toJson());
                   }
-                  ref.read(databaseProvider).printTables();
+                  // ref.read(databaseProvider).printTables();
                   Navigator.of(context).pop();
                   finalQuestionAnswerList.clear();
                 },

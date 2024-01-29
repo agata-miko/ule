@@ -10,16 +10,16 @@ import '../providers/hive_list_provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HiveScreen extends ConsumerStatefulWidget {
-  HiveScreen({
+  const HiveScreen({
     super.key,
     this.selectedImage,
     required this.hiveName,
     required this.hiveId,
   });
 
-  File? selectedImage;
-  String hiveName;
-  String hiveId;
+  final File? selectedImage;
+  final String hiveName;
+  final String hiveId;
 
   @override
   ConsumerState<HiveScreen> createState() => _HiveScreenState();
@@ -51,7 +51,9 @@ class _HiveScreenState extends ConsumerState<HiveScreen> {
       return imageDisplay is Image ? true : false;
     }
 
-    bool _shouldExtendBody() {
+    bool imageDisplayBool = isImageDisplayPhoto();
+
+    bool shouldExtendBody() {
       // Check if the keyboard is open and the screen is adjusting
       return !(MediaQuery.of(context).viewInsets.bottom > 0 &&
           MediaQuery.of(context).viewInsets.bottom !=
@@ -59,16 +61,16 @@ class _HiveScreenState extends ConsumerState<HiveScreen> {
     }
 
     return Scaffold(
-      extendBodyBehindAppBar: _shouldExtendBody(),
+      extendBodyBehindAppBar: shouldExtendBody(),
       appBar: AppBar(
-        iconTheme: IconThemeData(color: isImageDisplayPhoto == true ? Colors.white : Colors.black54),
+        iconTheme: IconThemeData(color: imageDisplayBool == true ? Colors.white : Colors.black54),
         //TODO make the appbar's text and icon color dependent on the color palette of the photo taken by user
         title: Text(
           'ULala',
           style: TextStyle(
             fontFamily: GoogleFonts.zeyada().fontFamily,
             fontSize: 31,
-            color: isImageDisplayPhoto == true ? Colors.white : Colors.black54,
+            color: imageDisplayBool == true ? Colors.white : Colors.black54,
           ),
         ),
       ),

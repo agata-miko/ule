@@ -1,31 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-const String LANGUAGE_CODE = 'languageCode';
+const String languageCode = 'languageCode';
 
-const String ENGLISH = 'en';
-const String POLISH = 'pl';
+const String english = 'en';
+const String polish = 'pl';
 
 Future<Locale?> setLocale(String languageCode) async {
-  SharedPreferences _prefs = await SharedPreferences.getInstance();
-  await _prefs.setString(LANGUAGE_CODE, languageCode);
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.setString(languageCode, languageCode);
   return _locale(languageCode);
 }
 
 Future<Locale?> getLocale() async {
-  SharedPreferences _prefs = await SharedPreferences.getInstance();
-  String languageCode = _prefs.getString(LANGUAGE_CODE) ?? POLISH;
-  return _locale(languageCode);
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String langCode = prefs.getString(languageCode) ?? polish;
+  return _locale(langCode);
 }
 
-Locale? _locale(String languageCode) {
-  switch (languageCode) {
-    case ENGLISH:
+Locale? _locale(String langCode) {
+  switch (langCode) {
+    case english:
       return const Locale('en');
-    case POLISH:
+    case polish:
       return const Locale('pl');
   }
+  return null;
 }
 
 // AppLocalizations translation(BuildContext context) {

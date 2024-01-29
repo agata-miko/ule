@@ -9,7 +9,6 @@ import 'package:pszczoly_v3/screens/add_hive_screen.dart';
 import 'package:pszczoly_v3/widgets/hives_list.dart';
 import 'package:pszczoly_v3/providers/search_query_providers.dart';
 import 'package:pszczoly_v3/widgets/sunset_widget.dart';
-import 'package:sqflite/sqflite.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -62,8 +61,9 @@ class HivesListScreen extends ConsumerWidget {
               ],
               onSelected: (String? language) async {
                 if(language != null) {
-                  Locale? _locale = await setLocale(language);
-                  MyApp.setLocale(context, _locale!);
+                  Locale? locale = await setLocale(language);
+                  if (!context.mounted) return;
+                  MyApp.setLocale(context, locale!);
                 }
               },
             ),
@@ -134,7 +134,7 @@ class HivesListScreen extends ConsumerWidget {
                 //   ),
                 // );
               },
-              shape: CircleBorder(),
+              shape: const CircleBorder(),
               backgroundColor: Colors.white,
               elevation: 8,
               child: const Icon(Icons.add_home),

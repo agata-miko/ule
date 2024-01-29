@@ -60,7 +60,7 @@ class SunsetWidget extends StatelessWidget {
                 Image.asset(
                     'assets/icons/icons8-sunset-19(-ldpi).png', height: 18,
                     width: 18),
-                SizedBox(width: 5,),
+                const SizedBox(width: 5,),
                 Text(DateFormat('hh:mm a').format(
                     DateFormat('hh:mm:ss a').parse(snapshot.data!.sunset))),
               ],

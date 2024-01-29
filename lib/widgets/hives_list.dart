@@ -34,7 +34,7 @@ class _HivesListState extends ConsumerState<HivesList> {
           );
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
           return Padding(
-            padding: EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(20.0),
             child: Text(AppLocalizations.of(context)!.emptyHivesList),
           );
         } else {
@@ -45,7 +45,7 @@ class _HivesListState extends ConsumerState<HivesList> {
                     photo: File('${row['photoPath']}'),
                   ))
               .toList();
-          List<Hive> displayHives = searchQuery.isEmpty && searchQuery == null
+          List<Hive> displayHives = searchQuery.isEmpty
               ? hivesList
               : hivesList
                   .where((hive) => hive.hiveName
