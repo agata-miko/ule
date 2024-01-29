@@ -37,7 +37,7 @@ class _ListOfChecklists extends ConsumerState<ListOfChecklists> {
           );
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
           return Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.04),
             child: Text(AppLocalizations.of(context)!.noChecklists),
           );
         } else {
@@ -85,8 +85,8 @@ class _ListOfChecklists extends ConsumerState<ListOfChecklists> {
                               AppLocalizations.of(context)!
                                   .confirmChecklistRemovalTitle,
                               textAlign: TextAlign.left),
-                          const SizedBox(
-                            height: 15,
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.04,
                           ),
                           Text(
                             AppLocalizations.of(context)!.theOpIsNotReversible,
@@ -121,39 +121,36 @@ class _ListOfChecklists extends ConsumerState<ListOfChecklists> {
                     .read(databaseProvider)
                     .deleteChecklist(displayChecklists[index].checklistId);
               },
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ListTile(
-                  title: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30),
-                    child: Row(
-                      children: [
-                        const Icon(Icons.list),
-                        const SizedBox(width: 30),
-                        Text(
-                          DateFormat.yMd()
-                              .format(displayChecklists[index].checklistDate),
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge!
-                              .copyWith(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onBackground),
-                        ),
-                      ],
-                    ),
+              child: ListTile(
+                title: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.05),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.list),
+                      SizedBox(width: MediaQuery.of(context).size.width * 0.1),
+                      Text(
+                        DateFormat.yMd()
+                            .format(displayChecklists[index].checklistDate),
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge!
+                            .copyWith(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onBackground),
+                      ),
+                    ],
                   ),
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (ctx) => FilledChecklistScreen(
-                            hiveId: widget.hiveId,
-                            checklistId: displayChecklists[index].checklistId,
-                            checklistDate:
-                                displayChecklists[index].checklistDate,
-                            hiveName: widget.hiveName)));
-                  },
                 ),
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (ctx) => FilledChecklistScreen(
+                          hiveId: widget.hiveId,
+                          checklistId: displayChecklists[index].checklistId,
+                          checklistDate:
+                              displayChecklists[index].checklistDate,
+                          hiveName: widget.hiveName)));
+                },
               ),
             ),
           );

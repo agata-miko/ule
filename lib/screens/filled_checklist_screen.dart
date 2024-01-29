@@ -37,7 +37,7 @@ class _ChecklistScreenState extends ConsumerState<FilledChecklistScreen> {
       )),
       //different way to display data in dd/mm/yyyy???
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.04),
         child: FilledChecklistDisplay(checklistId: widget.checklistId,),
       ),
     );

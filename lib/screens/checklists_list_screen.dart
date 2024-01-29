@@ -22,46 +22,37 @@ class ChecklistListScreen extends ConsumerWidget {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            const SizedBox(height: 20),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: SizedBox(
-                      width: double.infinity,
-                      child: TextField(
-                        controller: _searchController,
-                        onChanged: (query) {
-                          ref.read(checklistSearchQueryProvider.notifier).updateSearchQuery(query);
-                        },
-                        decoration: InputDecoration(
-                            hintText: AppLocalizations.of(context)!.hintChecklistSearch,
-                            hintStyle: Theme.of(context).textTheme.bodyMedium,
-                            suffixIcon: IconButton(
-                              icon: const Icon(Icons.clear),
-                              onPressed: ()  {_searchController.clear();
-                              ref.read(checklistSearchQueryProvider.notifier).updateSearchQuery('');
-                              FocusScope.of(context).unfocus();},
-                            ),
-                            prefixIcon: IconButton(
-                              icon: const Icon(Icons.search),
-                              onPressed: () {},
-                            ),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.circular(20))),
-                      )),
-                ),
-                const SizedBox(
-                  height: 20,
+                  padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.04),
+                  child: TextField(
+                    controller: _searchController,
+                    onChanged: (query) {
+                      ref.read(checklistSearchQueryProvider.notifier).updateSearchQuery(query);
+                    },
+                    decoration: InputDecoration(
+                        hintText: AppLocalizations.of(context)!.hintChecklistSearch,
+                        hintStyle: Theme.of(context).textTheme.bodyMedium,
+                        suffixIcon: IconButton(
+                          icon: const Icon(Icons.clear),
+                          onPressed: ()  {_searchController.clear();
+                          ref.read(checklistSearchQueryProvider.notifier).updateSearchQuery('');
+                          FocusScope.of(context).unfocus();},
+                        ),
+                        prefixIcon: IconButton(
+                          icon: const Icon(Icons.search),
+                          onPressed: () {},
+                        ),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.circular(20))),
+                  ),
                 ),
               ],
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            SizedBox(height: 340, child: Center(child: ListOfChecklists(hiveId: hiveId, hiveName: hiveName,))),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.8, child: Center(child: ListOfChecklists(hiveId: hiveId, hiveName: hiveName,))),
           ],
         ),
       ),

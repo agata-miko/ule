@@ -42,7 +42,7 @@ class NoteEditorState extends ConsumerState<NoteEditor> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16.0),
+      padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.03,),
       child: TextField(
         style: Theme.of(context).textTheme.bodyMedium,
         maxLines: null,

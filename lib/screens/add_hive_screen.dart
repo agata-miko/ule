@@ -39,11 +39,11 @@ class _AddHiveScreenState extends ConsumerState<AddHiveScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            const SizedBox(
-              height: 10,
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.02,
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.04),
               child: ImageInput(
                 onPickImage: (image) {
                   photo = image;
@@ -51,15 +51,15 @@ class _AddHiveScreenState extends ConsumerState<AddHiveScreen> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.04),
               child: TextField(
                 controller: _titleController,
                 maxLength: 30,
                 decoration: InputDecoration(hintText: AppLocalizations.of(context)!.hiveName, hintStyle: Theme.of(context).textTheme.bodyMedium),
               ),
             ),
-            const SizedBox(
-              height: 20,
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.04,
             ),
             FloatingActionButton.extended(
               shape: const CircleBorder(),
@@ -67,13 +67,9 @@ class _AddHiveScreenState extends ConsumerState<AddHiveScreen> {
               onPressed: _saveHive,
               label: const Icon(Icons.add),
             ),
-            const SizedBox(
-              height: 20,
+            SizedBox(
+              height: MediaQuery.of(context).size.width * 0.04,
             ),
-            // ElevatedButton(
-            //   onPressed: _saveHive,
-            //   child: const Text('Dodaj ul'),
-            // ),
           ],
         ),
       ),

@@ -91,7 +91,7 @@ class ChecklistState extends ConsumerState<Checklist> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
             child: Text(
               question.text.toUpperCase(),
               style: Theme.of(context)
@@ -151,7 +151,7 @@ class ChecklistState extends ConsumerState<Checklist> {
         );
       case ResponseType.text:
         return Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
           child: TextField(
             style: const TextStyle(height: 1),
             decoration: InputDecoration(

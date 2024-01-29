@@ -49,7 +49,7 @@ class _ImageInputState extends ConsumerState<ImageInput> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 const Icon(Icons.camera_alt_outlined, size: 25,),
-                const SizedBox(width: 5,),
+                SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
                 Text(AppLocalizations.of(context)!.takePhoto),
               ],
             ),
@@ -64,7 +64,7 @@ class _ImageInputState extends ConsumerState<ImageInput> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 const Icon(Icons.photo_library, size: 25,),
-                const SizedBox(width: 5,),
+                SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
                 Text(AppLocalizations.of(context)!.chooseFromGallery),
               ],
             ),

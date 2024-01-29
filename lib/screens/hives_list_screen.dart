@@ -47,7 +47,7 @@ class HivesListScreen extends ConsumerWidget {
         actions: [
           const SunsetWidget(),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
             child: PopupMenuButton<String>(
               icon: const Icon(Icons.language),
               //in case of more languages they can be moved to the list that would be used to create the items
@@ -69,7 +69,7 @@ class HivesListScreen extends ConsumerWidget {
             ),
           ),
         ],
-        leadingWidth: 100,
+        leadingWidth: MediaQuery.of(context).size.height * 0.2,
         leading: Center(
             child: Text(
           'ULala',
@@ -86,7 +86,7 @@ class HivesListScreen extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.04),
                   child: SizedBox(
                       width: double.infinity,
                       child: TextField(
@@ -124,7 +124,7 @@ class HivesListScreen extends ConsumerWidget {
             // const SizedBox(
             //   height: 10,
             // ),
-            const SizedBox(height: 380, child: HivesList()),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.6, child: HivesList()),
             FloatingActionButton(
               onPressed: () {
                 _showAddHiveModal(context);
@@ -143,7 +143,7 @@ class HivesListScreen extends ConsumerWidget {
         ),
       ),
       bottomNavigationBar: SizedBox(
-        height: 20,
+        height: MediaQuery.of(context).size.height * 0.04,
         child: Row(
           children: [
             RichText(

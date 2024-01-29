@@ -125,7 +125,7 @@ class _HiveScreenState extends ConsumerState<HiveScreen> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.05),
                           child: Center(
                             child: Text(widget.hiveName,
                                 style: Theme.of(context)
