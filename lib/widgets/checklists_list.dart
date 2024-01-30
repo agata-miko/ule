@@ -128,8 +128,7 @@ class _ListOfChecklists extends ConsumerState<ListOfChecklists> {
                     children: [
                       const Icon(Icons.list),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.1),
-                      Text(
-                        DateFormat.yMd()
+                      Text(DateFormat('dd/MM/yyyy')
                             .format(displayChecklists[index].checklistDate),
                         style: Theme.of(context)
                             .textTheme

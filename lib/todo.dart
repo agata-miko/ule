@@ -9,17 +9,19 @@
 //DONE dodawanie zdjecia z biblioteki IMAGE PICKER?
 //CANCELED EXTRA photos editing??
 //DONE progress indicators
+//DONE czyszczenie searchbarow po usunieciu wyszukanego ula
+
 //TODO EXTRA zmiana pozycji ula na liscie
-//TODO czyszczenie searchbarow po usunieciu wyszukanego ula
 //TODO prompt ze nie wszystkie pytania zostaly wypelnione?
 
 //TODO checklist questions provider???
 //TODO split the hive_list_provider?
+//TODO jednokrotne ladowanie sunset/sunrise
 
 //DONE MediaQuery
 //DONE localized strings
 //TODO unit testy
 
 
-//Icons by <a target="_blank" href="https://icons8.com/icon/6eveiZQllPjh/sunrise">Sunrise</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
-// sunset data by https://sunrisesunset.io/api/
+//DONE Icons by <a target="_blank" href="https://icons8.com/icon/6eveiZQllPjh/sunrise">Sunrise</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+//TODO sunset data by https://sunrisesunset.io/api/

@@ -59,5 +59,8 @@
   "loadingDataFailed": "Bład pobierania danych",
   "error": "Błąd {error}",
   "polishFlag": "\uD83C\uDDF5\uD83C\uDDF1 Polski",
-  "englishFlag": "\uD83C\uDDFA\uD83C\uDDF8 English"
+  "englishFlag": "\uD83C\uDDFA\uD83C\uDDF8 English",
+  "incompleteChecklist": "Checklista niekompletna",
+  "incompleteChecklistContent": "Niektóre odpowiedzi są puste. Na pewno chcesz zapisać checklistę?",
+  "backToChecklist": "Wróć do checklisty"
 }

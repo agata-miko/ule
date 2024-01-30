@@ -22,7 +22,6 @@ class Checklist extends ConsumerStatefulWidget {
 }
 
 class ChecklistState extends ConsumerState<Checklist> {
-
   Map<String, dynamic> questionAnswersMap = {};
   final List<QuestionAnswer> finalQuestionAnswerList = [];
 
@@ -41,6 +40,60 @@ class ChecklistState extends ConsumerState<Checklist> {
   @override
   Widget build(BuildContext context) {
     final checklistQuestions1 = getChecklistQuestions(context);
+
+    bool hasUnansweredQuestions() {
+      final unansweredQuestions = checklistQuestions1
+          .where((question) => questionAnswersMap[question.id] == null)
+          .toList();
+      return unansweredQuestions.isNotEmpty;
+    }
+
+    void saveChecklist() {
+      addOrUpdateFinalAnswers();
+      ref.read(databaseProvider).insertChecklist(FilledChecklist(
+            hiveId: widget.hiveId,
+            checklistDate: widget.checklistDate,
+            checklistId: widget.checklistId,
+          ).toJson());
+      for (QuestionAnswer qa in questionAnswersMap.values) {
+        ref.read(databaseProvider).insertQuestionAnswer(qa.toJson());
+      }
+      // ref.read(databaseProvider).printTables();
+      Navigator.of(context).pop();
+      finalQuestionAnswerList.clear();
+    }
+
+    Future<void> showIncompleteChecklistDialog(BuildContext context) async {
+      return showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text(AppLocalizations.of(context)!.incompleteChecklist),
+              content: Text(
+                  AppLocalizations.of(context)!.incompleteChecklistContent),
+              actions: <Widget>[
+                Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child:
+                          Text(AppLocalizations.of(context)!.backToChecklist),
+                    ),
+                    TextButton(
+                        onPressed: () {
+                          saveChecklist();
+                          Navigator.of(context).pop();
+                        },
+                        child: Text(AppLocalizations.of(context)!.save)),
+                  ],
+                ),
+              ],
+            );
+          });
+    }
+
     return Column(
       children: [
         Expanded(
@@ -60,21 +113,12 @@ class ChecklistState extends ConsumerState<Checklist> {
                 },
                 child: Text(AppLocalizations.of(context)!.back)),
             ElevatedButton(
-                onPressed: () {
-                  addOrUpdateFinalAnswers();
-                  ref.read(databaseProvider).insertChecklist(FilledChecklist(
-                        hiveId: widget.hiveId,
-                        checklistDate: widget.checklistDate,
-                        checklistId: widget.checklistId,
-                      ).toJson());
-                  for (QuestionAnswer qa in questionAnswersMap.values) {
-                    ref
-                        .read(databaseProvider)
-                        .insertQuestionAnswer(qa.toJson());
+                onPressed: () async {
+                  if (hasUnansweredQuestions()) {
+                    await showIncompleteChecklistDialog(context);
+                  } else {
+                    saveChecklist();
                   }
-                  // ref.read(databaseProvider).printTables();
-                  Navigator.of(context).pop();
-                  finalQuestionAnswerList.clear();
                 },
                 child: Text(AppLocalizations.of(context)!.save)),
           ],
@@ -94,15 +138,14 @@ class ChecklistState extends ConsumerState<Checklist> {
             padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
             child: Text(
               question.text.toUpperCase(),
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium!,
-                  // .copyWith(fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.bodyMedium!,
+              // .copyWith(fontWeight: FontWeight.bold),
               textAlign: TextAlign.start,
             ),
           ),
           buildResponseWidget(question, questionAnswersMap[question.id]),
-        const Divider(thickness: 0.1),],
+          const Divider(thickness: 0.1),
+        ],
       ),
     );
   }

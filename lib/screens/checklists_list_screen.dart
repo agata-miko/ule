@@ -3,10 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:pszczoly_v3/providers/calendar_date_provider.dart';
 import 'package:pszczoly_v3/providers/search_query_providers.dart';
-import 'package:pszczoly_v3/theme/app_theme.dart';
 import 'package:pszczoly_v3/widgets/checklists_list.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:pszczoly_v3/theme/app_theme_2.dart';
 
 class ChecklistListScreen extends ConsumerWidget {
   ChecklistListScreen(
@@ -63,8 +61,8 @@ class ChecklistListScreen extends ConsumerWidget {
                           },
                           decoration: InputDecoration(
                               hintText: selectedDate != null
-                                  ? DateFormat('yyyy-MM-dd')
-                                      .format(selectedDate.toLocal())
+                                  ? DateFormat('dd/MM/yyyy')
+                                      .format(selectedDate)
                                   : AppLocalizations.of(context)!
                                       .hintChecklistSearch,
                               hintStyle: Theme.of(context).textTheme.bodyMedium,
