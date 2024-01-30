@@ -47,12 +47,17 @@ ThemeData lightTheme = ThemeData(
     ),
   ),
 
+  datePickerTheme: const DatePickerThemeData(
+    backgroundColor: Colors.white,
+    elevation: 0,
+  ),
+
 
   colorScheme: const ColorScheme(
     primaryContainer: Colors.white,
     secondaryContainer: Colors.white,
     background: Colors.white,
-    primary: Colors.black54,
+    primary: Colors.black26,
     secondary: Colors.black54,
     brightness: Brightness.light,
     error: Colors.red,

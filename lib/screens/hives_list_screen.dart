@@ -124,7 +124,7 @@ class HivesListScreen extends ConsumerWidget {
             // const SizedBox(
             //   height: 10,
             // ),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.6, child: HivesList()),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.6, child: const HivesList()),
             FloatingActionButton(
               onPressed: () {
                 _showAddHiveModal(context);

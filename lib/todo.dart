@@ -8,14 +8,15 @@
 //DONE funkcjonalnosc do wyszukiwania!
 //DONE dodawanie zdjecia z biblioteki IMAGE PICKER?
 //CANCELED EXTRA photos editing??
-//TODO progress indicators
+//DONE progress indicators
 //TODO EXTRA zmiana pozycji ula na liscie
 //TODO czyszczenie searchbarow po usunieciu wyszukanego ula
 //TODO prompt ze nie wszystkie pytania zostaly wypelnione?
+
 //TODO checklist questions provider???
 //TODO split the hive_list_provider?
 
-//TODO MediaQuery
+//DONE MediaQuery
 //DONE localized strings
 //TODO unit testy
 
