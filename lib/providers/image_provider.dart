@@ -8,7 +8,7 @@ final selectedImageProvider =
 class SelectedImageNotifier extends StateNotifier<File?> {
   SelectedImageNotifier() : super(null);
 
-  void setSelectedImage(File image) {
+  void setSelectedImage(File? image) {
     state = image;
   }
 }

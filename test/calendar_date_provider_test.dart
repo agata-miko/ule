@@ -5,9 +5,7 @@ import 'package:pszczoly_v3/providers/calendar_date_provider.dart';
 void main () {
   test('SelectedDateNotifier should update state with selectedDate', () {
     final container = ProviderContainer();
-
     final selectedDate = container.read(selectedDateProvider.notifier);
-
     final testDateTime = DateTime(2024, 1, 31);
 
     selectedDate.setSelectedDate(testDateTime);
@@ -31,6 +29,7 @@ void main () {
     for (final testDateTime in testDateTimeList) {
       selectedDate.setSelectedDate(testDateTime);
       final readResult = container.read(selectedDateProvider);
+
       expect(readResult, equals(testDateTime));
     }
 
@@ -45,11 +44,9 @@ void main () {
 
   test('SelectedDateNotifier should handle null selectedDate', () {
     final container = ProviderContainer();
-
     final selectedDate = container.read(selectedDateProvider.notifier);
 
     selectedDate.setSelectedDate(null);
-
     expect(container.read(selectedDateProvider), isNull);
   });
 
@@ -106,5 +103,4 @@ void main () {
     selectedDate.setSelectedDate(testDateTimeLocal);
     expect(container.read(selectedDateProvider), equals(testDateTimeLocal));
   });
-
 }
