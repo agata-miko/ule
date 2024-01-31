@@ -60,7 +60,6 @@ class HivesListScreen extends ConsumerWidget {
                     child: Text(AppLocalizations.of(context)!.englishFlag)),
               ],
               onSelected: (String? language) async {
-                print(language);
                 if (language != null) {
                   Locale? locale = await setLocale(language);
                   if (!context.mounted) return;
