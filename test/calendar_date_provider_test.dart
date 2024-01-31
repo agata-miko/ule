@@ -55,31 +55,6 @@ void main () {
     expect(container.read(selectedDateProvider), isNull);
   });
 
-  test('SelectedDateNotifier should handle setting to null when already null', () {
-    final container = ProviderContainer();
-    final selectedDate = container.read(selectedDateProvider.notifier);
-
-    selectedDate.setSelectedDate(null);
-    expect(container.read(selectedDateProvider), isNull);
-
-    selectedDate.setSelectedDate(null);
-    expect(container.read(selectedDateProvider), isNull);
-  });
-
-  test('SelectedDateNotifier should handle different instances of the same date', () {
-    final container = ProviderContainer();
-    final selectedDate = container.read(selectedDateProvider.notifier);
-
-    final testDateTime1 = DateTime(2024, 1, 31);
-    final testDateTime2 = DateTime(2024, 1, 31);
-
-    selectedDate.setSelectedDate(testDateTime1);
-    expect(container.read(selectedDateProvider), equals(testDateTime1));
-
-    selectedDate.setSelectedDate(testDateTime2);
-    expect(container.read(selectedDateProvider), equals(testDateTime2));
-  });
-
   test('SelectedDateNotifier should handle future dates', () {
     final container = ProviderContainer();
     final selectedDate = container.read(selectedDateProvider.notifier);

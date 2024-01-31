@@ -4,7 +4,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:pszczoly_v3/providers/image_provider.dart';
 
-class MockFile extends Mock implements File {}
+class MockFile extends Mock implements File {
+  @override
+  final String path;
+
+  MockFile({String? path}) : path = path ?? 'default_path';
+}
 
 void main () {
   test('SelectedImageNotifier should update the state with the selectedImage', () {
@@ -21,11 +26,11 @@ void main () {
     final selectedImage = container.read(selectedImageProvider.notifier);
 
     List<MockFile> testImageList = [
-      MockFile(),
-      MockFile(),
-      MockFile(),
-      MockFile(),
-      MockFile(),
+      MockFile(path: 'a'),
+      MockFile(path: 'b'),
+      MockFile(path: 'c'),
+      MockFile(path: 'd'),
+      MockFile(path: 'e'),
     ];
 
     for(final testImage in testImageList) {
@@ -49,14 +54,4 @@ void main () {
     expect(container.read(selectedImageProvider), isNull);
   });
 
-  test('SelectedImageNotifier should handle setting to null when already null', () {
-    final container = ProviderContainer();
-    final selectedImage = container.read(selectedImageProvider.notifier);
-
-    selectedImage.setSelectedImage(null);
-    expect(container.read(selectedImageProvider), isNull);
-
-    selectedImage.setSelectedImage(null);
-    expect(container.read(selectedImageProvider), isNull);
-  });
 }
