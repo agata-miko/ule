@@ -60,7 +60,8 @@ class HivesListScreen extends ConsumerWidget {
                     child: Text(AppLocalizations.of(context)!.englishFlag)),
               ],
               onSelected: (String? language) async {
-                if(language != null) {
+                print(language);
+                if (language != null) {
                   Locale? locale = await setLocale(language);
                   if (!context.mounted) return;
                   MyApp.setLocale(context, locale!);
@@ -86,7 +87,8 @@ class HivesListScreen extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.04),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.height * 0.04),
                   child: SizedBox(
                       width: double.infinity,
                       child: TextField(
@@ -124,7 +126,9 @@ class HivesListScreen extends ConsumerWidget {
             // const SizedBox(
             //   height: 10,
             // ),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.6, child: const HivesList()),
+            SizedBox(
+                height: MediaQuery.of(context).size.height * 0.6,
+                child: const HivesList()),
             FloatingActionButton(
               onPressed: () {
                 _showAddHiveModal(context);
@@ -145,6 +149,7 @@ class HivesListScreen extends ConsumerWidget {
       bottomNavigationBar: SizedBox(
         height: MediaQuery.of(context).size.height * 0.04,
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             RichText(
               text: TextSpan(
@@ -162,6 +167,32 @@ class HivesListScreen extends ConsumerWidget {
                             launchUrlString('https://icons8.com');
                           })
                   ]),
+            ),
+            const VerticalDivider(
+              width: 20,
+              indent: 4,
+              thickness: 1,
+              endIndent: 4,
+              color: Colors.grey,
+            ),
+            RichText(
+              text: TextSpan(
+                text: AppLocalizations.of(context)!.sunData,
+                style: Theme.of(context).textTheme.bodySmall,
+                children: <TextSpan>[
+                  TextSpan(
+                    text: AppLocalizations.of(context)!.ssIo,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(decoration: TextDecoration.underline),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        launchUrlString('https://sunrisesunset.io');
+                      },
+                  )
+                ],
+              ),
             ),
           ],
         ),

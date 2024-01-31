@@ -33,7 +33,7 @@
   "newChecklist": "New checklist",
   "seeOldChecklists": "See checklists",
   "hintHiveListSearch": "Find hive...",
-  "iconsBy": "Icons by ",
+  "iconsBy": "Sun icons by ",
   "icons8": "Icons8",
   "dbHintNotes": "Notes",
   "back": "Back",
@@ -62,5 +62,7 @@
   "englishFlag": "\uD83C\uDDFA\uD83C\uDDF8 English",
   "incompleteChecklist": "Incomplete checklist",
   "incompleteChecklistContent": "There are some unanswered questions. Do you want to save incomplete checklist?",
-  "backToChecklist": "Back to checklist"
+  "backToChecklist": "Back to checklist",
+  "sunData": "Sun movement data from ",
+  "ssIo": "SunriseSunset.io"
 }

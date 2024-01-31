@@ -10,18 +10,21 @@
 //CANCELED EXTRA photos editing??
 //DONE progress indicators
 //DONE czyszczenie searchbarow po usunieciu wyszukanego ula
-
-//TODO EXTRA zmiana pozycji ula na liscie
-//TODO prompt ze nie wszystkie pytania zostaly wypelnione?
-
-//TODO checklist questions provider???
-//TODO split the hive_list_provider?
-//TODO jednokrotne ladowanie sunset/sunrise
-
+//DONE prompt ze nie wszystkie pytania zostaly wypelnione?
 //DONE MediaQuery
 //DONE localized strings
-//TODO unit testy
-
-
 //DONE Icons by <a target="_blank" href="https://icons8.com/icon/6eveiZQllPjh/sunrise">Sunrise</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
-//TODO sunset data by https://sunrisesunset.io/api/
+//DONE sunset data by https://sunrisesunset.io/api/ + poprawic stopke!
+
+//TODO SUSPENDED split the hive_list_provider? - not necessary for small projects like this one, but need to
+// be revised if it will grow (also harder to test and mock the db provider)
+
+//TODO appbar w hivescreen kiedy klawiatura jest podniesiona
+//TODO EXTRA zmiana pozycji ula na liscie
+//TODO WYKRESY???
+//TODO localizations provider + checklist questions provider
+
+//TODO unit testy
+//TODO id w bazie danych
+
+

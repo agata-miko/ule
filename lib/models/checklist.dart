@@ -1,13 +1,3 @@
-
-// await db.execute('''
-//       CREATE TABLE Checklists (
-//         checklistId TEXT PRIMARY KEY,
-//         hiveId TEXT,
-//         checklistDate INTEGER,
-//         FOREIGN KEY (hiveId) REFERENCES Hive(hiveId)
-//       )
-//     ''');
-
 class Checklist {
   final String checklistId;
   final String hiveId;

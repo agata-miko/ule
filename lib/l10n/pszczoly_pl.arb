@@ -33,7 +33,7 @@
   "newChecklist": "Nowa checklista",
   "seeOldChecklists": "Zobacz checklisty",
   "hintHiveListSearch": "Znajdź ul...",
-  "iconsBy": "Icons by ",
+  "iconsBy": "Ikony słońca z: ",
   "icons8": "Icons8",
   "dbHintNotes": "Notatki",
   "back": "Cofnij",
@@ -62,5 +62,7 @@
   "englishFlag": "\uD83C\uDDFA\uD83C\uDDF8 English",
   "incompleteChecklist": "Checklista niekompletna",
   "incompleteChecklistContent": "Niektóre odpowiedzi są puste. Na pewno chcesz zapisać checklistę?",
-  "backToChecklist": "Wróć do checklisty"
+  "backToChecklist": "Wróć do checklisty",
+  "sunData": "Wschód i zachód słońca: ",
+  "ssIo": "SunriseSunset.io"
 }
