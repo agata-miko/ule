@@ -43,12 +43,13 @@ class ChecklistListScreen extends ConsumerWidget {
                             firstDate: DateTime(2000),
                             lastDate: DateTime(2101),
                           );
+
                           ref
                               .read(selectedDateProvider.notifier)
                               .setSelectedDate(pickedDate!);
                           ref
                               .read(checklistSearchQueryProvider.notifier)
-                              .updateSearchQuery(pickedDate.toString());
+                              .updateSearchQuery( DateFormat('dd/MM/yyyy').format(pickedDate).toString());
                         },
                       ),
                       Expanded(

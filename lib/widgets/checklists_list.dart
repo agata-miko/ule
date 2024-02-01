@@ -51,16 +51,14 @@ class _ListOfChecklists extends ConsumerState<ListOfChecklists> {
                             'checklistDate'])), // Convert timestamp to DateTime
                   ))
               .toList();
-
-          List<Checklist> displayChecklists =
-              searchQuery.isEmpty
-                  ? checklistList
-                  : checklistList
-                      .where((checklist) => checklist.checklistDate
-                          .toString()
-                          .toLowerCase()
-                          .contains(searchQuery.toLowerCase()))
-                      .toList();
+          List<Checklist> displayChecklists = searchQuery.isEmpty
+              ? checklistList
+              : checklistList
+                  .where((checklist) => DateFormat('dd/MM/yyyy')
+                      .format(checklist.checklistDate)
+                      .toLowerCase()
+                      .contains(searchQuery.toLowerCase()))
+                  .toList();
 
           return ListView.builder(
             itemCount: displayChecklists.length,
@@ -124,20 +122,17 @@ class _ListOfChecklists extends ConsumerState<ListOfChecklists> {
               },
               child: ListTile(
                 title: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.05),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.height * 0.05),
                   child: Row(
                     children: [
                       const Icon(Icons.list),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.1),
-                      Text(DateFormat('dd/MM/yyyy')
+                      Text(
+                        DateFormat('dd/MM/yyyy')
                             .format(displayChecklists[index].checklistDate),
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyLarge!
-                            .copyWith(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onBackground),
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                            color: Theme.of(context).colorScheme.onBackground),
                       ),
                     ],
                   ),
@@ -147,8 +142,7 @@ class _ListOfChecklists extends ConsumerState<ListOfChecklists> {
                       builder: (ctx) => FilledChecklistScreen(
                           hiveId: widget.hiveId,
                           checklistId: displayChecklists[index].checklistId,
-                          checklistDate:
-                              displayChecklists[index].checklistDate,
+                          checklistDate: displayChecklists[index].checklistDate,
                           hiveName: widget.hiveName)));
                 },
               ),
