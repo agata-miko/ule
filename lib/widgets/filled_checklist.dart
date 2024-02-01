@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pszczoly_v3/models/question.dart';
 import 'package:pszczoly_v3/models/question_answer.dart';
-import 'package:pszczoly_v3/providers/hive_list_provider.dart';
+import 'package:pszczoly_v3/providers/database_provider.dart';
 import 'package:pszczoly_v3/data/checklist_questions_data.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

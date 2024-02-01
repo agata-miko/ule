@@ -6,6 +6,7 @@ import 'package:pszczoly_v3/providers/search_query_providers.dart';
 import 'package:pszczoly_v3/screens/filled_checklist_screen.dart';
 import 'package:pszczoly_v3/models/checklist.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:pszczoly_v3/providers/database_provider.dart';
 
 class ListOfChecklists extends ConsumerStatefulWidget {
   const ListOfChecklists(

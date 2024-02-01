@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pszczoly_v3/models/language_constants.dart';
 import 'package:pszczoly_v3/screens/starting_screen.dart';
 import 'package:pszczoly_v3/services/database_helper.dart';
-import '../theme/app_theme_2.dart';
+import '../theme/app_theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

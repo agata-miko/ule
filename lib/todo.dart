@@ -15,9 +15,7 @@
 //DONE localized strings
 //DONE Icons by <a target="_blank" href="https://icons8.com/icon/6eveiZQllPjh/sunrise">Sunrise</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
 //DONE sunset data by https://sunrisesunset.io/api/ + poprawic stopke!
-
-//TODO SUSPENDED split the hive_list_provider? - not necessary for small projects like this one, but need to
-// be revised if it will grow (also harder to test and mock the db provider)
+//DONE split the hive_list_provider
 
 //TODO appbar w hivescreen kiedy klawiatura jest podniesiona
 //TODO EXTRA zmiana pozycji ula na liscie

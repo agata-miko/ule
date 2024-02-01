@@ -1,93 +1,71 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-const ColorScheme lightColorScheme = ColorScheme(
+ThemeData lightTheme = ThemeData(
   brightness: Brightness.light,
-  primary: Color(0xFF99461B),
-  onPrimary: Color(0xFFFFFFFF),
-  primaryContainer: Color(0xFFFFDBCC),
-  onPrimaryContainer: Color(0xFF351000),
-  secondary: Color(0xFF795900),
-  onSecondary: Color(0xFFFFFFFF),
-  secondaryContainer: Color(0xFFFFDFA0),
-  onSecondaryContainer: Color(0xFF261A00),
-  tertiary: Color(0xFF665F31),
-  onTertiary: Color(0xFFFFFFFF),
-  tertiaryContainer: Color(0xFFEEE4A9),
-  onTertiaryContainer: Color(0xFF201C00),
-  error: Color(0xFFBA1A1A),
-  errorContainer: Color(0xFFFFDAD6),
-  onError: Color(0xFFFFFFFF),
-  onErrorContainer: Color(0xFF410002),
-  background: Color(0xFFFFFBFF),
-  onBackground: Color(0xFF311300),
-  surface: Color(0xFFFFFBFF),
-  onSurface: Color(0xFF311300),
-  surfaceVariant: Color(0xFFF4DED5),
-  onSurfaceVariant: Color(0xFF52443D),
-  outline: Color(0xFF85736C),
-  onInverseSurface: Color(0xFFFFEDE4),
-  inverseSurface: Color(0xFF512400),
-  inversePrimary: Color(0xFFFFB695),
-  shadow: Color(0xFF000000),
-  surfaceTint: Color(0xFF99461B),
-  outlineVariant: Color(0xFFD8C2BA),
-  scrim: Color(0xFF000000),
-);
+  useMaterial3: true,
+  textTheme: const TextTheme(
+    displayLarge: TextStyle(fontSize: 32),
+    bodyLarge: TextStyle(fontSize: 18),
+    bodyMedium: TextStyle(fontSize: 16),
+    bodySmall: TextStyle(fontSize: 10),
+  ).apply(
+      fontFamily: GoogleFonts.roboto(fontWeight: FontWeight.w300).fontFamily),
+  appBarTheme: AppBarTheme(
+    titleTextStyle: TextStyle(
+      fontFamily: GoogleFonts.roboto(fontWeight: FontWeight.w300).fontFamily,
+      fontSize: 20,
+      color: Colors.black54,
+    ),
+    color: Colors.transparent,
+    iconTheme: const IconThemeData(color: Colors.black54),
+    centerTitle: true,
+  ),
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ButtonStyle(
+      textStyle: MaterialStatePropertyAll(TextStyle(
+          fontSize: 14,
+          fontFamily:
+              GoogleFonts.roboto(fontWeight: FontWeight.w300).fontFamily)),
+      backgroundColor: MaterialStateProperty.all(Colors.white),
+      foregroundColor: MaterialStateProperty.all(Colors.black54),
+    ),
+  ),
+  textButtonTheme: const TextButtonThemeData(
+      style: ButtonStyle(
+          foregroundColor: MaterialStatePropertyAll(Colors.black54))),
+  iconTheme: const IconThemeData(
+    color: Colors.black54,
+  ),
 
-const ColorScheme darkColorScheme = ColorScheme(
-  brightness: Brightness.dark,
-  primary: Color(0xFFFFB695),
-  onPrimary: Color(0xFF571F00),
-  primaryContainer: Color(0xFF7A3003),
-  onPrimaryContainer: Color(0xFFFFDBCC),
-  secondary: Color(0xFFF3BF48),
-  onSecondary: Color(0xFF402D00),
-  secondaryContainer: Color(0xFF5C4300),
-  onSecondaryContainer: Color(0xFFFFDFA0),
-  tertiary: Color(0xFFD1C88F),
-  onTertiary: Color(0xFF363106),
-  tertiaryContainer: Color(0xFF4E471B),
-  onTertiaryContainer: Color(0xFFEEE4A9),
-  error: Color(0xFFFFB4AB),
-  errorContainer: Color(0xFF93000A),
-  onError: Color(0xFF690005),
-  onErrorContainer: Color(0xFFFFDAD6),
-  background: Color(0xFF311300),
-  onBackground: Color(0xFFFFDBC7),
-  surface: Color(0xFF311300),
-  onSurface: Color(0xFFFFDBC7),
-  surfaceVariant: Color(0xFF52443D),
-  onSurfaceVariant: Color(0xFFD8C2BA),
-  outline: Color(0xFFA08D85),
-  onInverseSurface: Color(0xFF311300),
-  inverseSurface: Color(0xFFFFDBC7),
-  inversePrimary: Color(0xFF99461B),
-  shadow: Color(0xFF000000),
-  surfaceTint: Color(0xFFFFB695),
-  outlineVariant: Color(0xFF52443D),
-  scrim: Color(0xFF000000),
-);
+  popupMenuTheme: PopupMenuThemeData(
+    color: Colors.white,
+    textStyle: TextStyle(
+      fontFamily: GoogleFonts.roboto(fontWeight: FontWeight.w300).fontFamily,
+      fontSize: 12,
+      color: Colors.black54,
+    ),
+  ),
 
-ThemeData customTheme = ThemeData(
-  brightness: Brightness.light,
-  primaryColor: lightColorScheme.primary,
-  hintColor: lightColorScheme.secondary,
-  scaffoldBackgroundColor: lightColorScheme.background,
-  cardColor: lightColorScheme.surfaceVariant,
-  dialogBackgroundColor: lightColorScheme.surface,
-  indicatorColor: lightColorScheme.primary,
-  disabledColor: lightColorScheme.surfaceVariant,
-  colorScheme: lightColorScheme,
-);
+  datePickerTheme: const DatePickerThemeData(
+    backgroundColor: Colors.white,
+    elevation: 0,
+  ),
 
-ThemeData darkCustomTheme = ThemeData(
-  brightness: Brightness.dark,
-  primaryColor: darkColorScheme.primary,
-  hintColor: darkColorScheme.secondary,
-  scaffoldBackgroundColor: darkColorScheme.background,
-  cardColor: darkColorScheme.surfaceVariant,
-  dialogBackgroundColor: darkColorScheme.surface,
-  indicatorColor: darkColorScheme.primary,
-  disabledColor: darkColorScheme.surfaceVariant,
-  colorScheme: darkColorScheme,
+
+  colorScheme: const ColorScheme(
+    primaryContainer: Colors.white,
+    secondaryContainer: Colors.white,
+    background: Colors.white,
+    primary: Colors.black26,
+    secondary: Colors.black54,
+    brightness: Brightness.light,
+    error: Colors.red,
+    onBackground: Colors.black54,
+    onError: Colors.white,
+    onPrimary: Colors.black54,
+    onSecondary: Colors.black54,
+    onSurface: Colors.black54,
+    surface: Colors.black12,
+  ),
 );

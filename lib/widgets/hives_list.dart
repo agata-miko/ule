@@ -5,8 +5,9 @@ import 'package:pszczoly_v3/models/hive.dart';
 import 'package:pszczoly_v3/providers/hive_list_provider.dart';
 import 'package:pszczoly_v3/screens/checklist_screen.dart';
 import 'package:pszczoly_v3/providers/search_query_providers.dart';
-import 'package:pszczoly_v3/screens/hive_screen_3.dart';
+import 'package:pszczoly_v3/screens/hive_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:pszczoly_v3/providers/database_provider.dart';
 
 class HivesList extends ConsumerStatefulWidget {
   const HivesList({super.key});
