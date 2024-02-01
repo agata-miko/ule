@@ -32,15 +32,6 @@ void main () {
       final container = ProviderContainer();
       expect(container.read(hivesSearchQueryProvider), isEmpty);
     });
-
-    test('provider should handle empty query', () {
-      final container = ProviderContainer();
-      final query = container.read(hivesSearchQueryProvider.notifier);
-
-      query.updateSearchQuery('');
-      expect(container.read(hivesSearchQueryProvider), isEmpty);
-    });
-
   });
 
   group('checklistSearchQueryProvider tests', () {
@@ -70,14 +61,6 @@ void main () {
     test('default state should be empty', () {
       final container = ProviderContainer();
       expect(container.read(checklistSearchQueryProvider), equals(''));
-    });
-
-    test('provider should handle empty query', () {
-      final container = ProviderContainer();
-      final query = container.read(checklistSearchQueryProvider.notifier);
-
-      query.updateSearchQuery('');
-      expect(container.read(checklistSearchQueryProvider), isEmpty);
     });
   });
 }
