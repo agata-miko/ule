@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pszczoly_v3/models/hive.dart';
+import 'package:pszczoly_v3/providers/database_provider.dart';
 import 'package:pszczoly_v3/providers/hive_list_provider.dart';
 import 'package:pszczoly_v3/widgets/image_input.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -22,6 +24,8 @@ class _AddHiveScreenState extends ConsumerState<AddHiveScreen> {
     if (enteredText.isEmpty) {
       return;
     }
+    final newHive = Hive(photo: photo, hiveName: enteredText);
+    ref.read(databaseProvider).insertHive(newHive.toJson());
     ref.read(hiveDataProvider.notifier).addHive(photo: photo, hiveName: enteredText);
     Navigator.of(context).pop();
   }
