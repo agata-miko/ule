@@ -52,8 +52,6 @@ class _HiveScreenState extends ConsumerState<HiveScreen> {
       return imageDisplay is Image ? true : false;
     }
 
-    bool imageDisplayBool = isImageDisplayPhoto();
-
     bool shouldExtendBody() {
       // Check if the keyboard is open and the screen is adjusting
       return !(MediaQuery.of(context).viewInsets.bottom > 0 &&
@@ -61,72 +59,71 @@ class _HiveScreenState extends ConsumerState<HiveScreen> {
               MediaQuery.of(context).padding.bottom);
     }
 
-    return Scaffold(
-      extendBodyBehindAppBar: shouldExtendBody(),
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: imageDisplayBool == true ? Colors.white : Colors.black54),
-        //TODO make the appbar's text and icon color dependent on the color palette of the photo taken by user
-        title: Text(
-          'ULala',
-          style: TextStyle(
-            fontFamily: GoogleFonts.zeyada().fontFamily,
-            fontSize: 31,
-            color: imageDisplayBool == true ? Colors.white : Colors.black54,
+    return SafeArea(
+      child: Scaffold(
+        extendBodyBehindAppBar: shouldExtendBody(),
+        appBar: AppBar(
+          backgroundColor: Colors.white.withOpacity(0.4),
+          iconTheme: const IconThemeData(),
+          //TODO make the appbar's text and icon color dependent on the color palette of the photo taken by user
+          title: Text(
+            'ULala',
+            style: TextStyle(
+              fontFamily: GoogleFonts.zeyada().fontFamily,
+              fontSize: 31,
+            ),
           ),
         ),
-      ),
-      body: Stack(
-        children: [
-          Positioned(
-            bottom: MediaQuery.of(context).size.height * 0.2,
-            left: 0,
-            right: 0,
-            top: 0,
-            child: SingleChildScrollView(
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height * 0.8,
-                child: Stack(
-                  children: [
-                    isImageDisplayPhoto()
-                        ? imageDisplay
-                        : Center(child: imageDisplay),
-                    if (isImageDisplayPhoto())
-                      Container(
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.center,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                              Colors.transparent,
-                              Theme.of(context).colorScheme.primaryContainer
-                            ],
+        body: Stack(
+          children: [
+            Positioned(
+              bottom: MediaQuery.of(context).size.height * 0.2,
+              left: 0,
+              right: 0,
+              top: 0,
+              child: SingleChildScrollView(
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.8,
+                  child: Stack(
+                    children: [
+                      isImageDisplayPhoto()
+                          ? imageDisplay
+                          : Center(child: imageDisplay),
+                      if (isImageDisplayPhoto())
+                        Container(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.center,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Colors.transparent,
+                                Theme.of(context).colorScheme.primaryContainer
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            top: null,
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                  maxHeight: MediaQuery.of(context).size.height * 0.6),
-              child: Card(
-                color: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.9),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              top: null,
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                    maxHeight: MediaQuery.of(context).size.height * 0.6),
+                child: Card(
+                  color: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.9),
                   child: SingleChildScrollView(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Padding(
-                          padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.05),
+                          padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.02),
                           child: Center(
                             child: Text(widget.hiveName,
                                 style: Theme.of(context)
@@ -168,8 +165,8 @@ class _HiveScreenState extends ConsumerState<HiveScreen> {
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

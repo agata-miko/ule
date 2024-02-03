@@ -22,22 +22,24 @@ class _ChecklistScreenState extends ConsumerState<ChecklistScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-          title: FittedBox(
-        fit: BoxFit.scaleDown,
-        child: Text(
-          '${widget.hiveName} ${_dateFormat.format(checklistDate)}',
-          style: Theme.of(context).appBarTheme.titleTextStyle,
-        ),
-      )),
-      //different way to display data in dd/mm/yyyy???
-      body: Padding(
-        padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.04),
-        child: Column(
-          children: <Widget>[
-            Expanded(child: Checklist(key: ValueKey(const Uuid().v4), hiveId: widget.hiveId, checklistDate: checklistDate,)),
-          ],
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+            title: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(
+            '${widget.hiveName} ${_dateFormat.format(checklistDate)}',
+            style: Theme.of(context).appBarTheme.titleTextStyle,
+          ),
+        )),
+        //different way to display data in dd/mm/yyyy???
+        body: Padding(
+          padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.04),
+          child: Column(
+            children: <Widget>[
+              Expanded(child: Checklist(key: ValueKey(const Uuid().v4), hiveId: widget.hiveId, checklistDate: checklistDate,)),
+            ],
+          ),
         ),
       ),
     );

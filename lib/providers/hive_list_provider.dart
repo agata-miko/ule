@@ -11,10 +11,9 @@ final hiveDataProvider = StateNotifierProvider<HiveDataNotifier, List<Hive>>(
 
 class HiveDataNotifier extends StateNotifier<List<Hive>> {
 
-
   HiveDataNotifier() : super([]);
 
-  void addHive({File? photo, hiveName}) async {
+  Future<void> addHive({File? photo, hiveName}) async {
     final appDir = await syspaths.getApplicationDocumentsDirectory();
     final fileName = path.basename(photo?.path ?? '');
     final copiedPhoto = await photo?.copy('${appDir.path}/$fileName');
@@ -23,7 +22,7 @@ class HiveDataNotifier extends StateNotifier<List<Hive>> {
     state = [...state, newHive];
   }
 
-  void updateHivePhoto(String hiveName, File? photo) async {
+  Future<void> updateHivePhoto(String hiveName, File? photo) async {
     state = [
       for (var hive in state)
         if (hive.hiveName == hiveName)
@@ -36,7 +35,7 @@ class HiveDataNotifier extends StateNotifier<List<Hive>> {
           hive,
     ];
   }
-  void deleteHive(String hiveId) async {
+  Future<void> deleteHive(String hiveId) async {
     state = state.where((hive) => hive.hiveId != hiveId).toList();
   }
 } 

@@ -26,19 +26,21 @@ class _ChecklistScreenState extends ConsumerState<FilledChecklistScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-          title: FittedBox(
-        fit: BoxFit.scaleDown,
-        child: Text(
-          '${widget.hiveName} ${_dateFormat.format(widget.checklistDate)}',
-          style: Theme.of(context).appBarTheme.titleTextStyle,
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+            title: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(
+            '${widget.hiveName} ${_dateFormat.format(widget.checklistDate)}',
+            style: Theme.of(context).appBarTheme.titleTextStyle,
+          ),
+        )),
+        //different way to display data in dd/mm/yyyy???
+        body: Padding(
+          padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.04),
+          child: FilledChecklistDisplay(checklistId: widget.checklistId,),
         ),
-      )),
-      //different way to display data in dd/mm/yyyy???
-      body: Padding(
-        padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.04),
-        child: FilledChecklistDisplay(checklistId: widget.checklistId,),
       ),
     );
   }

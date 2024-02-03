@@ -20,6 +20,7 @@
 //TODO appbar w hivescreen kiedy klawiatura jest podniesiona
 //TODO EXTRA zmiana pozycji ula na liscie
 //TODO WYKRESY???
+
 //TODO localizations provider + checklist questions provider
 
 //TODO unit testy

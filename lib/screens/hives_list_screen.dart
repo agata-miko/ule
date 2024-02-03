@@ -41,159 +41,161 @@ class HivesListScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     ref.watch(hivesSearchQueryProvider);
-    return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-      appBar: AppBar(
-        actions: [
-          const SunsetWidget(),
-          Padding(
-            padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
-            child: PopupMenuButton<String>(
-              icon: const Icon(Icons.language),
-              //in case of more languages they can be moved to the list that would be used to create the items
-              itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                PopupMenuItem<String>(
-                    value: 'pl',
-                    child: Text(AppLocalizations.of(context)!.polishFlag)),
-                PopupMenuItem<String>(
-                    value: 'en',
-                    child: Text(AppLocalizations.of(context)!.englishFlag)),
-              ],
-              onSelected: (String? language) async {
-                if (language != null) {
-                  Locale? locale = await setLocale(language);
-                  if (!context.mounted) return;
-                  MyApp.setLocale(context, locale!);
-                }
-              },
-            ),
-          ),
-        ],
-        leadingWidth: MediaQuery.of(context).size.height * 0.2,
-        leading: Center(
-            child: Text(
-          'ULala',
-          style: TextStyle(
-            fontFamily: GoogleFonts.zeyada().fontFamily,
-            fontSize: 31,
-          ),
-        )),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.height * 0.04),
-                  child: SizedBox(
-                      width: double.infinity,
-                      child: TextField(
-                        controller: _searchController,
-                        onChanged: (query) {
-                          ref
-                              .read(hivesSearchQueryProvider.notifier)
-                              .updateSearchQuery(query);
-                        },
-                        decoration: InputDecoration(
-                            hintText: AppLocalizations.of(context)!
-                                .hintHiveListSearch,
-                            hintStyle: Theme.of(context).textTheme.bodyMedium,
-                            suffixIcon: IconButton(
-                              icon: const Icon(Icons.clear),
-                              onPressed: () {
-                                _searchController.clear();
-                                ref
-                                    .read(hivesSearchQueryProvider.notifier)
-                                    .updateSearchQuery('');
-                                FocusScope.of(context).unfocus();
-                              },
-                            ),
-                            prefixIcon: IconButton(
-                              icon: const Icon(Icons.search),
-                              onPressed: () {},
-                            ),
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.circular(20))),
-                      )),
-                ),
-              ],
-            ),
-            // const SizedBox(
-            //   height: 10,
-            // ),
-            SizedBox(
-                height: MediaQuery.of(context).size.height * 0.6,
-                child: const HivesList()),
-            FloatingActionButton(
-              onPressed: () {
-                _showAddHiveModal(context);
-                // Navigator.of(context).push(
-                //   MaterialPageRoute(
-                //     builder: (ctx) => const AddHiveScreen(),
-                //   ),
-                // );
-              },
-              shape: const CircleBorder(),
-              backgroundColor: Colors.white,
-              elevation: 8,
-              child: const Icon(Icons.add_home),
-            ),
-          ],
-        ),
-      ),
-      bottomNavigationBar: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.04,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            RichText(
-              text: TextSpan(
-                  text: AppLocalizations.of(context)!.iconsBy,
-                  style: Theme.of(context).textTheme.bodySmall,
-                  children: <TextSpan>[
-                    TextSpan(
-                        text: AppLocalizations.of(context)!.icons8,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodySmall!
-                            .copyWith(decoration: TextDecoration.underline),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            launchUrlString('https://icons8.com');
-                          })
-                  ]),
-            ),
-            const VerticalDivider(
-              width: 20,
-              indent: 4,
-              thickness: 1,
-              endIndent: 4,
-              color: Colors.grey,
-            ),
-            RichText(
-              text: TextSpan(
-                text: AppLocalizations.of(context)!.sunData,
-                style: Theme.of(context).textTheme.bodySmall,
-                children: <TextSpan>[
-                  TextSpan(
-                    text: AppLocalizations.of(context)!.ssIo,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodySmall!
-                        .copyWith(decoration: TextDecoration.underline),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () {
-                        launchUrlString('https://sunrisesunset.io');
-                      },
-                  )
+    return SafeArea(
+      child: Scaffold(
+        floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+        appBar: AppBar(
+          actions: [
+            const SunsetWidget(),
+            Padding(
+              padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
+              child: PopupMenuButton<String>(
+                icon: const Icon(Icons.language),
+                //in case of more languages they can be moved to the list that would be used to create the items
+                itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                  PopupMenuItem<String>(
+                      value: 'pl',
+                      child: Text(AppLocalizations.of(context)!.polishFlag)),
+                  PopupMenuItem<String>(
+                      value: 'en',
+                      child: Text(AppLocalizations.of(context)!.englishFlag)),
                 ],
+                onSelected: (String? language) async {
+                  if (language != null) {
+                    Locale? locale = await setLocale(language);
+                    if (!context.mounted) return;
+                    MyApp.setLocale(context, locale!);
+                  }
+                },
               ),
             ),
           ],
+          leadingWidth: MediaQuery.of(context).size.height * 0.2,
+          leading: Center(
+              child: Text(
+            'ULala',
+            style: TextStyle(
+              fontFamily: GoogleFonts.zeyada().fontFamily,
+              fontSize: 31,
+            ),
+          )),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.height * 0.04),
+                    child: SizedBox(
+                        width: double.infinity,
+                        child: TextField(
+                          controller: _searchController,
+                          onChanged: (query) {
+                            ref
+                                .read(hivesSearchQueryProvider.notifier)
+                                .updateSearchQuery(query);
+                          },
+                          decoration: InputDecoration(
+                              hintText: AppLocalizations.of(context)!
+                                  .hintHiveListSearch,
+                              hintStyle: Theme.of(context).textTheme.bodyMedium,
+                              suffixIcon: IconButton(
+                                icon: const Icon(Icons.clear),
+                                onPressed: () {
+                                  _searchController.clear();
+                                  ref
+                                      .read(hivesSearchQueryProvider.notifier)
+                                      .updateSearchQuery('');
+                                  FocusScope.of(context).unfocus();
+                                },
+                              ),
+                              prefixIcon: IconButton(
+                                icon: const Icon(Icons.search),
+                                onPressed: () {},
+                              ),
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius: BorderRadius.circular(20))),
+                        )),
+                  ),
+                ],
+              ),
+              // const SizedBox(
+              //   height: 10,
+              // ),
+              SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.6,
+                  child: const HivesList()),
+              FloatingActionButton(
+                onPressed: () {
+                  _showAddHiveModal(context);
+                  // Navigator.of(context).push(
+                  //   MaterialPageRoute(
+                  //     builder: (ctx) => const AddHiveScreen(),
+                  //   ),
+                  // );
+                },
+                shape: const CircleBorder(),
+                backgroundColor: Colors.white,
+                elevation: 8,
+                child: const Icon(Icons.add_home),
+              ),
+            ],
+          ),
+        ),
+        bottomNavigationBar: SizedBox(
+          height: MediaQuery.of(context).size.height * 0.04,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              RichText(
+                text: TextSpan(
+                    text: AppLocalizations.of(context)!.iconsBy,
+                    style: Theme.of(context).textTheme.bodySmall,
+                    children: <TextSpan>[
+                      TextSpan(
+                          text: AppLocalizations.of(context)!.icons8,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(decoration: TextDecoration.underline),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              launchUrlString('https://icons8.com');
+                            })
+                    ]),
+              ),
+              const VerticalDivider(
+                width: 20,
+                indent: 4,
+                thickness: 1,
+                endIndent: 4,
+                color: Colors.grey,
+              ),
+              RichText(
+                text: TextSpan(
+                  text: AppLocalizations.of(context)!.sunData,
+                  style: Theme.of(context).textTheme.bodySmall,
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: AppLocalizations.of(context)!.ssIo,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall!
+                          .copyWith(decoration: TextDecoration.underline),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          launchUrlString('https://sunrisesunset.io');
+                        },
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
