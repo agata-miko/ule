@@ -10,7 +10,7 @@ class ChecklistListScreen extends ConsumerWidget {
   ChecklistListScreen(
       {super.key, required this.hiveId, required this.hiveName});
 
-  final String hiveId;
+  final int hiveId;
   final String hiveName;
 
   final TextEditingController _searchController = TextEditingController();

@@ -20,7 +20,7 @@ class HiveScreen extends ConsumerStatefulWidget {
 
   final File? selectedImage;
   final String hiveName;
-  final String hiveId;
+  final int hiveId;
 
   @override
   ConsumerState<HiveScreen> createState() => _HiveScreenState();
@@ -65,7 +65,6 @@ class _HiveScreenState extends ConsumerState<HiveScreen> {
         appBar: AppBar(
           backgroundColor: Colors.white.withOpacity(0.4),
           iconTheme: const IconThemeData(),
-          //TODO make the appbar's text and icon color dependent on the color palette of the photo taken by user
           title: Text(
             'ULala',
             style: TextStyle(

@@ -1,9 +1,9 @@
 class Checklist {
-  final String checklistId;
-  final String hiveId;
+  final int? checklistId;
+  final int hiveId;
   final DateTime checklistDate;
 
-  Checklist({required this.checklistId, required this.hiveId, required this.checklistDate,});
+  Checklist({this.checklistId, required this.hiveId, required this.checklistDate,});
 
   Map<String, dynamic> toJson() {
     return {

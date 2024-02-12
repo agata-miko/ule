@@ -18,6 +18,8 @@ ThemeData lightTheme = ThemeData(
       color: Colors.black54,
     ),
     color: Colors.transparent,
+    elevation: 0.0,
+    scrolledUnderElevation: 0.0,
     iconTheme: const IconThemeData(color: Colors.black54),
     centerTitle: true,
   ),
@@ -53,7 +55,7 @@ ThemeData lightTheme = ThemeData(
   ),
 
 
-  colorScheme: const ColorScheme(
+  colorScheme: ColorScheme(
     primaryContainer: Colors.white,
     secondaryContainer: Colors.white,
     background: Colors.white,

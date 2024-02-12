@@ -1,10 +1,10 @@
 class FilledChecklist {
-  String checklistId;
-  String hiveId;
+  int? checklistId;
+  int hiveId;
   DateTime checklistDate;
 
   FilledChecklist(
-      {required this.hiveId, required this.checklistDate, required this.checklistId});
+      {required this.hiveId, required this.checklistDate, this.checklistId});
 
   Map<String, dynamic> toJson() {
     return {

@@ -9,7 +9,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class FilledChecklistDisplay extends ConsumerStatefulWidget {
   const FilledChecklistDisplay({super.key, required this.checklistId});
 
-  final String checklistId;
+  final int checklistId;
 
   @override
   ConsumerState createState() => ChecklistState();
@@ -29,9 +29,9 @@ class ChecklistState extends ConsumerState<FilledChecklistDisplay> {
       'N/A': QuestionAnswer(
         questionId: 'N/A',
         answerType: null,
-        checklistId: 'N/A',
+        checklistId: 0,
         answer: AppLocalizations.of(context)!.noData,
-        questionAnswerId: 'N/A',
+        questionAnswerId: 0,
       ),
     };
 
@@ -66,9 +66,9 @@ class ChecklistState extends ConsumerState<FilledChecklistDisplay> {
               .map((row) => QuestionAnswer(
                     questionId: row['questionId'] as String,
                     answerType: row['answerType'] as dynamic,
-                    checklistId: row['checklistId'] as String,
+                    checklistId: row['checklistId'],
                     answer: row['answer'] as dynamic,
-                    questionAnswerId: row['questionAnswerId'] as String,
+                    questionAnswerId: row['questionAnswerId'],
                   ))
               .toList();
         }

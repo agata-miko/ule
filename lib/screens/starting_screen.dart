@@ -21,7 +21,7 @@ class _StartingScreenState extends ConsumerState<StartingScreen> {
   void initState() {
     super.initState();
     _timer = Timer(
-      const Duration(seconds: 5),
+      const Duration(seconds: 50),
       () {
         if (mounted) {
           final hiveData =
@@ -41,7 +41,8 @@ class _StartingScreenState extends ConsumerState<StartingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      body:
+      Center(
         child: SizedBox(
           width: 250.0,
           child: DefaultTextStyle(

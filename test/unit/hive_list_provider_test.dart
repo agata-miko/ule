@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:math';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -27,7 +26,7 @@ void main() {
         const MethodChannel('plugins.flutter.io/path_provider'),
             (MethodCall methodCall) {
           if (methodCall.method == 'getApplicationDocumentsDirectory') {
-            return Future.value('C:/Users/mikol/Downloads/');
+            return Future.value('default_path/path');
           }
           return null;
         });
@@ -108,8 +107,8 @@ void main() {
       final mockPhoto = MockFile();
       const hiveName = 'testHive';
       const hiveName1 = 'testHive1';
-      const hiveId = 'a';
-      const hiveId1 = 'b';
+      const hiveId = 1;
+      const hiveId1 = 2;
 
       container
           .read(hiveDataProvider.notifier)
@@ -122,5 +121,4 @@ void main() {
       expect(container.read(hiveDataProvider.notifier).state.length, 1);
       expect(container.read(hiveDataProvider.notifier).state.first.hiveId, hiveId1);
     });
-
 }

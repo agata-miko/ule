@@ -14,7 +14,7 @@ class DatabaseHelper {
   static Future<void> _onCreate(Database db, int version) async {
     await db.execute('''
       CREATE TABLE Hive (
-        hiveId TEXT PRIMARY KEY,
+        hiveId INTEGER PRIMARY KEY AUTOINCREMENT,
         hiveName TEXT,
         photoPath TEXT,
         note TEXT
@@ -23,8 +23,8 @@ class DatabaseHelper {
 
     await db.execute('''
       CREATE TABLE Checklists (
-        checklistId TEXT PRIMARY KEY,
-        hiveId TEXT,
+        checklistId INTEGER PRIMARY KEY AUTOINCREMENT,
+        hiveId INTEGER,
         checklistDate TEXT,
         FOREIGN KEY (hiveId) REFERENCES Hive(hiveId)
       )
@@ -32,9 +32,9 @@ class DatabaseHelper {
 
     await db.execute('''
       CREATE TABLE QuestionAnswers (
-        questionAnswerId TEXT PRIMARY KEY,
-        checklistId TEXT,
-        questionId TEXT,
+        questionAnswerId INTEGER PRIMARY KEY AUTOINCREMENT,
+        checklistId INTEGER,
+        questionId INTEGER,
         answerType TEXT,
         answer TEXT,
         FOREIGN KEY (checklistId) REFERENCES Checklists(checklistId)
@@ -52,7 +52,7 @@ class DatabaseHelper {
     return await db.query('Hive');
   }
 
-  Future<int> updateHivePhoto(String hiveId, File newPhoto) async {
+  Future<int> updateHivePhoto(int hiveId, File newPhoto) async {
     Database db = await initializeDatabase();
     return await db.update(
       'Hive',
@@ -62,7 +62,7 @@ class DatabaseHelper {
     );
   }
 
-  Future<int> updateHiveNote(String hiveId, String newNote) async {
+  Future<int> updateHiveNote(int hiveId, String newNote) async {
     Database db = await initializeDatabase();
     return await db.update(
       'Hive',
@@ -72,7 +72,7 @@ class DatabaseHelper {
     );
   }
 
-  Future<String> getHiveNote(String hiveId) async {
+  Future<String> getHiveNote(int hiveId) async {
     Database db = await initializeDatabase();
     List<Map<String, dynamic>> result = await db.query(
       'Hive',
@@ -88,7 +88,7 @@ class DatabaseHelper {
     }
   }
 
-  Future<int> deleteHive(String hiveId) async {
+  Future<int> deleteHive(int hiveId) async {
     Database db = await initializeDatabase();
     await db.delete(
       'QuestionAnswers',
@@ -105,13 +105,13 @@ class DatabaseHelper {
     return await db.insert('Checklists', filledChecklist);
   }
 
-  Future<List<Map<String, dynamic>>> getChecklistsForAHive(hiveId) async {
+  Future<List<Map<String, dynamic>>> getChecklistsForAHive(int hiveId) async {
     Database db = await initializeDatabase();
     return await db
         .query('Checklists', where: 'hiveId = ?', whereArgs: [hiveId]);
   }
 
-  Future<int> deleteChecklist(String filledChecklistId) async {
+  Future<int> deleteChecklist(int filledChecklistId) async {
     Database db = await initializeDatabase();
     await db.delete('QuestionAnswers',
         where: 'checklistId = ?', whereArgs: [filledChecklistId]);
@@ -130,43 +130,43 @@ class DatabaseHelper {
   }
 
   Future<List<Map<String, dynamic>>> getQuestionAnswersForChecklist(
-      String filledChecklistId) async {
+      int filledChecklistId) async {
     Database db = await initializeDatabase();
     return await db.query('QuestionAnswers',
         where: 'checklistId = ?', whereArgs: [filledChecklistId]);
   }
 
-//   //TYLKO DO TESTOW
-//   Future<void> printTables() async {
-//     final String path = join(await getDatabasesPath(), _databaseName);
-//     final Database db = await openDatabase(path);
-//
-//     // Query to retrieve table names
-//     final List<Map<String, dynamic>> tables = await db.rawQuery(
-//       "SELECT name FROM sqlite_master WHERE type='table';",
-//     );
-//
-//     // Iterate through tables
-//     for (final table in tables) {
-//       final tableName = table['name'] as String;
-//       print('Table: $tableName');
-//
-//       // Query to retrieve all rows from the current table
-//       final List<Map<String, dynamic>> rows = await db.query(tableName);
-//
-//       // Print column names
-//       print(
-//           'Columns: ${rows.isNotEmpty ? rows[0].keys.join(', ') : 'No data'}');
-//
-//       // Print each row
-//       for (final row in rows) {
-//         print(row);
-//       }
-//
-//       print('\n'); // Add a newline for better readability
-//     }
-//
-//     // Close the database when done
-//     await db.close();
-//   }
+  //TYLKO DO TESTOW
+  Future<void> printTables() async {
+    final String path = join(await getDatabasesPath(), _databaseName);
+    final Database db = await openDatabase(path);
+
+    // Query to retrieve table names
+    final List<Map<String, dynamic>> tables = await db.rawQuery(
+      "SELECT name FROM sqlite_master WHERE type='table';",
+    );
+
+    // Iterate through tables
+    for (final table in tables) {
+      final tableName = table['name'] as String;
+      print('Table: $tableName');
+
+      // Query to retrieve all rows from the current table
+      final List<Map<String, dynamic>> rows = await db.query(tableName);
+
+      // Print column names
+      print(
+          'Columns: ${rows.isNotEmpty ? rows[0].keys.join(', ') : 'No data'}');
+
+      // Print each row
+      for (final row in rows) {
+        print(row);
+      }
+
+      print('\n'); // Add a newline for better readability
+    }
+
+    // Close the database when done
+    await db.close();
+  }
 }

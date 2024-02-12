@@ -16,14 +16,15 @@
 //DONE Icons by <a target="_blank" href="https://icons8.com/icon/6eveiZQllPjh/sunrise">Sunrise</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
 //DONE sunset data by https://sunrisesunset.io/api/ + poprawic stopke!
 //DONE split the hive_list_provider
+//DONE appbar w hivescreen kiedy klawiatura jest podniesiona
+//DONE autoincrement id w bazie danych
 
-//TODO appbar w hivescreen kiedy klawiatura jest podniesiona
 //TODO EXTRA zmiana pozycji ula na liscie
 //TODO WYKRESY???
 
 //TODO localizations provider + checklist questions provider
-
 //TODO unit testy
-//TODO id w bazie danych
+//TODO transition between screens?
+
 
 

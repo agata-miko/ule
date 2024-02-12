@@ -9,13 +9,11 @@ import 'package:pszczoly_v3/data/checklist_questions_data.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Checklist extends ConsumerStatefulWidget {
-  Checklist({Key? key, required this.hiveId, required this.checklistDate})
-      : checklistId = generateUniqueId(),
-        super(key: key);
+  const Checklist({super.key, required this.hiveId, required this.checklistDate, this.checklistId});
 
-  final String hiveId;
+  final int hiveId;
   final DateTime checklistDate;
-  final String checklistId;
+  final int? checklistId;
 
   @override
   ConsumerState createState() => ChecklistState();
@@ -48,18 +46,18 @@ class ChecklistState extends ConsumerState<Checklist> {
       return unansweredQuestions.isNotEmpty;
     }
 
-    void saveChecklist() {
+    void saveChecklist() async {
       addOrUpdateFinalAnswers();
-      ref.read(databaseProvider).insertChecklist(FilledChecklist(
+      int checklistId = await ref.read(databaseProvider).insertChecklist(FilledChecklist(
             hiveId: widget.hiveId,
             checklistDate: widget.checklistDate,
-            checklistId: widget.checklistId,
           ).toJson());
       for (QuestionAnswer qa in questionAnswersMap.values) {
+        qa.updateChecklistId(checklistId);
         ref.read(databaseProvider).insertQuestionAnswer(qa.toJson());
       }
-      // ref.read(databaseProvider).printTables();
-      Navigator.of(context).pop();
+      ref.read(databaseProvider).printTables();
+      if (mounted) {Navigator.of(context).pop();}
       finalQuestionAnswerList.clear();
     }
 
@@ -207,7 +205,7 @@ class ChecklistState extends ConsumerState<Checklist> {
             onChanged: (String value) {
               setState(() {
                 questionAnswersMap[question.id] = QuestionAnswer(
-                  checklistId: widget.checklistId,
+                  checklistId: widget.checklistId!,
                   questionId: question.id,
                   answerType: ResponseType.text.toString(),
                   answer: value,

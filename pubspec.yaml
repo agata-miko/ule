@@ -54,6 +54,7 @@ dependencies:
   url_launcher: ^6.2.4
   shared_preferences: ^2.2.2
   mockito: ^5.4.4
+  flutter_svg: ^2.0.9
 
 dev_dependencies:
   flutter_test:
@@ -83,6 +84,7 @@ flutter:
   assets:
     - assets/images/background1.png
     - assets/images/logo.png
+    - assets/images/logo.svg
     - assets/images/testlogo.jpg
     - assets/icons/icons8-sunrise-19(-ldpi).png
     - assets/icons/icons8-sunset-19(-ldpi).png

@@ -12,7 +12,7 @@ class ListOfChecklists extends ConsumerStatefulWidget {
   const ListOfChecklists(
       {super.key, required this.hiveId, required this.hiveName});
 
-  final String hiveId;
+  final int hiveId;
   final String hiveName;
 
   @override
@@ -44,8 +44,8 @@ class _ListOfChecklists extends ConsumerState<ListOfChecklists> {
         } else {
           final List<Checklist> checklistList = snapshot.data!
               .map((row) => Checklist(
-                    checklistId: row['checklistId'] as String,
-                    hiveId: row['hiveId'] as String,
+                    checklistId: row['checklistId'],
+                    hiveId: row['hiveId'],
                     checklistDate: DateTime.fromMillisecondsSinceEpoch(
                         int.parse(row[
                             'checklistDate'])), // Convert timestamp to DateTime
@@ -63,7 +63,7 @@ class _ListOfChecklists extends ConsumerState<ListOfChecklists> {
           return ListView.builder(
             itemCount: displayChecklists.length,
             itemBuilder: (context, index) => Dismissible(
-              key: Key(displayChecklists[index].checklistId),
+              key: Key(displayChecklists[index].checklistId!.toString()),
               background: Container(
                 color: Colors.red[300],
                 alignment: Alignment.centerRight,
@@ -118,7 +118,7 @@ class _ListOfChecklists extends ConsumerState<ListOfChecklists> {
               onDismissed: (direction) async {
                 await ref
                     .read(databaseProvider)
-                    .deleteChecklist(displayChecklists[index].checklistId);
+                    .deleteChecklist(displayChecklists[index].checklistId!);
               },
               child: ListTile(
                 title: Padding(
@@ -141,7 +141,7 @@ class _ListOfChecklists extends ConsumerState<ListOfChecklists> {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (ctx) => FilledChecklistScreen(
                           hiveId: widget.hiveId,
-                          checklistId: displayChecklists[index].checklistId,
+                          checklistId: displayChecklists[index].checklistId!,
                           checklistDate: displayChecklists[index].checklistDate,
                           hiveName: widget.hiveName)));
                 },

@@ -12,8 +12,8 @@ class FilledChecklistScreen extends ConsumerStatefulWidget {
       required this.checklistDate,
       required this.hiveName});
 
-  final String hiveId;
-  final String checklistId;
+  final int hiveId;
+  final int checklistId;
   final DateTime checklistDate;
   final String hiveName;
 

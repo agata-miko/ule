@@ -1,20 +1,16 @@
-import 'package:uuid/uuid.dart';
-
-String generateUniqueId() {
-  var uuid = const Uuid();
-  return uuid.v4();
-}
-
 class QuestionAnswer {
-  String questionAnswerId;
-  String checklistId;
+  int? questionAnswerId;
+  int? checklistId;
   String questionId;
   dynamic answerType;
   dynamic answer;
 
   QuestionAnswer({this.answer, required this.checklistId, required this.questionId, required this.answerType,
-      String? questionAnswerId})
-      : questionAnswerId = questionAnswerId ?? generateUniqueId();
+      this.questionAnswerId});
+
+  void updateChecklistId (int checklistId) {
+    this.checklistId = checklistId;
+  }
 
   Map<String, dynamic> toJson() {
     return {

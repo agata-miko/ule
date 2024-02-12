@@ -6,7 +6,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class NoteEditor extends ConsumerStatefulWidget {
   const NoteEditor({super.key, required this.hiveId});
 
-  final String hiveId;
+  final int hiveId;
 
   @override
   NoteEditorState createState() => NoteEditorState();

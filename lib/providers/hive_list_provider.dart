@@ -35,7 +35,7 @@ class HiveDataNotifier extends StateNotifier<List<Hive>> {
           hive,
     ];
   }
-  Future<void> deleteHive(String hiveId) async {
+  Future<void> deleteHive(int hiveId) async {
     state = state.where((hive) => hive.hiveId != hiveId).toList();
   }
 } 

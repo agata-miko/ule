@@ -8,7 +8,7 @@ class ChecklistScreen extends ConsumerStatefulWidget {
   const ChecklistScreen(
       {super.key, required this.hiveId, required this.hiveName});
 
-  final String hiveId;
+  final int hiveId;
   final String hiveName;
 
   @override

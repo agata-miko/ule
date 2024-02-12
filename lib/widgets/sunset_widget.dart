@@ -30,20 +30,28 @@ class SunsetWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-        FutureBuilder<SunsetSunrise>(
+    return Container(
+    //   decoration: BoxDecoration( borderRadius: BorderRadius.circular(8), boxShadow: [
+    // BoxShadow(
+    // color: Colors.black.withOpacity(0.1),
+    //   spreadRadius: 1,
+    //   blurRadius: 4,
+    //   offset: const Offset(0, 2),
+    // ),], color: Theme.of(context).colorScheme.primaryContainer,),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: FutureBuilder<SunsetSunrise>(
         future: fetchData(),
-    builder: (context, snapshot) {
-      if (snapshot.connectionState == ConnectionState.waiting) {
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
         return const SizedBox(width: 17, height: 17, child: CircularProgressIndicator());
-      } else if (snapshot.hasError) {
+                  } else if (snapshot.hasError) {
         return Text(AppLocalizations.of(context)!.error({snapshot.error}));
-      } else if (!snapshot.hasData) {
+                  } else if (!snapshot.hasData) {
         return Text(AppLocalizations.of(context)!.noData);
-      } else {
-        return Column(
+                  } else {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
               children: [
@@ -55,6 +63,7 @@ class SunsetWidget extends StatelessWidget {
               DateFormat('hh:mm:ss a').parse(snapshot.data!.sunrise))),
               ],
             ),
+           const VerticalDivider(),
             Row(
               children: [
                 Image.asset(
@@ -67,10 +76,10 @@ class SunsetWidget extends StatelessWidget {
             ),
           ],
         );
-      }
-    },
-        ),]
-        ,
-        );
+                  }
+                },
+        ),
+      ),
+    );
   }
 }

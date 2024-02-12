@@ -26,7 +26,7 @@ class PercentageSliderState extends State<PercentageSlider> {
     return Column(
       children: <Widget>[
         Text(
-          AppLocalizations.of(context)!.sliderPercentage(_selectedPercentage.round()),
+          AppLocalizations.of(context)!.sliderPercentage(_selectedPercentage.round().toStringAsFixed(0)),
           style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
         ),
         SliderTheme(
