@@ -19,11 +19,9 @@ class SearchBarHive extends ConsumerWidget {
           ref.read(hivesSearchQueryProvider.notifier).updateSearchQuery(query);
         },
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(
-              vertical: MediaQuery.of(context).size.height * 0.001),
           hintText: AppLocalizations.of(context)!.hintSearch,
-          hintStyle: Theme.of(context).textTheme.bodyMedium,
-          enabledBorder: InputBorder.none,
+          hintStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.grey.shade500),
+          // enabledBorder: InputBorder.none,
         ));
   }
 }

@@ -160,7 +160,7 @@ class _HivesListState extends ConsumerState<HivesList> {
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.9,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(16),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black.withOpacity(0.1),
@@ -184,7 +184,7 @@ class _HivesListState extends ConsumerState<HivesList> {
                                 height: 60,
                                 decoration: BoxDecoration(
                                     shape: BoxShape.rectangle,
-                                    borderRadius: BorderRadius.circular(8),
+                                    borderRadius: BorderRadius.circular(90),
                                     image: DecorationImage(
                                       fit: BoxFit.cover,
                                       image:
@@ -198,13 +198,13 @@ class _HivesListState extends ConsumerState<HivesList> {
                                   shape: BoxShape.rectangle,
                                   borderRadius: BorderRadius.circular(5.0),
                                 ),
-                                child: Icon(
+                                child: const Icon(
                                   Icons.home_filled,
                                   color: Color(0xFF1B2805),
                                 ),
                               ),
                         title: Text(displayHives[index].hiveName,
-                            style: Theme.of(context).textTheme.bodyMedium),
+                            style: Theme.of(context).textTheme.bodyLarge),
                         trailing: IconButton(
                             onPressed: () {
                               Navigator.of(context).push(MaterialPageRoute(
@@ -213,9 +213,12 @@ class _HivesListState extends ConsumerState<HivesList> {
                                         hiveName: displayHives[index].hiveName,
                                       )));
                             },
-                            icon: const Icon(
-                              Icons.edit_note,
-                              color: Color(0xFF1B2805),
+                            icon: CircleAvatar(
+                              backgroundColor: Color(0xFF233406),
+                              child: const Icon(
+                                Icons.edit_note,
+                                color: Colors.white,
+                              ),
                             )),
                         onTap: () {
                           Navigator.of(context).push(

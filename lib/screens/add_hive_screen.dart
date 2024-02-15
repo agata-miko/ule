@@ -39,7 +39,7 @@ class _AddHiveScreenState extends ConsumerState<AddHiveScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(AppLocalizations.of(context)!.addHive)),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.addHive.toUpperCase())),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[

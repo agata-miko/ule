@@ -48,13 +48,14 @@ class _StartingScreenState extends ConsumerState<StartingScreen> {
           child: DefaultTextStyle(
             style: TextStyle(
               fontSize: 80.0,
-              fontFamily: GoogleFonts.zeyada().fontFamily,
-              color: Colors.black,
+              fontFamily: GoogleFonts.plaster().fontFamily,
+              fontWeight: FontWeight.w900,
+              color: const Color(0xFF1B2805),
             ),
             child: AnimatedTextKit(
               totalRepeatCount: 1,
               animatedTexts: [
-                TypewriterAnimatedText('ULala', speed: Durations.long2),
+                TypewriterAnimatedText('ULE', speed: Durations.long1),
               ],
             ),
           ),

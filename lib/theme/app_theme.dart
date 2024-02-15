@@ -14,9 +14,10 @@ ThemeData lightTheme = ThemeData(
   ),
   appBarTheme: AppBarTheme(
     titleTextStyle: TextStyle(
-      fontFamily: GoogleFonts.karla().fontFamily,
+      fontFamily: GoogleFonts.montserrat().fontFamily,
+      fontWeight: FontWeight.w900,
       fontSize: 20,
-      color: Color(0xFF1B2805),
+      color: const Color(0xFF1B2805),
     ),
     color: Colors.transparent,
     elevation: 0.0,
@@ -27,11 +28,11 @@ ThemeData lightTheme = ThemeData(
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
       textStyle: MaterialStatePropertyAll(TextStyle(
-          fontSize: 14,
+          fontSize: 16,
           fontFamily:
-              GoogleFonts.roboto(fontWeight: FontWeight.w300).fontFamily)),
-      backgroundColor: MaterialStateProperty.all(Color(0xFFFCF9F1)),
-      foregroundColor: MaterialStateProperty.all(Color(0xFF1B2805)),
+              GoogleFonts.karla().fontFamily)),
+      backgroundColor: MaterialStateProperty.all(Color(0xFF233406)),//(const Color(0xFFE6CEBA)),
+      foregroundColor: MaterialStateProperty.all(Colors.white),//(const Color(0xFF1B2805)),
     ),
   ),
   textButtonTheme: TextButtonThemeData(
@@ -48,13 +49,14 @@ ThemeData lightTheme = ThemeData(
     textStyle: TextStyle(
       fontFamily: GoogleFonts.roboto(fontWeight: FontWeight.w300).fontFamily,
       fontSize: 12,
-      color:Color(0xFF1B2805),
+      color:const Color(0xFF1B2805),
     ),
   ),
   datePickerTheme: const DatePickerThemeData(
     backgroundColor: Colors.white,
     elevation: 0,
   ),
+
   colorScheme: const ColorScheme(
     primaryContainer: Color(0xFFFCF9F1),
     secondaryContainer: Color(0xFFFCF9F1),

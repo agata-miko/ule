@@ -5,7 +5,8 @@ class PercentageSlider extends StatefulWidget {
   final double selectedPercentage;
   final ValueChanged<double>? onChanged;
 
-  const PercentageSlider({Key? key, required this.selectedPercentage, this.onChanged})
+  const PercentageSlider(
+      {Key? key, required this.selectedPercentage, this.onChanged})
       : super(key: key);
 
   @override
@@ -26,11 +27,14 @@ class PercentageSliderState extends State<PercentageSlider> {
     return Column(
       children: <Widget>[
         Text(
-          AppLocalizations.of(context)!.sliderPercentage(_selectedPercentage.round().toStringAsFixed(0)),
-          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+          AppLocalizations.of(context)!
+              .sliderPercentage(_selectedPercentage.round().toStringAsFixed(0)),
+          style: const TextStyle(fontSize: 16),
         ),
         SliderTheme(
           data: const SliderThemeData(
+            thumbColor: Color(0xFF233406),
+            activeTrackColor: Color(0xFF233406),
             thumbShape: RoundSliderThumbShape(enabledThumbRadius: 7),
             trackHeight: 1,
           ),

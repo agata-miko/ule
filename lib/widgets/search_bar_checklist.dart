@@ -24,8 +24,8 @@ class SearchBarChecklist extends ConsumerWidget {
             .read(checklistSearchQueryProvider.notifier)
             .updateSearchQuery(query);
       },
-      decoration: InputDecoration(suffixIcon: IconButton(
-        icon: const Icon(Icons.calendar_today),
+      decoration: InputDecoration(prefixIcon: IconButton(
+        icon: const Icon(Icons.calendar_today_rounded, color: Color(0xFF233406),),
         onPressed: () async {
           DateTime? pickedDate = await showDatePicker(
             context: context,
@@ -47,7 +47,8 @@ class SearchBarChecklist extends ConsumerWidget {
               .format(selectedDate!)
               : AppLocalizations.of(context)!
               .hintSearch,
-          hintStyle: Theme.of(context).textTheme.bodyMedium,
-    ));
+          hintStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.grey.shade300),
+      ),
+    );
   }
 }

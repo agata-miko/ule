@@ -39,7 +39,7 @@ class _ListOfChecklists extends ConsumerState<ListOfChecklists> {
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
           return Padding(
             padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.04),
-            child: Text(AppLocalizations.of(context)!.noChecklists),
+            child: Text(AppLocalizations.of(context)!.noChecklists, textAlign: TextAlign.center),
           );
         } else {
           final List<Checklist> checklistList = snapshot.data!
@@ -120,31 +120,37 @@ class _ListOfChecklists extends ConsumerState<ListOfChecklists> {
                     .read(databaseProvider)
                     .deleteChecklist(displayChecklists[index].checklistId!);
               },
-              child: ListTile(
-                title: Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.height * 0.05),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.list),
-                      SizedBox(width: MediaQuery.of(context).size.width * 0.1),
-                      Text(
-                        DateFormat('dd/MM/yyyy')
-                            .format(displayChecklists[index].checklistDate),
-                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                            color: Theme.of(context).colorScheme.onBackground),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.04),
+                child: Card(
+                  elevation: 0,
+                  color: Theme.of(context).colorScheme.primaryContainer,
+                  child: ListTile(
+                    title: Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: MediaQuery.of(context).size.height * 0.05),
+                      child: Row(
+                        children: [
+                          const Icon(Icons.list, color: Color(0xFF233406),),
+                          SizedBox(width: MediaQuery.of(context).size.width * 0.1),
+                          Text(
+                            DateFormat('dd/MM/yyyy')
+                                .format(displayChecklists[index].checklistDate),
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (ctx) => FilledChecklistScreen(
+                              hiveId: widget.hiveId,
+                              checklistId: displayChecklists[index].checklistId!,
+                              checklistDate: displayChecklists[index].checklistDate,
+                              hiveName: widget.hiveName)));
+                    },
                   ),
                 ),
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (ctx) => FilledChecklistScreen(
-                          hiveId: widget.hiveId,
-                          checklistId: displayChecklists[index].checklistId!,
-                          checklistDate: displayChecklists[index].checklistDate,
-                          hiveName: widget.hiveName)));
-                },
               ),
             ),
           );

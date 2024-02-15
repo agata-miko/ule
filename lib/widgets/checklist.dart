@@ -109,7 +109,7 @@ class ChecklistState extends ConsumerState<Checklist> {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text(AppLocalizations.of(context)!.back)),
+                child: Text(AppLocalizations.of(context)!.back, style: TextStyle(color: Color(0xFF1B2805)),)),
             ElevatedButton(
                 onPressed: () async {
                   if (hasUnansweredQuestions()) {
@@ -155,6 +155,7 @@ class ChecklistState extends ConsumerState<Checklist> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Radio(
+              activeColor: Color(0xFF233406),
               value: true,
               groupValue: questionAnswer is QuestionAnswer
                   ? (questionAnswer).answer
@@ -199,7 +200,7 @@ class ChecklistState extends ConsumerState<Checklist> {
               hintText: AppLocalizations.of(context)!.answerHint,
               hintStyle: Theme.of(context).textTheme.bodyMedium,
               filled: true,
-              fillColor: Colors.grey[50],
+              fillColor: Color(0xFF233406).withOpacity(0.1),
               border: InputBorder.none,
             ),
             onChanged: (String value) {

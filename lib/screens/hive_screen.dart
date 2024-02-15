@@ -67,105 +67,117 @@ class _HiveScreenState extends ConsumerState<HiveScreen> {
           backgroundColor: Colors.white.withOpacity(0.4),
           iconTheme: const IconThemeData(),
           title: Text(
-            'ULE',
-            style: TextStyle(
-              fontFamily: GoogleFonts.zeyada().fontFamily,
-              fontSize: 31,
+            'ULE', style: Theme.of(context).appBarTheme.titleTextStyle!.copyWith(
+            fontFamily: GoogleFonts.plaster().fontFamily,
+          ),
             ),
           ),
-        ),
-        body: Stack(
-          children: [
-            Positioned(
-              bottom: MediaQuery.of(context).size.height * 0.2,
-              left: 0,
-              right: 0,
-              top: 0,
-              child: SingleChildScrollView(
-                child: SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.8,
-                  child: Stack(
-                    children: [
-                      isImageDisplayPhoto()
-                          ? imageDisplay
-                          : Center(child: imageDisplay),
-                      if (isImageDisplayPhoto())
-                        Container(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.center,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                Colors.transparent,
-                                Theme.of(context).colorScheme.primaryContainer
-                              ],
-                            ),
-                          ),
-                        ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              top: null,
-              child: ConstrainedBox(
-                constraints: BoxConstraints(
-                    maxHeight: MediaQuery.of(context).size.height * 0.6),
-                child: Card(
-                  color: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.9),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
+        body: Container(
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('assets/images/background_1.png'),
+                  fit: BoxFit.cover)),
+          height: MediaQuery.of(context).size.height,
+          child: Stack(
+            children: [
+              Positioned(
+                bottom: MediaQuery.of(context).size.height * 0.2,
+                left: 0,
+                right: 0,
+                top: 0,
+                child: SingleChildScrollView(
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.8,
+                    child: Stack(
                       children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.02),
-                          child: Center(
-                            child: Text(widget.hiveName,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge!.copyWith(fontSize: 25, fontWeight: FontWeight.w600)
+                        isImageDisplayPhoto()
+                            ? imageDisplay
+                            : Center(child: imageDisplay),
+                        if (isImageDisplayPhoto())
+                          Container(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.center,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  Colors.transparent,
+                                  Theme.of(context).colorScheme.primaryContainer
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (ctx) => ChecklistScreen(
-                                        hiveId: widget.hiveId,
-                                        hiveName: widget.hiveName,
-                                      )),
-                            );
-                          },
-                          child: Text(AppLocalizations.of(context)!.newChecklist),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (ctx) => ChecklistListScreen(
-                                        hiveId: widget.hiveId,
-                                        hiveName: widget.hiveName,
-                                      )),
-                            );
-                          },
-                          child: Text(AppLocalizations.of(context)!.seeOldChecklists),
-                        ),
-                        NoteEditor(
-                          hiveId: widget.hiveId,
-                        ),
                       ],
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                top: null,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                      maxHeight: MediaQuery.of(context).size.height * 0.6),
+                  child: Card(
+                    color: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.9),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.02),
+                            child: Center(
+                              child: Text(widget.hiveName,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!.copyWith(fontSize: 25, fontWeight: FontWeight.w600)
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.02),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                      builder: (ctx) => ChecklistScreen(
+                                            hiveId: widget.hiveId,
+                                            hiveName: widget.hiveName,
+                                          )),
+                                );
+                              },
+                              child: Text(AppLocalizations.of(context)!.newChecklist),
+                            ),
+                          ),
+                          SizedBox(height: MediaQuery.of(context).size.height * 0.016,),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.02),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                      builder: (ctx) => ChecklistListScreen(
+                                            hiveId: widget.hiveId,
+                                            hiveName: widget.hiveName,
+                                          )),
+                                );
+                              },
+                              child: Text(AppLocalizations.of(context)!.seeOldChecklists),
+                            ),
+                          ),
+                          NoteEditor(
+                            hiveId: widget.hiveId,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

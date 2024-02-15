@@ -37,7 +37,7 @@ class _ImageInputState extends ConsumerState<ImageInput> {
   @override
   Widget build(BuildContext context) {
     Widget content = Card(
-      color: Theme.of(context).colorScheme.primaryContainer,
+      color: Colors.transparent,
       elevation: 0,
       child: Column(
         children: [

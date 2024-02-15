@@ -24,6 +24,7 @@ class _ChecklistScreenState extends ConsumerState<ChecklistScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        extendBodyBehindAppBar: true,
         appBar: AppBar(
             title: FittedBox(
           fit: BoxFit.scaleDown,
@@ -33,12 +34,19 @@ class _ChecklistScreenState extends ConsumerState<ChecklistScreen> {
           ),
         )),
         //different way to display data in dd/mm/yyyy???
-        body: Padding(
-          padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.04),
-          child: Column(
-            children: <Widget>[
-              Expanded(child: Checklist(key: ValueKey(const Uuid().v4), hiveId: widget.hiveId, checklistDate: checklistDate,)),
-            ],
+        body: Container(
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('assets/images/background_1.png'),
+                  fit: BoxFit.cover)),
+          height: MediaQuery.of(context).size.height,
+          child: Padding(
+            padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.04),
+            child: Column(
+              children: <Widget>[
+                Expanded(child: Checklist(key: ValueKey(const Uuid().v4), hiveId: widget.hiveId, checklistDate: checklistDate,)),
+              ],
+            ),
           ),
         ),
       ),

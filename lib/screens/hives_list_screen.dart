@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pszczoly_v3/main.dart';
 import 'package:pszczoly_v3/models/hive.dart';
 import 'package:pszczoly_v3/models/language_constants.dart';
@@ -51,7 +52,12 @@ class HivesListScreen extends ConsumerWidget {
         appBar: AppBar(
           centerTitle: false,
           title: searchBool == false
-              ? const Text('logo??')
+              ? Text(
+                  'ULE',
+                  style: Theme.of(context).appBarTheme.titleTextStyle!.copyWith(
+                        fontFamily: GoogleFonts.plaster().fontFamily,
+                      ),
+                )
               : SearchBarHive(searchController: _searchController),
           actions: [
             IconButton(
@@ -86,9 +92,9 @@ class HivesListScreen extends ConsumerWidget {
               },
             ),
             IconButton(
-              icon: Icon(Icons.add),
+              icon: const Icon(Icons.add),
               onPressed: () {
-                    _showAddHiveModal(context);
+                _showAddHiveModal(context);
               },
             ),
           ],
@@ -125,7 +131,9 @@ class HivesListScreen extends ConsumerWidget {
                   //       .textTheme
                   //       .bodyLarge!.copyWith(fontWeight: FontWeight.bold)
                   // ),
-                  HivesList(modalFunction: () {_showAddHiveModal(context);}),
+                  HivesList(modalFunction: () {
+                    _showAddHiveModal(context);
+                  }),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.1,
                   ),
@@ -174,14 +182,14 @@ class HivesListScreen extends ConsumerWidget {
                     RichText(
                       text: TextSpan(
                           text: AppLocalizations.of(context)!.iconsBy,
-                          style: Theme.of(context).textTheme.bodySmall,
+                          style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 10),
                           children: <TextSpan>[
                             TextSpan(
                                 text: AppLocalizations.of(context)!.icons8,
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodySmall!
-                                    .copyWith(
+                                    .copyWith(fontSize: 10,
                                         decoration: TextDecoration.underline),
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
@@ -190,23 +198,20 @@ class HivesListScreen extends ConsumerWidget {
                           ]),
                     ),
                     const VerticalDivider(
-                      width: 20,
-                      indent: 4,
                       thickness: 1,
-                      endIndent: 4,
-                      color: Colors.grey,
+                      color: Colors.black,
                     ),
                     RichText(
                       text: TextSpan(
                         text: AppLocalizations.of(context)!.sunData,
-                        style: Theme.of(context).textTheme.bodySmall,
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 10),
                         children: <TextSpan>[
                           TextSpan(
                             text: AppLocalizations.of(context)!.ssIo,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall!
-                                .copyWith(decoration: TextDecoration.underline),
+                                .copyWith(fontSize: 10, decoration: TextDecoration.underline),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
                                 launchUrlString('https://sunrisesunset.io');

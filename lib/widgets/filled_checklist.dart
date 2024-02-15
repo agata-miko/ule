@@ -16,7 +16,6 @@ class FilledChecklistDisplay extends ConsumerStatefulWidget {
 }
 
 class ChecklistState extends ConsumerState<FilledChecklistDisplay> {
-
   late List<QuestionAnswer> questionAnswerForAChecklist;
 
   @override
@@ -38,7 +37,9 @@ class ChecklistState extends ConsumerState<FilledChecklistDisplay> {
     String formatAnswer(QuestionAnswer qa) {
       switch (qa.answerType) {
         case 'ResponseType.yesNo':
-          return qa.answer == 'true' ? AppLocalizations.of(context)!.yes : AppLocalizations.of(context)!.no;
+          return qa.answer == 'true'
+              ? AppLocalizations.of(context)!.yes
+              : AppLocalizations.of(context)!.no;
         case 'ResponseType.percentage':
           return '${double.parse(qa.answer)}%';
         default:
@@ -73,17 +74,35 @@ class ChecklistState extends ConsumerState<FilledChecklistDisplay> {
               .toList();
         }
 
-        return ListView.builder(itemCount: checklistQuestions1.length, itemBuilder: (context, index) {
-          Question currentQuestion = checklistQuestions1[index];
-          QuestionAnswer? currentAnswer = questionAnswerForAChecklist.firstWhere(
+        return ListView.builder(
+            itemCount: checklistQuestions1.length,
+            itemBuilder: (context, index) {
+              Question currentQuestion = checklistQuestions1[index];
+              QuestionAnswer? currentAnswer =
+                  questionAnswerForAChecklist.firstWhere(
                 (answer) => answer.questionId == currentQuestion.id,
-            orElse: () => defaultAnswerMap['N/A']!,
-          );
-          return ListTile(
-            title: Text(currentQuestion.text),
-            subtitle: Text(formatAnswer(currentAnswer), style: TextStyle(color: currentAnswer.answer == AppLocalizations.of(context)!.noData ? Colors.grey[300] : null),),
-          );
-        });
+                orElse: () => defaultAnswerMap['N/A']!,
+              );
+              return Container(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primaryContainer,
+                ),
+                child: ListTile(
+                  title: Text(
+                    currentQuestion.text,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  subtitle: Text(
+                    formatAnswer(currentAnswer),
+                    style: TextStyle(
+                        color: currentAnswer.answer ==
+                                AppLocalizations.of(context)!.noData
+                            ? Colors.grey[400]
+                            : const Color(0xFF1B2805)),
+                  ),
+                ),
+              );
+            });
         //Second approach - displaying only the answered questions - need to choose which one id preffered
         // return ListView.builder(
         //   itemCount: min(
