@@ -72,6 +72,8 @@ class HivesListScreen extends ConsumerWidget {
                       .toggleSearchBool();
                 }),
             PopupMenuButton<String>(
+              color: Theme.of(context).colorScheme.primaryContainer,
+              elevation: 0,
               icon: const Icon(Icons.language),
               //in case of more languages they can be moved to the list that would be used to create the items
               itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[

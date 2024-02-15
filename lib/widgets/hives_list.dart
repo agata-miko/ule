@@ -124,19 +124,30 @@ class _HivesListState extends ConsumerState<HivesList> {
                         ],
                       ),
                       actions: <Widget>[
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop(
-                                false); // Dismiss the dialog and reject the deletion
-                          },
-                          child: Text(AppLocalizations.of(context)!.cancel),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop(
-                                true); // Dismiss the dialog and confirm the deletion
-                          },
-                          child: Text(AppLocalizations.of(context)!.remove),
+                        ButtonBar(
+                          alignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop(
+                                    false); // Dismiss the dialog and reject the deletion
+                              },
+                              child: Text(
+                                AppLocalizations.of(context)!.cancel,
+                                style:
+                                    const TextStyle(color: Color(0xFF1B2805)),
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop(
+                                    true); // Dismiss the dialog and confirm the deletion
+                              },
+                              child: Text(AppLocalizations.of(context)!.remove,
+                                  style: const TextStyle(
+                                      color: Color(0xFF1B2805))),
+                            ),
+                          ],
                         ),
                       ],
                     );

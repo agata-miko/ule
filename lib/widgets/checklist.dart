@@ -9,7 +9,11 @@ import 'package:pszczoly_v3/data/checklist_questions_data.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Checklist extends ConsumerStatefulWidget {
-  const Checklist({super.key, required this.hiveId, required this.checklistDate, this.checklistId});
+  const Checklist(
+      {super.key,
+      required this.hiveId,
+      required this.checklistDate,
+      this.checklistId});
 
   final int hiveId;
   final DateTime checklistDate;
@@ -48,16 +52,19 @@ class ChecklistState extends ConsumerState<Checklist> {
 
     void saveChecklist() async {
       addOrUpdateFinalAnswers();
-      int checklistId = await ref.read(databaseProvider).insertChecklist(FilledChecklist(
-            hiveId: widget.hiveId,
-            checklistDate: widget.checklistDate,
-          ).toJson());
+      int checklistId =
+          await ref.read(databaseProvider).insertChecklist(FilledChecklist(
+                hiveId: widget.hiveId,
+                checklistDate: widget.checklistDate,
+              ).toJson());
       for (QuestionAnswer qa in questionAnswersMap.values) {
         qa.updateChecklistId(checklistId);
         ref.read(databaseProvider).insertQuestionAnswer(qa.toJson());
       }
       ref.read(databaseProvider).printTables();
-      if (mounted) {Navigator.of(context).pop();}
+      if (mounted) {
+        Navigator.of(context).pop();
+      }
       finalQuestionAnswerList.clear();
     }
 
@@ -70,21 +77,26 @@ class ChecklistState extends ConsumerState<Checklist> {
               content: Text(
                   AppLocalizations.of(context)!.incompleteChecklistContent),
               actions: <Widget>[
-                Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                ButtonBar(
+                  alignment: MainAxisAlignment.spaceBetween,
                   children: [
                     TextButton(
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                      child:
-                          Text(AppLocalizations.of(context)!.backToChecklist),
+                      child: Text(
+                        AppLocalizations.of(context)!.backToChecklist,
+                        style: const TextStyle(color: Color(0xFF1B2805)),
+                      ),
                     ),
                     TextButton(
-                        onPressed: () {
-                          saveChecklist();
-                          Navigator.of(context).pop();
-                        },
-                        child: Text(AppLocalizations.of(context)!.save)),
+                      onPressed: () {
+                        saveChecklist();
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(AppLocalizations.of(context)!.save,
+                          style: const TextStyle(color: Color(0xFF1B2805))),
+                    ),
                   ],
                 ),
               ],
@@ -109,7 +121,10 @@ class ChecklistState extends ConsumerState<Checklist> {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text(AppLocalizations.of(context)!.back, style: TextStyle(color: Color(0xFF1B2805)),)),
+                child: Text(
+                  AppLocalizations.of(context)!.back,
+                  style: TextStyle(color: Color(0xFF1B2805)),
+                )),
             ElevatedButton(
                 onPressed: () async {
                   if (hasUnansweredQuestions()) {
