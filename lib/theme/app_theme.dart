@@ -5,22 +5,23 @@ ThemeData lightTheme = ThemeData(
   brightness: Brightness.light,
   useMaterial3: true,
   textTheme: const TextTheme(
-    displayLarge: TextStyle(fontSize: 32),
-    bodyLarge: TextStyle(fontSize: 18),
-    bodyMedium: TextStyle(fontSize: 16),
-    bodySmall: TextStyle(fontSize: 10),
+    displayLarge: TextStyle(fontSize: 32, color: Color(0xFF1B2805)),
+    bodyLarge: TextStyle(fontSize: 24, color: Color(0xFF1B2805)),
+    bodyMedium: TextStyle(fontSize: 16, color: Color(0xFF1B2805)),
+    bodySmall: TextStyle(fontSize: 8, color: Color(0xFF1B2805)),
   ).apply(
-      fontFamily: GoogleFonts.roboto(fontWeight: FontWeight.w300).fontFamily),
+    fontFamily: GoogleFonts.karla().fontFamily,
+  ),
   appBarTheme: AppBarTheme(
     titleTextStyle: TextStyle(
-      fontFamily: GoogleFonts.roboto(fontWeight: FontWeight.w300).fontFamily,
+      fontFamily: GoogleFonts.karla().fontFamily,
       fontSize: 20,
-      color: Colors.black54,
+      color: Color(0xFF1B2805),
     ),
     color: Colors.transparent,
     elevation: 0.0,
     scrolledUnderElevation: 0.0,
-    iconTheme: const IconThemeData(color: Colors.black54),
+    iconTheme: const IconThemeData(color: Color(0xFF1B2805)),
     centerTitle: true,
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
@@ -29,36 +30,35 @@ ThemeData lightTheme = ThemeData(
           fontSize: 14,
           fontFamily:
               GoogleFonts.roboto(fontWeight: FontWeight.w300).fontFamily)),
-      backgroundColor: MaterialStateProperty.all(Colors.white),
-      foregroundColor: MaterialStateProperty.all(Colors.black54),
+      backgroundColor: MaterialStateProperty.all(Color(0xFFFCF9F1)),
+      foregroundColor: MaterialStateProperty.all(Color(0xFF1B2805)),
     ),
   ),
-  textButtonTheme: const TextButtonThemeData(
-      style: ButtonStyle(
-          foregroundColor: MaterialStatePropertyAll(Colors.black54))),
-  iconTheme: const IconThemeData(
-    color: Colors.black54,
+  textButtonTheme: TextButtonThemeData(
+    style: ButtonStyle(splashFactory: NoSplash.splashFactory,
+        textStyle: MaterialStatePropertyAll(
+      TextStyle(fontFamily: GoogleFonts.karla().fontFamily, fontSize: 16, color: const Color(0xFF1B2805)),
+    )),
   ),
-
+  iconTheme: const IconThemeData(
+      color: Color(0xFF1B2805),
+  ),
   popupMenuTheme: PopupMenuThemeData(
     color: Colors.white,
     textStyle: TextStyle(
       fontFamily: GoogleFonts.roboto(fontWeight: FontWeight.w300).fontFamily,
       fontSize: 12,
-      color: Colors.black54,
+      color:Color(0xFF1B2805),
     ),
   ),
-
   datePickerTheme: const DatePickerThemeData(
     backgroundColor: Colors.white,
     elevation: 0,
   ),
-
-
-  colorScheme: ColorScheme(
-    primaryContainer: Colors.white,
-    secondaryContainer: Colors.white,
-    background: Colors.white,
+  colorScheme: const ColorScheme(
+    primaryContainer: Color(0xFFFCF9F1),
+    secondaryContainer: Color(0xFFFCF9F1),
+    background: Color(0xFFFCF9F1),
     primary: Colors.black26,
     secondary: Colors.black54,
     brightness: Brightness.light,

@@ -29,10 +29,9 @@
 
   "addHive": "Add new hive",
   "hiveName": "Hive name/number",
-  "hintChecklistSearch": "Find checklist...",
+  "hintSearch": "Find...",
   "newChecklist": "New checklist",
   "seeOldChecklists": "See checklists",
-  "hintHiveListSearch": "Find hive...",
   "iconsBy": "Sun icons by ",
   "icons8": "Icons8",
   "dbHintNotes": "Notes",
@@ -49,7 +48,8 @@
   "remove": "Remove",
   "noData": "No data",
   "emptyChecklist": "Oops... It looks like this checklist was saved without answers.",
-  "emptyHivesList": "No hive has been added yet. Add one now!",
+  "emptyHivesList": "No hive has been added yet.",
+  "addOneNow": "Add one now!",
   "hiveRemoval": "Hive removal",
   "confirmHiveRemovalTitle": "Are you sure you want to remove hive {hiveName}?",
   "confirmHiveRemovalContent": "All checklists for the hive will be irreversibly removed.",
@@ -62,7 +62,7 @@
   "englishFlag": "\uD83C\uDDFA\uD83C\uDDF8 English",
   "incompleteChecklist": "Incomplete checklist",
   "incompleteChecklistContent": "There are some unanswered questions. Do you want to save incomplete checklist?",
-  "backToChecklist": "Back to checklist",
+  "backToChecklist": "Back",
   "sunData": "Sun movement data from ",
   "ssIo": "SunriseSunset.io"
 }

@@ -29,10 +29,9 @@
 
   "addHive": "Dodaj nowy ul",
   "hiveName": "Nazwa/numer ula",
-  "hintChecklistSearch": "Znajdź checklistę...",
+  "hintSearch": "Szukaj...",
   "newChecklist": "Nowa checklista",
   "seeOldChecklists": "Zobacz checklisty",
-  "hintHiveListSearch": "Znajdź ul...",
   "iconsBy": "Ikony słońca z: ",
   "icons8": "Icons8",
   "dbHintNotes": "Notatki",
@@ -49,7 +48,8 @@
   "remove": "Usuń",
   "noData": "Brak danych",
   "emptyChecklist": "Ups... Wygląda na to, że ta checklista została zapisana bez odpowiedzi.",
-  "emptyHivesList": "Żaden ul nie został jeszcze dodany. Dodaj teraz!",
+  "emptyHivesList": "Żaden ul nie został jeszcze dodany.",
+  "addOneNow": "Dodaj teraz!",
   "hiveRemoval": "Usunięcie ula",
   "confirmHiveRemovalTitle": "Na pewno chcesz usunąć ul {hiveName}?",
   "confirmHiveRemovalContent": "Wszystkie checklisty dla ula zostaną nieodwracalnie usunięte.",
@@ -62,7 +62,7 @@
   "englishFlag": "\uD83C\uDDFA\uD83C\uDDF8 English",
   "incompleteChecklist": "Checklista niekompletna",
   "incompleteChecklistContent": "Niektóre odpowiedzi są puste. Na pewno chcesz zapisać checklistę?",
-  "backToChecklist": "Wróć do checklisty",
+  "backToChecklist": "Wróć",
   "sunData": "Wschód i zachód słońca: ",
   "ssIo": "SunriseSunset.io"
 }

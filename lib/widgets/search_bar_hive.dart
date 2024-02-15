@@ -21,8 +21,9 @@ class SearchBarHive extends ConsumerWidget {
         decoration: InputDecoration(
           contentPadding: EdgeInsets.symmetric(
               vertical: MediaQuery.of(context).size.height * 0.001),
-          hintText: AppLocalizations.of(context)!.hintHiveListSearch,
+          hintText: AppLocalizations.of(context)!.hintSearch,
           hintStyle: Theme.of(context).textTheme.bodyMedium,
+          enabledBorder: InputBorder.none,
         ));
   }
 }

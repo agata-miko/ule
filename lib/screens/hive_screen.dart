@@ -63,10 +63,11 @@ class _HiveScreenState extends ConsumerState<HiveScreen> {
       child: Scaffold(
         extendBodyBehindAppBar: shouldExtendBody(),
         appBar: AppBar(
+          centerTitle: false,
           backgroundColor: Colors.white.withOpacity(0.4),
           iconTheme: const IconThemeData(),
           title: Text(
-            'ULala',
+            'ULE',
             style: TextStyle(
               fontFamily: GoogleFonts.zeyada().fontFamily,
               fontSize: 31,

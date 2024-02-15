@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pszczoly_v3/models/hive.dart';
@@ -9,8 +10,12 @@ import 'package:pszczoly_v3/screens/hive_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:pszczoly_v3/providers/database_provider.dart';
 
+import '../models/language_constants.dart';
+
 class HivesList extends ConsumerStatefulWidget {
-  const HivesList({super.key});
+  const HivesList({super.key, required this.modalFunction});
+
+  final void Function() modalFunction;
 
   @override
   ConsumerState<HivesList> createState() {
@@ -36,7 +41,27 @@ class _HivesListState extends ConsumerState<HivesList> {
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
           return Padding(
             padding: const EdgeInsets.all(20.0),
-            child: Text(AppLocalizations.of(context)!.emptyHivesList),
+            child: Center(
+              child: RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  style: Theme.of(context).textTheme.bodyMedium,
+                  children: [
+                    TextSpan(
+                      text: '${translation(context).emptyHivesList}\n',
+                    ),
+                    TextSpan(
+                      text: translation(context).addOneNow,
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          // Handle the onPressed action for the "addOneNow" text here
+                          widget.modalFunction();
+                        },
+                    ),
+                  ],
+                ),
+              ),
+            ),
           );
         } else {
           final List<Hive> hivesList = snapshot.data!
@@ -55,7 +80,7 @@ class _HivesListState extends ConsumerState<HivesList> {
                   .toList();
           return ListView.builder(
             shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             itemCount: displayHives.length,
             itemBuilder: (context, index) => Dismissible(
               key: Key(displayHives[index].hiveId!.toString()),
@@ -129,47 +154,57 @@ class _HivesListState extends ConsumerState<HivesList> {
                     .read(hivesSearchQueryProvider.notifier)
                     .updateSearchQuery('');
               },
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Center(
-                  child: Container(width: MediaQuery.of(context).size.width * 0.9, decoration: BoxDecoration(borderRadius: BorderRadius.circular(16), boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      spreadRadius: 1,
-                      blurRadius: 4,
-                      offset: const Offset(0, 2),
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          spreadRadius: 1,
+                          blurRadius: 4,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                      color: Theme.of(context).colorScheme.primaryContainer,
                     ),
-                  ], color: Theme.of(context).colorScheme.primaryContainer,),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ListTile(
-                        leading:
-                            (displayHives[index].photo?.path.isNotEmpty ?? false) &&
-                                    File(displayHives[index].photo!.path).existsSync()
-                                ? Container(
-                                    width: 60,
-                                    height: 60,
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        // borderRadius: BorderRadius.circular(20),
-                                        image: DecorationImage(
-                                          fit: BoxFit.cover,
-                                          image: FileImage(displayHives[index].photo!),
-                                        )))
-                                : Container(
-                                    width: 60,
-                                    height: 60,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.rectangle,
-                                      borderRadius: BorderRadius.circular(5.0),
-                                    ),
-                                    child: const Icon(Icons.home_filled),
-                                  ),
-                        title: Text(
-                          displayHives[index].hiveName,
-                          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                              color: Theme.of(context).colorScheme.onBackground),
-                        ),
+                        contentPadding: EdgeInsets.zero,
+                        leading: (displayHives[index].photo?.path.isNotEmpty ??
+                                    false) &&
+                                File(displayHives[index].photo!.path)
+                                    .existsSync()
+                            ? Container(
+                                width: 60,
+                                height: 60,
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.rectangle,
+                                    borderRadius: BorderRadius.circular(8),
+                                    image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image:
+                                          FileImage(displayHives[index].photo!),
+                                    )))
+                            //backgroundImage: FileImage(displayHives[index].photo!), radius: 32,))
+                            : Container(
+                                width: 60,
+                                height: 60,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.rectangle,
+                                  borderRadius: BorderRadius.circular(5.0),
+                                ),
+                                child: Icon(
+                                  Icons.home_filled,
+                                  color: Color(0xFF1B2805),
+                                ),
+                              ),
+                        title: Text(displayHives[index].hiveName,
+                            style: Theme.of(context).textTheme.bodyMedium),
                         trailing: IconButton(
                             onPressed: () {
                               Navigator.of(context).push(MaterialPageRoute(
@@ -180,7 +215,7 @@ class _HivesListState extends ConsumerState<HivesList> {
                             },
                             icon: const Icon(
                               Icons.edit_note,
-                              color: Colors.black54,
+                              color: Color(0xFF1B2805),
                             )),
                         onTap: () {
                           Navigator.of(context).push(

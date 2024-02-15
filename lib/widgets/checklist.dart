@@ -70,7 +70,7 @@ class ChecklistState extends ConsumerState<Checklist> {
               content: Text(
                   AppLocalizations.of(context)!.incompleteChecklistContent),
               actions: <Widget>[
-                Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     TextButton(
                       onPressed: () {

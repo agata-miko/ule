@@ -31,13 +31,18 @@ class SunsetWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-    //   decoration: BoxDecoration( borderRadius: BorderRadius.circular(8), boxShadow: [
-    // BoxShadow(
-    // color: Colors.black.withOpacity(0.1),
-    //   spreadRadius: 1,
-    //   blurRadius: 4,
-    //   offset: const Offset(0, 2),
-    // ),], color: Theme.of(context).colorScheme.primaryContainer,),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.primaryContainer,
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            spreadRadius: 1,
+            blurRadius: 4,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: FutureBuilder<SunsetSunrise>(
@@ -50,28 +55,27 @@ class SunsetWidget extends StatelessWidget {
                   } else if (!snapshot.hasData) {
         return Text(AppLocalizations.of(context)!.noData);
                   } else {
-        return Row(
+        return Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
               children: [
                 Image.asset(
                     'assets/icons/icons8-sunrise-19(-ldpi).png', height: 18,
-                    width: 18),
+                    width: 18, color: const Color(0xFF1B2805)),
                 const SizedBox(width: 5,),
                 Text(DateFormat('hh:mm a').format(
               DateFormat('hh:mm:ss a').parse(snapshot.data!.sunrise))),
               ],
             ),
-           const VerticalDivider(),
             Row(
               children: [
                 Image.asset(
                     'assets/icons/icons8-sunset-19(-ldpi).png', height: 18,
-                    width: 18),
+                    width: 18, color: const Color(0xFF1B2805)),
                 const SizedBox(width: 5,),
                 Text(DateFormat('hh:mm a').format(
-                    DateFormat('hh:mm:ss a').parse(snapshot.data!.sunset))),
+                    DateFormat('hh:mm:ss a').parse(snapshot.data!.sunset)),),
               ],
             ),
           ],
