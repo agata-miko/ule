@@ -21,7 +21,6 @@ class SearchBarHive extends ConsumerWidget {
         decoration: InputDecoration(
           hintText: AppLocalizations.of(context)!.hintSearch,
           hintStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.grey.shade500),
-          // enabledBorder: InputBorder.none,
         ));
   }
 }

@@ -24,6 +24,7 @@
 
 //TODO localizations provider + checklist questions provider
 //TODO unit testy
+//TODO widget testy
 //TODO transition between screens?
 
 

@@ -26,7 +26,9 @@ class _AddHiveScreenState extends ConsumerState<AddHiveScreen> {
     }
     final newHive = Hive(photo: photo, hiveName: enteredText);
     ref.read(databaseProvider).insertHive(newHive.toJson());
-    ref.read(hiveDataProvider.notifier).addHive(photo: photo, hiveName: enteredText);
+    ref
+        .read(hiveDataProvider.notifier)
+        .addHive(photo: photo, hiveName: enteredText);
     Navigator.of(context).pop();
   }
 
@@ -39,7 +41,8 @@ class _AddHiveScreenState extends ConsumerState<AddHiveScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(AppLocalizations.of(context)!.addHive.toUpperCase())),
+      appBar: AppBar(
+          title: Text(AppLocalizations.of(context)!.addHive.toUpperCase())),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -59,11 +62,10 @@ class _AddHiveScreenState extends ConsumerState<AddHiveScreen> {
               child: TextField(
                 controller: _titleController,
                 maxLength: 30,
-                decoration: InputDecoration(hintText: AppLocalizations.of(context)!.hiveName, hintStyle: Theme.of(context).textTheme.bodyMedium),
+                decoration: InputDecoration(
+                    hintText: AppLocalizations.of(context)!.hiveName,
+                    hintStyle: Theme.of(context).textTheme.bodyMedium),
               ),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.04,
             ),
             FloatingActionButton.extended(
               shape: const CircleBorder(),

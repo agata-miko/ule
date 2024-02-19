@@ -19,7 +19,7 @@ class PercentageSliderState extends State<PercentageSlider> {
   @override
   void initState() {
     super.initState();
-    _selectedPercentage = widget.selectedPercentage;
+    _selectedPercentage = widget.selectedPercentage ?? 0;
   }
 
   @override
@@ -27,8 +27,7 @@ class PercentageSliderState extends State<PercentageSlider> {
     return Column(
       children: <Widget>[
         Text(
-          AppLocalizations.of(context)!
-              .sliderPercentage(_selectedPercentage.round().toStringAsFixed(0)),
+          AppLocalizations.of(context)!.sliderPercentage(_selectedPercentage.round().toStringAsFixed(0)),
           style: const TextStyle(fontSize: 16),
         ),
         SliderTheme(
