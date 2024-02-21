@@ -110,8 +110,6 @@ class ChecklistState extends ConsumerState<Checklist> {
           child: ListView.builder(
             itemCount: checklistQuestions1.length,
             itemBuilder: (context, index) {
-              print('Building item for index $index');
-              print('${checklistQuestions1.length}');
               return buildQuestionCard(checklistQuestions1[index]);
             },
           ),
@@ -166,7 +164,6 @@ class ChecklistState extends ConsumerState<Checklist> {
   }
 
   Widget buildResponseWidget(Question question, dynamic questionAnswer) {
-    print('Building widget for question: ${question.id}');
     switch (question.responseType) {
       case ResponseType.yesNo:
         return Row(

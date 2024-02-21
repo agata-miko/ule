@@ -1,9 +1,5 @@
-import 'dart:async';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
-import 'package:mockito/mockito.dart';
-import 'package:pszczoly_v3/data/checklist_questions_data.dart';
 import 'package:pszczoly_v3/widgets/checklist.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
