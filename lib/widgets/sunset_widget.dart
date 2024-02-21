@@ -32,7 +32,7 @@ class SunsetWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Color(0xFF233406),
+        color: const Color(0xFF233406),
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
@@ -64,7 +64,7 @@ class SunsetWidget extends StatelessWidget {
                     'assets/icons/icons8-sunrise-19(-ldpi).png', height: 18,
                     width: 18, color: Colors.white),
                 const SizedBox(width: 5,),
-                Text(style: TextStyle(color: Colors.white), DateFormat('hh:mm a').format(
+                Text(style: const TextStyle(color: Colors.white), DateFormat('hh:mm a').format(
               DateFormat('hh:mm:ss a').parse(snapshot.data!.sunrise))),
               ],
             ),
@@ -74,7 +74,7 @@ class SunsetWidget extends StatelessWidget {
                     'assets/icons/icons8-sunset-19(-ldpi).png', height: 18,
                     width: 18, color: Colors.white),
                 const SizedBox(width: 5,),
-                Text(style: TextStyle(color: Colors.white), DateFormat('hh:mm a').format(
+                Text(style: const TextStyle(color: Colors.white), DateFormat('hh:mm a').format(
                     DateFormat('hh:mm:ss a').parse(snapshot.data!.sunset)),),
               ],
             ),

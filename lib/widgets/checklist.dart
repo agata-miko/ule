@@ -110,6 +110,8 @@ class ChecklistState extends ConsumerState<Checklist> {
           child: ListView.builder(
             itemCount: checklistQuestions1.length,
             itemBuilder: (context, index) {
+              print('Building item for index $index');
+              print('${checklistQuestions1.length}');
               return buildQuestionCard(checklistQuestions1[index]);
             },
           ),
@@ -123,7 +125,7 @@ class ChecklistState extends ConsumerState<Checklist> {
                 },
                 child: Text(
                   AppLocalizations.of(context)!.back,
-                  style: TextStyle(color: Color(0xFF1B2805)),
+                  style: const TextStyle(color: Color(0xFF1B2805)),
                 )),
             ElevatedButton(
                 onPressed: () async {
@@ -164,13 +166,15 @@ class ChecklistState extends ConsumerState<Checklist> {
   }
 
   Widget buildResponseWidget(Question question, dynamic questionAnswer) {
+    print('Building widget for question: ${question.id}');
     switch (question.responseType) {
       case ResponseType.yesNo:
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Radio(
-              activeColor: Color(0xFF233406),
+              key: Key('${question.id}_yes'),
+              activeColor: const Color(0xFF233406),
               value: true,
               groupValue: questionAnswer is QuestionAnswer
                   ? (questionAnswer).answer
@@ -188,6 +192,7 @@ class ChecklistState extends ConsumerState<Checklist> {
             ),
             Text(AppLocalizations.of(context)!.yes),
             Radio(
+              key: Key('${question.id}_no'),
               value: false,
               groupValue: questionAnswer is QuestionAnswer
                   ? (questionAnswer).answer
@@ -210,12 +215,13 @@ class ChecklistState extends ConsumerState<Checklist> {
         return Padding(
           padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
           child: TextField(
+            key: Key('${question.id}_text'),
             style: const TextStyle(height: 1),
             decoration: InputDecoration(
               hintText: AppLocalizations.of(context)!.answerHint,
               hintStyle: Theme.of(context).textTheme.bodyMedium,
               filled: true,
-              fillColor: Color(0xFF233406).withOpacity(0.1),
+              fillColor: const Color(0xFF233406).withOpacity(0.1),
               border: InputBorder.none,
             ),
             onChanged: (String value) {

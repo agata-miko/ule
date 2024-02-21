@@ -224,9 +224,9 @@ class _HivesListState extends ConsumerState<HivesList> {
                                         hiveName: displayHives[index].hiveName,
                                       )));
                             },
-                            icon: CircleAvatar(
+                            icon: const CircleAvatar(
                               backgroundColor: Color(0xFF233406),
-                              child: const Icon(
+                              child: Icon(
                                 Icons.edit_note,
                                 color: Colors.white,
                               ),

@@ -19,7 +19,7 @@ class PercentageSliderState extends State<PercentageSlider> {
   @override
   void initState() {
     super.initState();
-    _selectedPercentage = widget.selectedPercentage ?? 0;
+    _selectedPercentage = widget.selectedPercentage;
   }
 
   @override

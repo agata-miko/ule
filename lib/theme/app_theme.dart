@@ -31,7 +31,7 @@ ThemeData lightTheme = ThemeData(
           fontSize: 16,
           fontFamily:
               GoogleFonts.karla().fontFamily)),
-      backgroundColor: MaterialStateProperty.all(Color(0xFF233406)),//(const Color(0xFFE6CEBA)),
+      backgroundColor: MaterialStateProperty.all(const Color(0xFF233406)),//(const Color(0xFFE6CEBA)),
       foregroundColor: MaterialStateProperty.all(Colors.white),//(const Color(0xFF1B2805)),
     ),
   ),
