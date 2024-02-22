@@ -136,37 +136,37 @@ class DatabaseHelper {
         where: 'checklistId = ?', whereArgs: [filledChecklistId]);
   }
 
-  //TYLKO DO TESTOW
-  Future<void> printTables() async {
-    final String path = join(await getDatabasesPath(), _databaseName);
-    final Database db = await openDatabase(path);
-
-    // Query to retrieve table names
-    final List<Map<String, dynamic>> tables = await db.rawQuery(
-      "SELECT name FROM sqlite_master WHERE type='table';",
-    );
-
-    // Iterate through tables
-    for (final table in tables) {
-      final tableName = table['name'] as String;
-      print('Table: $tableName');
-
-      // Query to retrieve all rows from the current table
-      final List<Map<String, dynamic>> rows = await db.query(tableName);
-
-      // Print column names
-      print(
-          'Columns: ${rows.isNotEmpty ? rows[0].keys.join(', ') : 'No data'}');
-
-      // Print each row
-      for (final row in rows) {
-        print(row);
-      }
-
-      print('\n'); // Add a newline for better readability
-    }
-
-    // Close the database when done
-    await db.close();
-  }
+  // //TYLKO DO TESTOW
+  // Future<void> printTables() async {
+  //   final String path = join(await getDatabasesPath(), _databaseName);
+  //   final Database db = await openDatabase(path);
+  //
+  //   // Query to retrieve table names
+  //   final List<Map<String, dynamic>> tables = await db.rawQuery(
+  //     "SELECT name FROM sqlite_master WHERE type='table';",
+  //   );
+  //
+  //   // Iterate through tables
+  //   for (final table in tables) {
+  //     final tableName = table['name'] as String;
+  //     print('Table: $tableName');
+  //
+  //     // Query to retrieve all rows from the current table
+  //     final List<Map<String, dynamic>> rows = await db.query(tableName);
+  //
+  //     // Print column names
+  //     print(
+  //         'Columns: ${rows.isNotEmpty ? rows[0].keys.join(', ') : 'No data'}');
+  //
+  //     // Print each row
+  //     for (final row in rows) {
+  //       print(row);
+  //     }
+  //
+  //     print('\n'); // Add a newline for better readability
+  //   }
+  //
+  //   // Close the database when done
+  //   await db.close();
+  // }
 }

@@ -1,35 +1,15 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:location/location.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:path/path.dart';
 import 'package:pszczoly_v3/models/sunset_sunrise.dart';
+import 'package:pszczoly_v3/providers/sunset_sunrise_provider.dart';
 
-class SunsetWidget extends StatelessWidget {
+class SunsetWidget extends ConsumerWidget {
   const SunsetWidget({super.key});
 
-  Future<SunsetSunrise> fetchData() async {
-    Location location = Location();
-    LocationData currentLocation = await location.getLocation();
-    final double? latitude = currentLocation.latitude;
-    final double? longitude = currentLocation.longitude;
-
-    final response = await http
-        .get(Uri.parse(
-        'https://api.sunrisesunset.io/json?lat=$latitude&lng=$longitude'));
-
-    if (response.statusCode == 200) {
-      return SunsetSunrise.fromJson(
-          jsonDecode(response.body) as Map<String, dynamic>);
-    } else {
-      throw Exception(AppLocalizations.of(context as BuildContext)!.loadingDataFailed);
-    }
-  }
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
     return Container(
       decoration: BoxDecoration(
         color: const Color(0xFF233406),
@@ -45,8 +25,8 @@ class SunsetWidget extends StatelessWidget {
       ),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: FutureBuilder<SunsetSunrise>(
-        future: fetchData(),
+        child: FutureBuilder<SunsetSunrise?>(
+        future: ref.read(sunsetSunriseProvider.notifier).fetchData(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
         return const SizedBox(width: 17, height: 17, child: CircularProgressIndicator());

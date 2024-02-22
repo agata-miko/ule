@@ -61,7 +61,7 @@ class ChecklistState extends ConsumerState<Checklist> {
         qa.updateChecklistId(checklistId);
         ref.read(databaseProvider).insertQuestionAnswer(qa.toJson());
       }
-      ref.read(databaseProvider).printTables();
+      // ref.read(databaseProvider).printTables();
       if (mounted) {
         Navigator.of(context).pop();
       }
