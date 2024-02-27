@@ -21,6 +21,20 @@ class MockSunsetSunriseNotifierNoData extends Mock implements SunsetSunriseNotif
   }
 }
 
+class MockSunsetSunriseNotifierWithData extends Mock implements SunsetSunriseNotifier {
+  @override
+  Future<SunsetSunrise?> fetchData() async {
+    final mockData = {
+      "results": {
+        "sunrise": "6:30:00 AM",
+        "sunset": "6:30:00 PM",
+      },
+      "status": "OK"
+    };
+    return SunsetSunrise.fromJson(mockData);
+  }
+}
+
 void main() {
   testWidgets('SunsetWidget renders correctly', (WidgetTester tester) async {
     await tester.pumpWidget(const ProviderScope(child: SunsetWidget()));
@@ -32,6 +46,22 @@ void main() {
     await tester.pumpWidget(const ProviderScope(child: SunsetWidget()));
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
   });
+
+  testWidgets('SunsetWidget displays sunrise and sunset times', (WidgetTester tester) async {
+    final mockNotifier = MockSunsetSunriseNotifierWithData();
+
+    await tester.pumpWidget(ProviderScope(
+        overrides: [sunsetSunriseProvider.overrideWith((ref) => mockNotifier)],
+        child: Localizations(
+            locale: const Locale('pl'),
+            delegates: AppLocalizations.localizationsDelegates,
+            child: const SunsetWidget())));
+    await tester.pumpAndSettle();
+
+    expect(find.text('06:30 AM'), findsOneWidget);
+    expect(find.text('06:30 PM'), findsOneWidget);
+  });
+
 
   testWidgets('SunsetWidget shows error message', (WidgetTester tester) async {
     final mockNotifier = MockSunsetSunriseNotifierError();
