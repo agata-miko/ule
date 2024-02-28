@@ -43,8 +43,8 @@ void main() {
     await tester.drag(find.byType(Slider), Offset(offset, 0.0));
     await tester.pump();
 
-    expect(find.text('${selectedPercentage.round()}%'), findsNothing);  // Old value should not be present
-    expect(find.text('${selectedPercentage.round() + 1}%'), findsOneWidget);  // New value should be present
+    expect(find.text('${selectedPercentage.round()}%'), findsNothing);
+    expect(find.text('${selectedPercentage.round() + 1}%'), findsOneWidget);
   });
 
 }

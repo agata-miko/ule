@@ -18,14 +18,16 @@
 //DONE split the hive_list_provider
 //DONE appbar w hivescreen kiedy klawiatura jest podniesiona
 //DONE autoincrement id w bazie danych
+//DONE sunset data provider
 
 //TODO EXTRA zmiana pozycji ula na liscie
 //TODO WYKRESY???
 
-//TODO localizations provider + checklist questions provider + sunset data provider
+//TODO localizations provider + checklist questions provider
 //TODO unit testy
 //TODO widget testy
 //TODO transition between screens?
+//TODO database provider is just a database helper - redundant???
 
 
 
