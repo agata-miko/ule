@@ -72,6 +72,7 @@ class HivesListScreen extends ConsumerWidget {
                       .toggleSearchBool();
                 }),
             PopupMenuButton<String>(
+              key: const ValueKey('languageMenu'),
               color: Theme.of(context).colorScheme.primaryContainer,
               elevation: 0,
               icon: const Icon(Icons.language),

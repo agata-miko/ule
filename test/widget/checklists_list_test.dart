@@ -28,7 +28,7 @@ class MockDatabaseProviderWithData extends Mock implements DatabaseHelper {
         'checklistId': 2,
         'hiveId': 2,
         'checklistDate': DateTime.now()
-            .subtract(Duration(days: 7))
+            .subtract(const Duration(days: 7))
             .millisecondsSinceEpoch
             .toString(),
       }
@@ -108,7 +108,7 @@ main() {
     await tester.pumpAndSettle();
     expect(find.byType(Dismissible), findsNWidgets(2));
 
-    await tester.drag(find.byType(Dismissible).first, Offset(-600.0, 0.0));
+    await tester.drag(find.byType(Dismissible).first, const Offset(-600.0, 0.0));
     await tester.pumpAndSettle();
 
     expect(find.byType(AlertDialog), findsOneWidget);
