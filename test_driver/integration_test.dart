@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:integration_test/integration_test_driver.dart';
@@ -10,10 +9,9 @@ Future<void> main() async {
       'shell',
       'pm',
       'grant',
-      'com.example.pszczoly_v3', // TODO: Update this
+      'com.example.pszczoly_v3',
       'android.permission.ACCESS_FINE_LOCATION'
     ],
   );
-  // TODO: Add more permissions as required
   await integrationDriver();
 }

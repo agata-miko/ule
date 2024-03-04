@@ -95,6 +95,7 @@ class HivesListScreen extends ConsumerWidget {
               },
             ),
             IconButton(
+              key:const ValueKey('mainAddHiveButton'),
               icon: const Icon(Icons.add),
               onPressed: () {
                 _showAddHiveModal(context);
