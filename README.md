@@ -1,4 +1,4 @@
-# pszczoly_v3
+# ule
 
 Simple app for managing little to medium size apiaries. 
 
