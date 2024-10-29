@@ -2,7 +2,7 @@
 
 Simple app for managing little to medium size apiaries. 
 
-Funcionalities: 
+Functionalities: 
 - adding a hive to the list (name, photo and notes)
 - filling out and saving a checklist for the hive (local data storage - sqflite)
 - preview of completed checklists
