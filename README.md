@@ -1,4 +1,4 @@
-# ule
+# ule aka first pancake
 
 Simple app for managing little to medium size apiaries. 
 
